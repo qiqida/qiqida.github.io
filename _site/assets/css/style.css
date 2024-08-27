@@ -155,14 +155,13 @@ section { width: 800px; float: right; padding-bottom: 50px; }
 
 .toc-list li { font-size: 25px; font-weight: bold; margin: 10px; }
 
-/* 这里有变化*/
 .flex { display: flex; justify-content: space-between; align-items: center; width: 100%; }
 
 .left-side { flex: 1; display: flex; justify-content: flex-start; /* 左对齐 */ align-items: center; }
 
 .logo-qdh { height: 240px; margin-bottom: 20px; }
 
-.right-side { flex: 2; /* 这里有变化*/ display: flex; flex-direction: column; justify-content: space-between; }
+.right-side { flex: 2; /* 这里有变化 */ display: flex; flex-direction: column; justify-content: space-between; }
 
 .top-right { align-self: flex-end; /* 将 logo-scnu 对齐到右侧 */ }
 
@@ -179,16 +178,21 @@ section { width: 800px; float: right; padding-bottom: 50px; }
 
 .menu-toggle .bar { height: 3px; width: 25px; background-color: #333; /* 汉堡色 */ margin: 4px 0; /* 间隔 */ }
 
+/* 默认隐藏关闭按钮和汉堡菜单 */
+.close-nav, .menu-toggle { display: none; }
+
 /* 响应式样式 */
-@media screen and (max-width: 768px) { .toc { display: none; /* 默认隐藏目录 */ width: 100%; /* 宽度为100% */ background-color: #fff; /* 背景颜色 */ position: absolute; /* 绝对定位 */ top: 60px; /* 距离顶部 */ left: 0; z-index: 100; /* 确保在上层 */ }
-  .toc.show { display: block; /* 显示目录 */ }
-  .menu-toggle { display: flex; /* 当屏幕小于768px时显示汉堡 */ }
+@media screen and (max-width: 768px) { .toc { display: none; /* 默认隐藏目录 */ width: 20%; /* 宽度减少至原来的一半 */ background-color: #fff; /* 背景颜色 */ position: fixed; /* 固定定位 */ top: 0; /* 固定在顶部 */ left: -50%; /* 初始位置在屏幕左侧外部 */ height: 50%; /* 高度为100% */ z-index: 100; /* 确保在上层 */ transition: left 0.3s ease; /* 平滑过渡 */ }
+  .toc.show { display: block; /* 显示目录 */ left: 0; /* 显示在屏幕左侧 */ }
+  .menu-toggle { display: flex; /* 当屏幕小于768px时显示汉堡 */ position: fixed; /* 固定在屏幕顶部 */ top: 20px; /* 距离顶部10px */ left: 20px; /* 距离左侧10px */ z-index: 101; /* 确保在其他内容之上 */ }
   section { margin-top: 100px; /* 为了避免内容被固定的 header 遮挡 */ }
   .flex { flex-direction: row; /* 保持水平排列 */ justify-content: space-between; /* 在容器中均匀分布子元素 */ align-items: center; /* 居中对齐所有子元素 */ }
   .left-side { flex: 1 1 33.3%; /* 确保占据1/3的宽度 */ justify-content: flex-start; /* 左对齐 */ }
   .right-side { flex: 2 1 66.7%; /* 确保占据2/3的宽度 */ padding: 0; }
-  .logo-qdh { height: auto; max-width: 80%; } }
-/* 以上有变化*/
+  .logo-qdh { height: auto; max-width: 80%; }
+  /* 关闭按钮样式 */
+  .close-nav { display: block; margin: 20px auto; color: #0064b4; background: none; border: none; font-size: 24px; text-decoration: underline; cursor: pointer; }
+  .close-nav:hover, .close-nav:focus { color: #005091; font-weight: bold; } }
 a { color: #0064b4; text-decoration: none; }
 
 a:hover, a:focus { color: #005091; font-weight: bold; text-decoration: underline; }
