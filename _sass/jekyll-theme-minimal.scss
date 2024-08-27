@@ -15,6 +15,7 @@ h1, h2, h3, h4, h5, h6 {
 p, ul, ol, table, pre, dl {
   margin: 0 0 20px;
 }
+
 h1 {
   color: rgb(100, 10, 150);
   font-size: 24px;
@@ -48,13 +49,14 @@ header {
 section {
   width: 800px;
   float: right;
+ 
   padding-bottom: 50px;
 }
 
 .toc {
   position: static;
   background-color: #f0f0f0;
-  padding:10%;
+  padding: 10%;
 }
 
 .toc-list {
@@ -69,55 +71,124 @@ section {
   font-weight: bold;
   margin: 10px;
 }
-
+/* 这里有变化*/
 .flex {
   display: flex;
-  width: 700px;
   justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
+
 .left-side {
-  flex: 1 1 33.3%; // 占据左侧部分
+  flex: 1;
   display: flex;
-  align-items: center; // 如果需要，可以垂直居中图片
+  justify-content: flex-start; /* 左对齐 */
+  align-items: center;
 }
 
 .logo-qdh {
   height: 240px;
   margin-bottom: 20px;
 }
+
 .right-side {
-  flex: 2 1 66.7%; // 占据右侧部分
+  flex: 2;/* 这里有变化*/
   display: flex;
   flex-direction: column;
-  justify-content: space-between; // 分隔上下部分
+  justify-content: space-between;
 }
+
 .top-right {
-  align-self: flex-end; // 将logo-scnu对齐到右侧
+  align-self: flex-end; /* 将 logo-scnu 对齐到右侧 */
 }
+
 .logo-scnu {
   height: 60px;
   margin-bottom: 20px;
+  margin-right: 20px;
+
 }
+
 .bottom-right {
   display: flex;
-  flex-direction: row; // 横向排列信息组
-  gap: 80px; // 如果需要，可以调整信息组之间的间距
-  align-self: flex-start; // 
+  flex-direction: row; /* 横向排列信息组 */
+  gap: 80px; /* 调整信息组之间的间距 */
+  align-self: flex-start; /* 左对齐 */
 }
 
 .info-group {
-  font-size: 16px; // 调整字号
-  line-height: 1.6; // 调整行高
-  text-align: left; // 确保文本左对齐
-  white-space: nowrap; // 禁止文本换行
-  
+  font-size: 16px;
+  line-height: 1.6;
+  text-align: left; /* 确保文本左对齐 */
+  white-space: nowrap; /* 禁止文本换行 */
   margin-bottom: 20px;
 }
+
 .info-group p {
   margin: 0;
 }
 
-//////////////////////////////////////////
+/* 汉堡菜单样式 */
+.menu-toggle {
+  display: none; /* 默认隐藏 */
+  flex-direction: column; /* 垂直排列 */
+  cursor: pointer; /* 鼠标变成手型 */
+}
+
+.menu-toggle .bar {
+  height: 3px;
+  width: 25px;
+  background-color: #333; /* 汉堡色 */
+  margin: 4px 0; /* 间隔 */
+}
+
+/* 响应式样式 */
+@media screen and (max-width: 768px) {
+  .toc {
+    display: none; /* 默认隐藏目录 */
+    width: 100%; /* 宽度为100% */
+    background-color: #fff; /* 背景颜色 */
+    position: absolute; /* 绝对定位 */
+    top: 60px; /* 距离顶部 */
+    left: 0;
+    z-index: 100; /* 确保在上层 */
+  }
+
+  .toc.show {
+    display: block; /* 显示目录 */
+  }
+
+  .menu-toggle {
+    display: flex; /* 当屏幕小于768px时显示汉堡 */
+  }
+
+  section {
+    margin-top: 100px; /* 为了避免内容被固定的 header 遮挡 */
+  }
+
+  .flex {
+    flex-direction: row; /* 保持水平排列 */
+    justify-content: space-between; /* 在容器中均匀分布子元素 */
+    align-items: center; /* 居中对齐所有子元素 */
+  }
+
+  .left-side {
+    flex: 1 1 33.3%; /* 确保占据1/3的宽度 */
+    justify-content: flex-start; /* 左对齐 */
+  }
+
+  .right-side {
+    flex: 2 1 66.7%; /* 确保占据2/3的宽度 */
+    padding: 0;
+  }
+
+  .logo-qdh {
+    height: auto;
+    max-width: 80%;
+  }
+}
+
+/* 以上有变化*/
 a {
   color: rgb(0, 100, 180);
   text-decoration: none;
@@ -193,8 +264,8 @@ footer {
 }
 
 @media print, screen and (max-width: 960px) {
-  div.wrapper {
-    width: auto;
+  .wrapper {
+    width: 720px;
     margin: 0;
   }
 
@@ -205,9 +276,8 @@ footer {
   }
 
   .flex {
-    flex-direction: column;
+    flex-direction: row; /* 保持水平排列 */
   }
-
 
   section {
     border: 1px solid #e5e5e5;

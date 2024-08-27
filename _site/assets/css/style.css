@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @font-face { font-family: 'Roboto Condensed'; font-style: normal; font-weight: normal; src: local("Roboto Condensed-Regular"), url("../fonts/Roboto Condensed-Regular.ttf") format("truetype"); }
 @font-face { font-family: 'Roboto Condensed'; font-style: normal; font-weight: bold; src: local("Roboto Condensed-Bold"), url("../fonts/Roboto Condensed-Bold.ttf") format("truetype"); }
 @font-face { font-family: 'Roboto Condensed'; font-style: italic; font-weight: normal; src: local("Roboto Condensed-Italic"), url("../fonts/Roboto Condensed-Italic.ttf") format("truetype"); }
@@ -154,24 +155,40 @@ section { width: 800px; float: right; padding-bottom: 50px; }
 
 .toc-list li { font-size: 25px; font-weight: bold; margin: 10px; }
 
-.flex { display: flex; width: 700px; justify-content: space-between; }
+/* 这里有变化*/
+.flex { display: flex; justify-content: space-between; align-items: center; width: 100%; }
 
-.left-side { flex: 1 1 33.3%; display: flex; align-items: center; }
+.left-side { flex: 1; display: flex; justify-content: flex-start; /* 左对齐 */ align-items: center; }
 
 .logo-qdh { height: 240px; margin-bottom: 20px; }
 
-.right-side { flex: 2 1 66.7%; display: flex; flex-direction: column; justify-content: space-between; }
+.right-side { flex: 2; /* 这里有变化*/ display: flex; flex-direction: column; justify-content: space-between; }
 
-.top-right { align-self: flex-end; }
+.top-right { align-self: flex-end; /* 将 logo-scnu 对齐到右侧 */ }
 
-.logo-scnu { height: 60px; margin-bottom: 20px; }
+.logo-scnu { height: 60px; margin-bottom: 20px; margin-right: 20px; }
 
-.bottom-right { display: flex; flex-direction: row; gap: 80px; align-self: flex-start; }
+.bottom-right { display: flex; flex-direction: row; /* 横向排列信息组 */ gap: 80px; /* 调整信息组之间的间距 */ align-self: flex-start; /* 左对齐 */ }
 
-.info-group { font-size: 16px; line-height: 1.6; text-align: left; white-space: nowrap; margin-bottom: 20px; }
+.info-group { font-size: 16px; line-height: 1.6; text-align: left; /* 确保文本左对齐 */ white-space: nowrap; /* 禁止文本换行 */ margin-bottom: 20px; }
 
 .info-group p { margin: 0; }
 
+/* 汉堡菜单样式 */
+.menu-toggle { display: none; /* 默认隐藏 */ flex-direction: column; /* 垂直排列 */ cursor: pointer; /* 鼠标变成手型 */ }
+
+.menu-toggle .bar { height: 3px; width: 25px; background-color: #333; /* 汉堡色 */ margin: 4px 0; /* 间隔 */ }
+
+/* 响应式样式 */
+@media screen and (max-width: 768px) { .toc { display: none; /* 默认隐藏目录 */ width: 100%; /* 宽度为100% */ background-color: #fff; /* 背景颜色 */ position: absolute; /* 绝对定位 */ top: 60px; /* 距离顶部 */ left: 0; z-index: 100; /* 确保在上层 */ }
+  .toc.show { display: block; /* 显示目录 */ }
+  .menu-toggle { display: flex; /* 当屏幕小于768px时显示汉堡 */ }
+  section { margin-top: 100px; /* 为了避免内容被固定的 header 遮挡 */ }
+  .flex { flex-direction: row; /* 保持水平排列 */ justify-content: space-between; /* 在容器中均匀分布子元素 */ align-items: center; /* 居中对齐所有子元素 */ }
+  .left-side { flex: 1 1 33.3%; /* 确保占据1/3的宽度 */ justify-content: flex-start; /* 左对齐 */ }
+  .right-side { flex: 2 1 66.7%; /* 确保占据2/3的宽度 */ padding: 0; }
+  .logo-qdh { height: auto; max-width: 80%; } }
+/* 以上有变化*/
 a { color: #0064b4; text-decoration: none; }
 
 a:hover, a:focus { color: #005091; font-weight: bold; text-decoration: underline; }
@@ -198,9 +215,9 @@ hr { border: 0; background: #e5e5e5; height: 1px; margin: 0 0 20px; }
 
 footer { width: 250px; float: left; position: fixed; bottom: 50px; -webkit-font-smoothing: subpixel-antialiased; }
 
-@media print, screen and (max-width: 960px) { div.wrapper { width: auto; margin: 0; }
+@media print, screen and (max-width: 960px) { .wrapper { width: 720px; margin: 0; }
   header, section, footer { float: none; position: static; width: auto; }
-  .flex { flex-direction: column; }
+  .flex { flex-direction: row; /* 保持水平排列 */ }
   section { border: 1px solid #e5e5e5; border-width: 1px 0; padding: 20px 0; margin: 0 0 20px; } }
 @media print, screen and (max-width: 720px) { body { word-wrap: break-word; }
   header { padding: 0; }

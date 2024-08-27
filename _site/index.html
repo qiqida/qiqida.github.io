@@ -22,18 +22,24 @@
 {"@context":"https://schema.org","@type":"WebSite","author":{"@type":"Person","name":"齐登辉"},"description":"Qi Deng-Hui","headline":"齐登辉","name":"齐登辉","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/img/photo-bhws.jpg"},"name":"齐登辉"},"url":"http://localhost:4000/"}</script>
 <!-- End Jekyll SEO tag -->
 
-    <title>简介丨齐登辉-Qi Denghui (Bruce)</title>
+    <title>简介丨齐登辉-Qi Denghui </title>
     <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico?"/> <!--网页小图标-->
-    <link rel="stylesheet" href="/assets/css/style.css?v=b8127cd26ef84edfa5a6066dc21b4563480b1864">
+    <link rel="stylesheet" href="/assets/css/style.css?v=7b9f744c56f3f3300aa96019d42485f93c214134">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!--设备信息-->
   </head>
 
   <body>
     <div class="wrapper">
 
       <header>
-        <h1><a href="#">齐登辉 (Qi Denghui)</a>  </h1>
-
-        <div class="toc">
+        <h1><a href="#">齐登辉 (Qi Denghui)</a></h1>
+        <div class="menu-toggle" id="mobile-menu">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+        <!--增加一个汉堡菜单按钮，将目录列表放在一个可折叠的部分-->
+        <div class="toc" id="navigation">
           <ul class="toc-list">
             <li><a href="#教育背景">教 育 背 景</a></li>
             <li><a href="#科研成果">科 研 成 果</a></li>
@@ -154,6 +160,22 @@
 
     </div>
 
+    <script>
+      const menuToggle = document.getElementById('mobile-menu');
+      const toc = document.getElementById('navigation');
+    
+      menuToggle.addEventListener('click', (event) => {
+        event.stopPropagation(); // 阻止事件冒泡
+        toc.classList.toggle('show'); // 切换导航显示
+      });
+    
+      document.addEventListener('click', (event) => {
+        if (!toc.contains(event.target) && !menuToggle.contains(event.target)) {
+          toc.classList.remove('show'); // 点击页面其他地方时隐藏导航
+        }
+      });
+    </script>
+    
     
 
     
