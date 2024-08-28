@@ -187,16 +187,20 @@ section { width: calc(100% - 300px); /* 减去header的宽度 */ float: right; p
   .menu-toggle { display: flex; /* 当屏幕小于1100px时显示汉堡 */ position: fixed; /* 固定在屏幕顶部 */ top: 20px; /* 距离顶部20px */ left: 10px; /* 距离左侧10px */ z-index: 101; /* 确保在其他内容之上 */ }
   section { margin-left: 50px; /* 为汉堡按钮留出位置 */ width: calc(100% - 70px); /* 减去20px右边距和50px左边距 */ }
   .flex { flex-direction: column; /* 垂直排列 */ justify-content: flex-start; /* 左对齐 */ align-items: flex-start; /* 左对齐 */ }
-  .left-side { flex: 1; display: flex; justify-content: center; /* 居中对齐 */ align-items: center; }
+  .left-side { flex: 1; display: flex; justify-content: left; /* 居中对齐 */ align-items: center; }
   .right-side { flex: 1; width: 100%; display: flex; flex-direction: column; justify-content: space-between; padding: 0; }
-  .logo-qdh { height: auto; max-width: 80%; }
+  .bottom-right { display: flex; flex-direction: row; /* 横向排列信息组 */ gap: 40px; /* 调整信息组之间的间距 */ align-self: flex-start; /* 左对齐 */ }
+  .info-group { font-size: 16px; line-height: 1.6; text-align: left; /* 确保文本左对齐 */ white-space: nowrap; /* 禁止文本换行 */ margin-bottom: 20px; }
+  .info-group p { margin: 0; }
   /* 关闭按钮样式 */
   .close-nav { display: block; margin: 20px auto; color: #0064b4; background: none; border: none; font-size: 24px; text-decoration: underline; cursor: pointer; }
   .close-nav:hover, .close-nav:focus { color: #005091; font-weight: bold; }
   .wrapper { width: 100%; margin: 0; }
+  header, section, footer { float: none; position: static; width: auto; } }
+@media print, screen and (max-width: 1100px) { .wrapper { width: max-content; margin: 0 auto; }
   header, section, footer { float: none; position: static; width: auto; }
   .flex { flex-direction: row; /* 保持水平排列 */ }
-  section { border: 1px solid #e5e5e5; border-width: 1px 0; padding: 20px 0; margin: 0 0 20px; } }
+  section { width: 96%; border: 1px solid #e5e5e5; border-width: 1px 0; padding: 20px 0; margin: 0 0 20px; } }
 @media print { body { padding: 0.4in; font-size: 12pt; color: #444; } }
 a { color: #0064b4; text-decoration: none; }
 
@@ -223,8 +227,3 @@ small { font-size: 12px; }
 hr { border: 0; background: #e5e5e5; height: 1px; margin: 0 0 20px; }
 
 footer { width: 250px; float: left; position: fixed; bottom: 50px; -webkit-font-smoothing: subpixel-antialiased; }
-
-@media print, screen and (max-width: 1100px) { .wrapper { width: 680px; margin: 0; }
-  header, section, footer { float: none; position: static; width: auto; }
-  .flex { flex-direction: row; /* 保持水平排列 */ }
-  section { width: 660px; border: 1px solid #e5e5e5; border-width: 1px 0; padding: 20px 0; margin: 0 0 20px; } }

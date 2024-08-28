@@ -190,7 +190,7 @@ section {
   .left-side {
     flex: 1;
     display: flex;
-    justify-content: center; /* 居中对齐 */
+    justify-content: left; /* 居中对齐 */
     align-items: center;
   }
 
@@ -203,9 +203,22 @@ section {
     padding: 0;
   }
 
-  .logo-qdh {
-    height: auto;
-    max-width: 80%;
+  .bottom-right {
+    display: flex;
+    flex-direction: row; /* 横向排列信息组 */
+    gap: 40px; /* 调整信息组之间的间距 */
+    align-self: flex-start; /* 左对齐 */
+  }
+  .info-group {
+    font-size: 16px;
+    line-height: 1.6;
+    text-align: left; /* 确保文本左对齐 */
+    white-space: nowrap; /* 禁止文本换行 */
+    margin-bottom: 20px;
+  }
+  
+  .info-group p {
+    margin: 0;
   }
 
   /* 关闭按钮样式 */
@@ -237,11 +250,25 @@ section {
     width: auto;
   }
 
+}
+@media print, screen and (max-width: 1100px) {
+  .wrapper {
+    width:max-content;
+    margin: 0 auto ;
+  }
+
+  header, section, footer {
+    float: none;
+    position: static;
+    width: auto;
+  }
+
   .flex {
     flex-direction: row; /* 保持水平排列 */
   }
 
   section {
+    width:96%;
     border: 1px solid #e5e5e5;
     border-width: 1px 0;
     padding: 20px 0;
@@ -331,27 +358,3 @@ footer {
   -webkit-font-smoothing: subpixel-antialiased;
 }
 
-@media print, screen and (max-width: 1100px) {
-  .wrapper {
-    width: 680px;
-    margin: 0;
-  }
-
-  header, section, footer {
-    float: none;
-    position: static;
-    width: auto;
-  }
-
-  .flex {
-    flex-direction: row; /* 保持水平排列 */
-  }
-
-  section {
-    width: 660px;
-    border: 1px solid #e5e5e5;
-    border-width: 1px 0;
-    padding: 20px 0;
-    margin: 0 0 20px;
-  }
-}
