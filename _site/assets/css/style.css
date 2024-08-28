@@ -147,7 +147,7 @@ h2, h3 { line-height: 1.2; }
 
 header { width: 200px; float: center; position: fixed; -webkit-font-smoothing: subpixel-antialiased; }
 
-section { width: calc(100% - 200px); /* 减去header的宽度 */ float: right; padding-bottom: 50px; }
+section { width: calc(100% - 300px); /* 减去header的宽度 */ float: right; padding-bottom: 50px; margin-right: 20px; /* 设置右侧的空白边距 */ }
 
 .toc { position: static; background-color: #f0f0f0; padding: 10%; }
 
@@ -174,7 +174,7 @@ section { width: calc(100% - 200px); /* 减去header的宽度 */ float: right; p
 .info-group p { margin: 0; }
 
 /* 汉堡菜单样式 */
-.menu-toggle { display: none; /* 默认隐藏 */ flex-direction: column; /* 垂直排列 */ cursor: pointer; /* 鼠标变成手型 */ }
+.menu-toggle { display: none; /* 默认隐藏 */ flex-direction: column; /* 垂直排列 */ }
 
 .menu-toggle .bar { height: 3px; width: 25px; background-color: #333; /* 汉堡色 */ margin: 4px 0; /* 间隔 */ }
 
@@ -185,7 +185,7 @@ section { width: calc(100% - 200px); /* 减去header的宽度 */ float: right; p
 @media screen and (max-width: 1100px) { .toc { display: none; /* 默认隐藏目录 */ width: 50%; /* 宽度为屏幕的50% */ background-color: #fff; /* 背景颜色 */ position: fixed; /* 固定定位 */ top: 0; /* 固定在顶部 */ left: -50%; /* 初始位置在屏幕左侧外部 */ height: 100%; /* 高度为100% */ z-index: 100; /* 确保在上层 */ transition: left 0.3s ease; /* 平滑过渡 */ }
   .toc.show { display: block; /* 显示目录 */ left: 0; /* 显示在屏幕左侧 */ }
   .menu-toggle { display: flex; /* 当屏幕小于1100px时显示汉堡 */ position: fixed; /* 固定在屏幕顶部 */ top: 20px; /* 距离顶部20px */ left: 10px; /* 距离左侧10px */ z-index: 101; /* 确保在其他内容之上 */ }
-  section { margin-left: 50px; /* 为汉堡按钮留出位置 */ }
+  section { margin-left: 50px; /* 为汉堡按钮留出位置 */ width: calc(100% - 70px); /* 减去20px右边距和50px左边距 */ }
   .flex { flex-direction: column; /* 垂直排列 */ justify-content: flex-start; /* 左对齐 */ align-items: flex-start; /* 左对齐 */ }
   .left-side { flex: 1; display: flex; justify-content: center; /* 居中对齐 */ align-items: center; }
   .right-side { flex: 1; width: 100%; display: flex; flex-direction: column; justify-content: space-between; padding: 0; }
@@ -224,7 +224,7 @@ hr { border: 0; background: #e5e5e5; height: 1px; margin: 0 0 20px; }
 
 footer { width: 250px; float: left; position: fixed; bottom: 50px; -webkit-font-smoothing: subpixel-antialiased; }
 
-@media print, screen and (max-width: 960px) { .wrapper { width: 720px; margin: 0; }
+@media print, screen and (max-width: 1100px) { .wrapper { width: 680px; margin: 0; }
   header, section, footer { float: none; position: static; width: auto; }
   .flex { flex-direction: row; /* 保持水平排列 */ }
-  section { border: 1px solid #e5e5e5; border-width: 1px 0; padding: 20px 0; margin: 0 0 20px; } }
+  section { width: 660px; border: 1px solid #e5e5e5; border-width: 1px 0; padding: 20px 0; margin: 0 0 20px; } }

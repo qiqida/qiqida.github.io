@@ -48,9 +48,10 @@ header {
 }
 
 section {
-  width: calc(100% - 200px); /* 减去header的宽度 */
+  width: calc(100% - 300px); /* 减去header的宽度 */
   float: right;
   padding-bottom: 50px;
+  margin-right: 20px; /* 设置右侧的空白边距 */
 }
 
 .toc {
@@ -131,7 +132,7 @@ section {
 .menu-toggle {
   display: none; /* 默认隐藏 */
   flex-direction: column; /* 垂直排列 */
-  cursor: pointer; /* 鼠标变成手型 */
+  
 }
 
 .menu-toggle .bar {
@@ -176,6 +177,8 @@ section {
 
   section {
     margin-left: 50px; /* 为汉堡按钮留出位置 */
+    width: calc(100% - 70px); /* 减去20px右边距和50px左边距 */
+    
   }
 
   .flex {
@@ -328,9 +331,9 @@ footer {
   -webkit-font-smoothing: subpixel-antialiased;
 }
 
-@media print, screen and (max-width: 960px) {
+@media print, screen and (max-width: 1100px) {
   .wrapper {
-    width: 720px;
+    width: 680px;
     margin: 0;
   }
 
@@ -345,6 +348,7 @@ footer {
   }
 
   section {
+    width: 660px;
     border: 1px solid #e5e5e5;
     border-width: 1px 0;
     padding: 20px 0;
