@@ -149,7 +149,7 @@ section {
 }
 
 /* 响应式样式 */
-@media screen and (max-width: 1100px) {
+@media screen and (max-width: 1120px) {
   .toc {
     display: none; /* 默认隐藏目录 */
     width: 50%; /* 宽度为屏幕的50% */
@@ -175,85 +175,19 @@ section {
     z-index: 101; /* 确保在其他内容之上 */
   }
 
-  section {
-    margin-left: 50px; /* 为汉堡按钮留出位置 */
-    width: calc(100% - 70px); /* 减去20px右边距和50px左边距 */
-    
-  }
-
-  .flex {
-    flex-direction: column; /* 垂直排列 */
-    justify-content: flex-start; /* 左对齐 */
-    align-items: flex-start; /* 左对齐 */
-  }
-
-  .left-side {
-    flex: 1;
-    display: flex;
-    justify-content: left; /* 居中对齐 */
-    align-items: center;
-  }
-
-  .right-side {
-    flex: 1;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 0;
-  }
-
-  .bottom-right {
-    display: flex;
-    flex-direction: row; /* 横向排列信息组 */
-    gap: 40px; /* 调整信息组之间的间距 */
-    align-self: flex-start; /* 左对齐 */
-  }
-  .info-group {
-    font-size: 16px;
-    line-height: 1.6;
-    text-align: left; /* 确保文本左对齐 */
-    white-space: nowrap; /* 禁止文本换行 */
-    margin-bottom: 20px;
-  }
-  
-  .info-group p {
-    margin: 0;
-  }
-
-  /* 关闭按钮样式 */
-  .close-nav {
-    display: block;
-    margin: 20px auto;
-    color: rgb(0, 100, 180);
-    background: none;
-    border: none;
-    font-size: 24px;
-    text-decoration: underline;
-    cursor: pointer;
-  }
-
-  .close-nav:hover,
-  .close-nav:focus {
-    color: rgb(0, 80, 145);
-    font-weight: bold;
-  }
-
   .wrapper {
-    width: 100%;
-    margin: 0;
+    max-width:fit-content; /* 最大宽度 */
+    width:fit-content; /* 自适应屏幕宽度 */
+    margin: 0 auto; /* 居中 */
+    justify-content:baseline;
   }
 
-  header, section, footer {
-    float: none;
-    position: static;
-    width: auto;
-  }
+
 
 }
-@media print, screen and (max-width: 1100px) {
+@media print, screen and (max-width: 1120px) {
   .wrapper {
-    width:max-content;
+    min-width: 800px;
     margin: 0 auto ;
   }
 
