@@ -182,17 +182,22 @@ section { width: 800px; float: right; padding-bottom: 50px; }
 .close-nav, .menu-toggle { display: none; }
 
 /* 响应式样式 */
-@media screen and (max-width: 768px) { .toc { display: none; /* 默认隐藏目录 */ width: 20%; /* 宽度减少至原来的一半 */ background-color: #fff; /* 背景颜色 */ position: fixed; /* 固定定位 */ top: 0; /* 固定在顶部 */ left: -50%; /* 初始位置在屏幕左侧外部 */ height: 50%; /* 高度为100% */ z-index: 100; /* 确保在上层 */ transition: left 0.3s ease; /* 平滑过渡 */ }
+@media screen and (max-width: 1100px) { .toc { display: none; /* 默认隐藏目录 */ width: 50%; /* 宽度为屏幕的50% */ background-color: #fff; /* 背景颜色 */ position: fixed; /* 固定定位 */ top: 0; /* 固定在顶部 */ left: -50%; /* 初始位置在屏幕左侧外部 */ height: 100%; /* 高度为100% */ z-index: 100; /* 确保在上层 */ transition: left 0.3s ease; /* 平滑过渡 */ }
   .toc.show { display: block; /* 显示目录 */ left: 0; /* 显示在屏幕左侧 */ }
-  .menu-toggle { display: flex; /* 当屏幕小于768px时显示汉堡 */ position: fixed; /* 固定在屏幕顶部 */ top: 20px; /* 距离顶部10px */ left: 20px; /* 距离左侧10px */ z-index: 101; /* 确保在其他内容之上 */ }
-  section { margin-top: 100px; /* 为了避免内容被固定的 header 遮挡 */ }
-  .flex { flex-direction: row; /* 保持水平排列 */ justify-content: space-between; /* 在容器中均匀分布子元素 */ align-items: center; /* 居中对齐所有子元素 */ }
-  .left-side { flex: 1 1 33.3%; /* 确保占据1/3的宽度 */ justify-content: flex-start; /* 左对齐 */ }
-  .right-side { flex: 2 1 66.7%; /* 确保占据2/3的宽度 */ padding: 0; }
+  .menu-toggle { display: flex; /* 当屏幕小于800px时显示汉堡 */ position: fixed; /* 固定在屏幕顶部 */ top: 20px; /* 距离顶部20px */ left: 10px; /* 距离左侧10px */ z-index: 101; /* 确保在其他内容之上 */ }
+  section { margin-left: 50px; /* 为汉堡按钮留出位置 */ }
+  .flex { flex-direction: column; /* 垂直排列 */ justify-content: flex-start; /* 左对齐 */ align-items: flex-start; /* 左对齐 */ }
+  .left-side { flex: 1; display: flex; justify-content: center; /* 居中对齐 */ align-items: center; }
+  .right-side { flex: 1; width: 100%; display: flex; flex-direction: column; justify-content: space-between; padding: 0; }
   .logo-qdh { height: auto; max-width: 80%; }
   /* 关闭按钮样式 */
   .close-nav { display: block; margin: 20px auto; color: #0064b4; background: none; border: none; font-size: 24px; text-decoration: underline; cursor: pointer; }
-  .close-nav:hover, .close-nav:focus { color: #005091; font-weight: bold; } }
+  .close-nav:hover, .close-nav:focus { color: #005091; font-weight: bold; }
+  .wrapper { width: 100%; margin: 0; }
+  header, section, footer { float: none; position: static; width: auto; }
+  .flex { flex-direction: row; /* 保持水平排列 */ }
+  section { border: 1px solid #e5e5e5; border-width: 1px 0; padding: 20px 0; margin: 0 0 20px; } }
+@media print { body { padding: 0.4in; font-size: 12pt; color: #444; } }
 a { color: #0064b4; text-decoration: none; }
 
 a:hover, a:focus { color: #005091; font-weight: bold; text-decoration: underline; }
@@ -223,9 +228,3 @@ footer { width: 250px; float: left; position: fixed; bottom: 50px; -webkit-font-
   header, section, footer { float: none; position: static; width: auto; }
   .flex { flex-direction: row; /* 保持水平排列 */ }
   section { border: 1px solid #e5e5e5; border-width: 1px 0; padding: 20px 0; margin: 0 0 20px; } }
-@media print, screen and (max-width: 720px) { body { word-wrap: break-word; }
-  header { padding: 0; }
-  header ul, header p.view { position: static; }
-  pre, code { word-wrap: normal; } }
-@media print, screen and (max-width: 480px) { body { padding: 15px; } }
-@media print { body { padding: 0.4in; font-size: 12pt; color: #444; } }
