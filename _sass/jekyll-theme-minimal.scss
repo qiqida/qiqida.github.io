@@ -209,12 +209,16 @@ section {
 }
 @media print, screen and (max-width: 1120px) {
 
-  header, section, footer {
+   section, footer {
+    float: none;
+    position: center;
+    width: auto;
+  }
+  header {
     float: none;
     position: static;
     width: auto;
   }
-
   .flex {
     flex-direction: row; /* 保持水平排列 */
   }

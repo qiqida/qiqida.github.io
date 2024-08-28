@@ -188,7 +188,8 @@ section { width: calc(100% - 300px); /* 减去header的宽度 */ float: right; p
   .close-nav { display: block; margin: 20px auto; color: #0064b4; background: none; border: none; font-size: 24px; text-decoration: underline; cursor: pointer; }
   .close-nav:hover, .close-nav:focus { color: #05090e; font-weight: bold; }
   .wrapper { max-width: fit-content; /* 最大宽度 */ min-width: 800px; width: fit-content; /* 自适应屏幕宽度 */ margin-left: 25px; /* 居中 */ justify-content: center; } }
-@media print, screen and (max-width: 1120px) { header, section, footer { float: none; position: static; width: auto; }
+@media print, screen and (max-width: 1120px) { section, footer { float: none; position: center; width: auto; }
+  header { float: none; position: static; width: auto; }
   .flex { flex-direction: row; /* 保持水平排列 */ }
   .toc-list li { font-size: 34px; font-weight: bold; margin: 10px; }
   section { width: 96%; border: 1px solid #e5e5e5; border-width: 1px 0; padding: 20px 0; margin: 0 0 20px; } }
