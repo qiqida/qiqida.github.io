@@ -165,7 +165,7 @@ section {
   .menu-toggle {
     display: flex; /* 当屏幕小于1100px时显示汉堡 */
     position: fixed; /* 固定在屏幕顶部 */
-    top: 30%; /* 距离顶部20px */
+    top: 100px; /* 距离顶部20px */
     left: 10px; /* 距离左侧10px */
     z-index: 101; /* 确保在其他内容之上 */
     flex-direction: column; /* 垂直排列 */
