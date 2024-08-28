@@ -176,19 +176,21 @@ section { width: calc(100% - 300px); /* 减去header的宽度 */ float: right; p
 /* 汉堡菜单样式 */
 .menu-toggle { display: none; /* 默认隐藏 */ flex-direction: column; /* 垂直排列 */ }
 
-.menu-toggle .bar { height: 3px; width: 25px; background-color: #333; /* 汉堡色 */ margin: 4px 0; /* 间隔 */ }
-
 /* 默认隐藏关闭按钮和汉堡菜单 */
 .close-nav, .menu-toggle { display: none; }
 
 /* 响应式样式 */
-@media screen and (max-width: 1120px) { .toc { display: none; /* 默认隐藏目录 */ width: 50%; /* 宽度为屏幕的50% */ background-color: #fff; /* 背景颜色 */ position: fixed; /* 固定定位 */ top: 0; /* 固定在顶部 */ left: -50%; /* 初始位置在屏幕左侧外部 */ height: 100%; /* 高度为100% */ z-index: 100; /* 确保在上层 */ transition: left 0.3s ease; /* 平滑过渡 */ }
-  .toc.show { display: block; /* 显示目录 */ left: 0; /* 显示在屏幕左侧 */ }
-  .menu-toggle { display: flex; /* 当屏幕小于1100px时显示汉堡 */ position: fixed; /* 固定在屏幕顶部 */ top: 20px; /* 距离顶部20px */ left: 10px; /* 距离左侧10px */ z-index: 101; /* 确保在其他内容之上 */ }
-  .wrapper { max-width: fit-content; /* 最大宽度 */ width: fit-content; /* 自适应屏幕宽度 */ margin: 0 auto; /* 居中 */ justify-content: baseline; } }
-@media print, screen and (max-width: 1120px) { .wrapper { min-width: 800px; margin: 0 auto; }
-  header, section, footer { float: none; position: static; width: auto; }
+@media screen and (max-width: 1120px) { .toc { display: none; /* 默认隐藏目录 */ width: 33%; /* 宽度为屏幕的50% */ background-color: #fff; /* 背景颜色 */ position: fixed; /* 固定定位 */ top: 0; /* 固定在顶部 */ left: -50%; /* 初始位置在屏幕左侧外部 */ height: 100%; /* 高度为100% */ z-index: 100; /* 确保在上层 */ transition: left 0.3s ease; /* 平滑过渡 */ }
+  .toc.show { display: block; /* 显示目录 */ height: max-content; left: 0; /* 显示在屏幕左侧 */ }
+  .menu-toggle { display: flex; /* 当屏幕小于1100px时显示汉堡 */ position: fixed; /* 固定在屏幕顶部 */ top: 20px; /* 距离顶部20px */ left: 10px; /* 距离左侧10px */ z-index: 101; /* 确保在其他内容之上 */ flex-direction: column; /* 垂直排列 */ cursor: pointer; /* 鼠标变成手型 */ width: 40px; /* 调整宽度 */ height: 60px; /* 调整高度 */ }
+  .menu-toggle .bar { height: 5px; /* 增加高度 */ width: 100%; /* 宽度为菜单按钮的宽度 */ background-color: #333; /* 汉堡色 */ margin: 6px 0; /* 增加间隔 */ }
+  /* 关闭按钮样式 */
+  .close-nav { display: block; margin: 20px auto; color: #0064b4; background: none; border: none; font-size: 24px; text-decoration: underline; cursor: pointer; }
+  .close-nav:hover, .close-nav:focus { color: #05090e; font-weight: bold; }
+  .wrapper { max-width: fit-content; /* 最大宽度 */ min-width: 800px; width: fit-content; /* 自适应屏幕宽度 */ margin-left: 25px; /* 居中 */ justify-content: center; } }
+@media print, screen and (max-width: 1120px) { header, section, footer { float: none; position: static; width: auto; }
   .flex { flex-direction: row; /* 保持水平排列 */ }
+  .toc-list li { font-size: 34px; font-weight: bold; margin: 10px; }
   section { width: 96%; border: 1px solid #e5e5e5; border-width: 1px 0; padding: 20px 0; margin: 0 0 20px; } }
 @media print { body { padding: 0.4in; font-size: 12pt; color: #444; } }
 a { color: #0064b4; text-decoration: none; }
