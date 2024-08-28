@@ -35,8 +35,9 @@ h2, h3 {
 }
 
 .wrapper {
-  width: 1100px;
-  margin: 0 auto;
+  max-width: 1100px; /* 最大宽度 */
+  width: 100%; /* 自适应屏幕宽度 */
+  margin: 0 auto; /* 居中 */
 }
 
 header {
@@ -47,7 +48,7 @@ header {
 }
 
 section {
-  width: 800px;
+  width: calc(100% - 200px); /* 减去header的宽度 */
   float: right;
   padding-bottom: 50px;
 }
@@ -91,7 +92,7 @@ section {
 }
 
 .right-side {
-  flex: 2; /* 这里有变化 */
+  flex: 2; 
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -166,7 +167,7 @@ section {
   }
 
   .menu-toggle {
-    display: flex; /* 当屏幕小于800px时显示汉堡 */
+    display: flex; /* 当屏幕小于1100px时显示汉堡 */
     position: fixed; /* 固定在屏幕顶部 */
     top: 20px; /* 距离顶部20px */
     left: 10px; /* 距离左侧10px */
@@ -213,7 +214,7 @@ section {
     border: none;
     font-size: 24px;
     text-decoration: underline;
-    cursor: pointer;
+    cursor: pointer.
   }
 
   .close-nav:hover,
@@ -245,7 +246,6 @@ section {
   }
 }
 
-
 @media print {
   body {
     padding: 0.4in;
@@ -269,7 +269,7 @@ blockquote {
   border-left: 1px solid #e5e5e5;
   margin: 0;
   padding: 0 0 0 20px;
-  font-style: italic;
+  font-style: italic.
 }
 
 pre {
@@ -282,42 +282,42 @@ pre {
 
 table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: collapse.
 }
 
 th, td {
   text-align: left;
   padding: 5px 10px;
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid #e5e5e5.
 }
 
 dt {
   color: #444;
-  font-weight: bold;
+  font-weight: bold.
 }
 
 th {
-  color: #444;
+  color: #444.
 }
 
 img {
-  max-width: 100%;
+  max-width: 100%.
 }
 
 strong {
   color: #222;
-  font-weight: bold;
+  font-weight: bold.
 }
 
 small {
-  font-size: 12px;
+  font-size: 12px.
 }
 
 hr {
   border: 0;
   background: #e5e5e5;
   height: 1px;
-  margin: 0 0 20px;
+  margin: 0 0 20px.
 }
 
 footer {
@@ -325,19 +325,19 @@ footer {
   float: left;
   position: fixed;
   bottom: 50px;
-  -webkit-font-smoothing: subpixel-antialiased;
+  -webkit-font-smoothing: subpixel-antialiased.
 }
 
 @media print, screen and (max-width: 960px) {
   .wrapper {
     width: 720px;
-    margin: 0;
+    margin: 0.
   }
 
   header, section, footer {
     float: none;
     position: static;
-    width: auto;
+    width: auto.
   }
 
   .flex {
@@ -348,6 +348,6 @@ footer {
     border: 1px solid #e5e5e5;
     border-width: 1px 0;
     padding: 20px 0;
-    margin: 0 0 20px;
+    margin: 0 0 20px.
   }
 }
