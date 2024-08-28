@@ -143,11 +143,11 @@ h3 { font-size: 18px; }
 
 h2, h3 { line-height: 1.2; }
 
-.wrapper { width: 1100px; margin: 0 auto; }
+.wrapper { max-width: 1100px; /* 最大宽度 */ width: 100%; /* 自适应屏幕宽度 */ margin: 0 auto; /* 居中 */ }
 
 header { width: 200px; float: center; position: fixed; -webkit-font-smoothing: subpixel-antialiased; }
 
-section { width: 800px; float: right; padding-bottom: 50px; }
+section { width: calc(100% - 200px); /* 减去header的宽度 */ float: right; padding-bottom: 50px; }
 
 .toc { position: static; background-color: #f0f0f0; padding: 10%; }
 
@@ -161,7 +161,7 @@ section { width: 800px; float: right; padding-bottom: 50px; }
 
 .logo-qdh { height: 240px; margin-bottom: 20px; }
 
-.right-side { flex: 2; /* 这里有变化 */ display: flex; flex-direction: column; justify-content: space-between; }
+.right-side { flex: 2; display: flex; flex-direction: column; justify-content: space-between; }
 
 .top-right { align-self: flex-end; /* 将 logo-scnu 对齐到右侧 */ }
 
@@ -184,7 +184,7 @@ section { width: 800px; float: right; padding-bottom: 50px; }
 /* 响应式样式 */
 @media screen and (max-width: 1100px) { .toc { display: none; /* 默认隐藏目录 */ width: 50%; /* 宽度为屏幕的50% */ background-color: #fff; /* 背景颜色 */ position: fixed; /* 固定定位 */ top: 0; /* 固定在顶部 */ left: -50%; /* 初始位置在屏幕左侧外部 */ height: 100%; /* 高度为100% */ z-index: 100; /* 确保在上层 */ transition: left 0.3s ease; /* 平滑过渡 */ }
   .toc.show { display: block; /* 显示目录 */ left: 0; /* 显示在屏幕左侧 */ }
-  .menu-toggle { display: flex; /* 当屏幕小于800px时显示汉堡 */ position: fixed; /* 固定在屏幕顶部 */ top: 20px; /* 距离顶部20px */ left: 10px; /* 距离左侧10px */ z-index: 101; /* 确保在其他内容之上 */ }
+  .menu-toggle { display: flex; /* 当屏幕小于1100px时显示汉堡 */ position: fixed; /* 固定在屏幕顶部 */ top: 20px; /* 距离顶部20px */ left: 10px; /* 距离左侧10px */ z-index: 101; /* 确保在其他内容之上 */ }
   section { margin-left: 50px; /* 为汉堡按钮留出位置 */ }
   .flex { flex-direction: column; /* 垂直排列 */ justify-content: flex-start; /* 左对齐 */ align-items: flex-start; /* 左对齐 */ }
   .left-side { flex: 1; display: flex; justify-content: center; /* 居中对齐 */ align-items: center; }
