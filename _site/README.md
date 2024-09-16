@@ -12,7 +12,7 @@
 
 主修课程：普通心理学；教育心理学；实验心理学；社会心理学
 
-### 👨‍✈️&nbsp;中国人民解放军陆军&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;甘肃/成都/宁夏/青海&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;战士&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   &nbsp;&nbsp;(2018.09~2020.09)
+### 👨‍✈️&nbsp;中国人民解放军陆军&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;甘肃/成都/宁夏/青海&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;战士&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   &nbsp;&nbsp;&nbsp;(2018.09~2020.09)
 
 
 
@@ -22,7 +22,7 @@
 
 
 
-- **CSSCI**（心理科学进展），一作，[《超越视觉限制：失象症的跨学科探索》](/paper.pdf)
+- **CSSCI**（*心理科学进展*），一作，[《超越视觉限制：失象症的跨学科探索》](/paper.pdf)
 
   
 
@@ -59,7 +59,7 @@
 #### 2.硕士期间：
 
 - **院级优秀共青团干部**
-- **一等奖学金**
+- **学业一等奖学金**
 
 
 
@@ -97,10 +97,7 @@
  🏸 羽毛球\
  🏓 乒乓球\
  🏊‍ 游泳\
- 🏃‍ 跑步\
- 📱 游戏 + 短视频  
-
-
+ 🏃‍ 跑步
 
 ------
 
