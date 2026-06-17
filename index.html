@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<!-- Google Analytics -->
+
+<script async
+src="https://www.googletagmanager.com/gtag/js?id=G-2S0K5DDSME">
+</script>
+
+<script>
+
+window.dataLayer =
+window.dataLayer || [];
+
+function gtag(){
+
+dataLayer.push(arguments);
+
+}
+
+gtag('js', new Date());
+
+gtag(
+'config',
+'G-XXXXXXXXXX'
+);
+
+</script>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>工学院研究生事务服务中心</title>
+
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/home.css">
+</head>
+
+<body>
+
+    <!-- 页面顶部导航 -->
+    <header class="navbar">
+
+        <div class="logo">
+            工学部研究生事务服务中心
+        </div>
+
+        <button id="theme-toggle">
+            🌙
+        </button>
+
+    </header>
+
+    <!-- 页面主体 -->
+    <main>
+
+        <!-- 首页标题区域 -->
+        <section class="hero">
+
+            
+
+
+<div class="hero-logo">
+
+    GSH
+
+</div>
+
+<p class="hero-subtitle">
+
+Graduate Service Hub
+
+</p>
+<p class="hero-mission">
+
+把重复的事务工作，变成一次解决
+
+</p>
+<!-- 搜索框 -->
+         <input
+    type="text"
+    id="global-search"
+    class="search-box"
+    placeholder="搜索请假、奖学金、毕业登记表...">
+    <div id="search-suggestions"></div>
+
+        </section>
+    <div class="quick-links">
+
+    <a href="pages/leave.html">
+
+        请假申请
+
+    </a>
+
+    <a href="pages/download.html">
+
+        文件下载
+
+    </a>
+
+    <a href="pages/graduation.html">
+
+        毕业专区
+
+    </a>
+
+</div>
+
+        <!-- 功能卡片区域 -->
+
+<section class="card-grid">
+
+    <a href="pages/leave.html" class="card">
+
+        <div class="card-icon">📝</div>
+
+        <h3>请假申请</h3>
+
+        <p>查看请假流程与申请模板</p>
+
+    </a>
+
+    <a href="pages/download.html" class="card">
+
+        <div class="card-icon">📂</div>
+
+        <h3>文件下载</h3>
+
+        <p>下载常用表格与材料</p>
+
+    </a>
+
+    <a href="pages/scholarship.html" class="card">
+
+        <div class="card-icon">🎯</div>
+
+        <h3>奖助评优</h3>
+
+        <p>奖学金与评优政策</p>
+
+    </a>
+
+    <a href="pages/academic.html" class="card">
+
+        <div class="card-icon">📚</div>
+
+        <h3>学术活动</h3>
+
+        <p>讲座与学术认定</p>
+
+    </a>
+<a href="pages/freshman.html"
+class="card">
+   <div class="card-icon">🧭</div>
+<h3>新生专区</h3>
+
+<p>
+
+入学指南与常见问题
+
+</p>
+
+</a>
+    <a href="pages/graduation.html" class="card">
+
+        <div class="card-icon">🎓</div>
+
+        <h3>毕业专区</h3>
+
+        <p>毕业与学位申请</p>
+
+    </a>
+
+    <a href="pages/faq.html" class="card">
+
+        <div class="card-icon">❓</div>
+
+        <h3>常见问题</h3>
+
+        <p>常见事务答疑</p>
+
+    </a>
+
+</section>
+
+
+
+        <!-- 最新通知 -->
+      <section class="home-section">
+
+    <div class="section-header">
+
+        <h2>最新通知</h2>
+
+        <a href="#">查看全部</a>
+
+    </div>
+
+    <div id="notice-container">
+
+    </div>
+
+</section>
+ <!-- FAQ -->
+<section class="home-section">
+
+    <div class="section-header">
+
+        <h2>热门问题</h2>
+
+        <a href="pages/faq.html">
+
+            查看全部
+
+        </a>
+
+    </div>
+
+    <div id="home-faq-container">
+
+    </div>
+
+</section>
+
+ <!-- 热门服务 -->
+<section class="home-section">
+
+    <div class="section-header">
+
+        <h2>热门服务</h2>
+
+    </div>
+
+    <div class="hot-grid">
+
+        <div class="hot-card">
+
+            <div class="hot-rank">01</div>
+
+            <h3>请假申请</h3>
+
+            <p>最常办理事项</p>
+
+        </div>
+
+        <div class="hot-card">
+
+            <div class="hot-rank">02</div>
+
+            <h3>毕业专区</h3>
+
+            <p>毕业相关服务</p>
+
+        </div>
+
+        <div class="hot-card">
+
+            <div class="hot-rank">03</div>
+
+            <h3>文件下载</h3>
+
+            <p>模板与资料</p>
+
+        </div>
+
+        <div class="hot-card">
+
+            <div class="hot-rank">04</div>
+
+            <h3>奖助评优</h3>
+
+            <p>奖学金与评优</p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="home-section">
+
+    <div class="section-header">
+
+        <h2>办事指南</h2>
+
+    </div>
+
+    <div class="guide-grid">
+
+        <div class="guide-card">
+
+            <h3>请假流程</h3>
+
+            <p>
+
+                查看请假审批流程
+
+            </p>
+
+        </div>
+
+        <div class="guide-card">
+
+            <h3>毕业手续</h3>
+
+            <p>
+
+                毕业相关流程说明
+
+            </p>
+
+        </div>
+
+        <div class="guide-card">
+
+            <h3>奖助评优</h3>
+
+            <p>
+
+                了解奖助评选要求
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+ <!-- 数据中心 -->
+<section class="home-section">
+
+    <div class="section-header">
+
+        <h2>数据中心</h2>
+
+    </div>
+
+    <div class="stats-section">
+
+        <div class="stat-card">
+
+            <h3>12,586</h3>
+
+            <p>累计访问量</p>
+
+        </div>
+
+        <div class="stat-card">
+
+            <h3>78</h3>
+
+            <p>文件数量</p>
+
+        </div>
+
+        <div class="stat-card">
+
+            <h3>53</h3>
+
+            <p>FAQ数量</p>
+
+        </div>
+
+        <div class="stat-card">
+
+            <h3>12</h3>
+
+            <p>通知数量</p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+    </main>
+
+<section class="home-section">
+
+    <div class="section-header">
+
+        <h2>意见反馈</h2>
+
+    </div>
+
+    <div class="feedback-card">
+
+        <h3>
+
+            有新的需求？
+
+        </h3>
+
+        <p>
+
+            欢迎反馈希望增加的功能与服务。
+
+        </p>
+
+        <button class="feedback-btn">
+
+            我要反馈
+
+        </button>
+
+    </div>
+
+</section>
+
+<!-- 增加页脚 -->
+<footer class="footer">
+
+    <p>
+        工学部研究生服务中心 © 2026
+    </p>
+
+    <p>
+        Version 1.0
+    </p>
+
+</footer>
+<!-- 引入脚本 -->
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/search.js"></script>
+    <script src="assets/js/homeFaq.js"></script>
+
+</body>
+
+</html>

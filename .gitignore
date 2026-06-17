@@ -1,0 +1,15 @@
+# Windows / macOS 系统自动生成文件
+Thumbs.db
+.DS_Store
+
+# 编辑器和本地环境文件
+.vscode/
+.idea/
+
+# 日志和临时文件
+*.log
+*.tmp
+*.temp
+
+# Node 项目依赖目录；以后如果引入构建工具，不建议提交这个目录
+node_modules/

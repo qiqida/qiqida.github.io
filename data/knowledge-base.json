@@ -1,0 +1,50 @@
+[
+  {
+    "title": "请假申请",
+    "category": "请假申请",
+    "url": "pages/leave.html",
+    "keywords": ["请假", "外出", "审批", "销假"]
+  },
+
+  {
+    "title": "病假申请流程",
+    "category": "请假申请",
+    "url": "pages/leave.html",
+    "keywords": ["病假", "请假", "流程", "导师审批"]
+  },
+
+  {
+    "title": "毕业登记表填写",
+    "category": "毕业专区",
+    "url": "pages/graduation.html",
+    "keywords": ["毕业", "登记表", "学位", "填写"]
+  },
+
+  {
+    "title": "论文送审流程",
+    "category": "毕业专区",
+    "url": "pages/graduation.html",
+    "keywords": ["论文", "送审", "毕业", "答辩"]
+  },
+
+  {
+    "title": "导师双选说明",
+    "category": "新生专区",
+    "url": "pages/freshman.html",
+    "keywords": ["导师", "双选", "新生", "入学"]
+  },
+
+  {
+    "title": "党团关系转接",
+    "category": "新生专区",
+    "url": "pages/freshman.html",
+    "keywords": ["党团关系", "组织关系", "转接", "新生"]
+  },
+
+  {
+    "title": "奖学金申请",
+    "category": "奖助评优",
+    "url": "pages/scholarship.html",
+    "keywords": ["奖学金", "助学金", "评优", "荣誉"]
+  }
+]
