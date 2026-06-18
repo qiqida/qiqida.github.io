@@ -87,27 +87,6 @@ Graduate Service Hub
     <div id="search-suggestions"></div>
 
         </section>
-    <div class="quick-links">
-
-    <a href="pages/leave.html">
-
-        请假申请
-
-    </a>
-
-    <a href="pages/download.html">
-
-        文件下载
-
-    </a>
-
-    <a href="pages/graduation.html">
-
-        毕业专区
-
-    </a>
-
-</div>
 
         <!-- 功能卡片区域 -->
 
@@ -236,7 +215,11 @@ class="card">
 
     <div class="hot-grid">
 
-        <div class="hot-card">
+        <!--
+            热门服务卡片：
+            href 表示点击后跳转到哪里；以后要调整热门顺序，只需要移动整段 <a>...</a>。
+        -->
+        <a href="pages/leave.html" class="hot-card">
 
             <div class="hot-rank">01</div>
 
@@ -244,9 +227,9 @@ class="card">
 
             <p>最常办理事项</p>
 
-        </div>
+        </a>
 
-        <div class="hot-card">
+        <a href="pages/graduation.html" class="hot-card">
 
             <div class="hot-rank">02</div>
 
@@ -254,9 +237,9 @@ class="card">
 
             <p>毕业相关服务</p>
 
-        </div>
+        </a>
 
-        <div class="hot-card">
+        <a href="pages/download.html" class="hot-card">
 
             <div class="hot-rank">03</div>
 
@@ -264,9 +247,9 @@ class="card">
 
             <p>模板与资料</p>
 
-        </div>
+        </a>
 
-        <div class="hot-card">
+        <a href="pages/scholarship.html" class="hot-card">
 
             <div class="hot-rank">04</div>
 
@@ -274,7 +257,7 @@ class="card">
 
             <p>奖学金与评优</p>
 
-        </div>
+        </a>
 
     </div>
 
@@ -290,7 +273,11 @@ class="card">
 
     <div class="guide-grid">
 
-        <div class="guide-card">
+        <!--
+            办事指南卡片：
+            这里同样使用链接，学生点击卡片即可进入对应页面。
+        -->
+        <a href="pages/leave.html" class="guide-card">
 
             <h3>请假流程</h3>
 
@@ -300,9 +287,9 @@ class="card">
 
             </p>
 
-        </div>
+        </a>
 
-        <div class="guide-card">
+        <a href="pages/graduation.html" class="guide-card">
 
             <h3>毕业手续</h3>
 
@@ -312,9 +299,9 @@ class="card">
 
             </p>
 
-        </div>
+        </a>
 
-        <div class="guide-card">
+        <a href="pages/scholarship.html" class="guide-card">
 
             <h3>奖助评优</h3>
 
@@ -324,7 +311,7 @@ class="card">
 
             </p>
 
-        </div>
+        </a>
 
     </div>
 
