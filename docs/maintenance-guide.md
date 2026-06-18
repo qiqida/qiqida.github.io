@@ -76,7 +76,7 @@ data/knowledge-base.json
 data/notices.json
 ```
 
-新增通知时，复制一段已有内容：
+短通知可以直接写在 `notices.json` 里：
 
 ```json
 {
@@ -90,13 +90,40 @@ data/notices.json
 
 当前建议：短通知直接写在 `notices.json` 里，最简单、最稳定。
 
-以后如果通知正文很长，可以升级成 Markdown 文件，例如：
+长通知建议写成 Markdown 文件。先在 `notices` 文件夹里新建一个文件，例如：
 
 ```text
 notices/2026003.md
 ```
 
-但这需要再增加 Markdown 解析功能。第一版上线前，建议继续用 JSON，降低维护难度。
+然后在 `data/notices.json` 里新增索引：
+
+```json
+{
+  "id": "2026003",
+  "title": "这里写通知标题",
+  "date": "2026-10-01",
+  "summary": "这里写首页显示的简短摘要",
+  "markdown": "notices/2026003.md"
+}
+```
+
+Markdown 通知里可以写标题、列表、加粗和外部链接：
+
+```markdown
+# 通知标题
+
+这里是正文。
+
+## 材料清单
+
+- 申请表
+- 成绩单
+
+请查看 [学校研究生院](https://yjsy.scnu.edu.cn/)。
+```
+
+注意：外部链接必须写完整网址，例如 `https://...`。
 
 ## 五、文件下载怎么维护
 

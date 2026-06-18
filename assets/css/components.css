@@ -411,6 +411,62 @@
 
     font-size: 16px;
 }
+
+/* Markdown 通知正文样式 */
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3 {
+
+    margin-top: 28px;
+
+    margin-bottom: 12px;
+
+    line-height: 1.4;
+}
+
+.markdown-body h1:first-child,
+.markdown-body h2:first-child,
+.markdown-body h3:first-child {
+
+    margin-top: 0;
+}
+
+.markdown-body p,
+.markdown-body li {
+
+    color: var(--text-color);
+
+    line-height: 1.9;
+}
+
+.markdown-body ul {
+
+    padding-left: 22px;
+}
+
+.markdown-body a {
+
+    color: #2563eb;
+
+    text-decoration: none;
+
+    border-bottom: 1px solid rgba(37,99,235,0.25);
+}
+
+.markdown-body a:hover {
+
+    border-bottom-color: #2563eb;
+}
+
+.markdown-body hr {
+
+    border: none;
+
+    border-top: 1px solid var(--border-color);
+
+    margin: 28px 0;
+}
 /* =====================
 热门排行
 ===================== */
