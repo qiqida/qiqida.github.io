@@ -21,16 +21,22 @@ async function loadNotice() {
         return;
     }
 
-    document.getElementById("notice-title").textContent = notice.title;
-    document.getElementById("notice-date").textContent = notice.date;
+    const titleEl = document.getElementById("notice-title");
+    const dateEl = document.getElementById("notice-date");
+    const contentEl = document.getElementById("notice-content");
+
+    if (titleEl) titleEl.textContent = notice.title;
+    if (dateEl) dateEl.textContent = notice.date;
 
     const content = await getNoticeContent(notice);
 
-    document.getElementById("notice-content").innerHTML = `
-        <article class="notice-content-box markdown-body">
-            ${content}
-        </article>
-    `;
+    if (contentEl) {
+        contentEl.innerHTML = `
+            <article class="notice-content-box markdown-body">
+                ${content}
+            </article>
+        `;
+    }
 
     // GA 页面访问统计；如果没有接入 GA，这段不会影响页面显示。
     if (typeof gtag !== "undefined") {
@@ -64,11 +70,16 @@ async function getNoticeContent(notice) {
 }
 
 function showNoticeError(message) {
-    document.getElementById("notice-content").innerHTML = `
-        <div class="notice-content-box">
-            ${escapeHtml(message)}
-        </div>
-    `;
+    const contentEl = document.getElementById("notice-content");
+    if (contentEl) {
+        contentEl.innerHTML = `
+            <div class="notice-content-box">
+                ${escapeHtml(message)}
+            </div>
+        `;
+    }
+    const titleEl = document.getElementById("notice-title");
+    if (titleEl) titleEl.textContent = "通知不存在";
 }
 
 // 简易 Markdown 解析器：

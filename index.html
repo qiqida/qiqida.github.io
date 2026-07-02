@@ -14,6 +14,10 @@ gtag('config', 'G-2S0K5DDSME');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>工学部研究生事务服务中心</title>
 
+    <!-- Favicon 图标 -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231d1d1f'/><text x='50' y='68' font-size='40' font-weight='bold' text-anchor='middle' fill='white'>GSH</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231d1d1f'/><text x='50' y='68' font-size='40' font-weight='bold' text-anchor='middle' fill='white'>GSH</text></svg>">
+
     <!-- 提前应用夜间模式，避免页面闪动 -->
     <script src="assets/js/theme-init.js"></script>
 
@@ -31,7 +35,7 @@ gtag('config', 'G-2S0K5DDSME');
 
     <main>
 
-        <section class="hero">
+        <section class="hero" id="hero-section">
             <div class="hero-logo">GSH</div>
             <p class="hero-subtitle">Graduate Service Hub</p>
             <p class="hero-mission">把重复的事务工作，变成一次解决</p>
@@ -39,7 +43,8 @@ gtag('config', 'G-2S0K5DDSME');
             <div id="search-suggestions"></div>
         </section>
 
-        <section class="card-grid">
+        <section class="content-area" id="content-area">
+            <section class="card-grid">
             <a href="pages/leave.html" class="card">
                 <div class="card-icon">📝</div>
                 <h3>请假申请</h3>
@@ -149,6 +154,8 @@ gtag('config', 'G-2S0K5DDSME');
                 </div>
             </div>
         </section>
+
+        </section> <!-- 关闭 content-area -->
 
     </main>
 

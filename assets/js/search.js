@@ -72,8 +72,8 @@ function renderSuggestions(matches, keyword) {
         div.dataset.index = index;
 
         div.innerHTML = `
-            <strong>${item.title}</strong>
-            <small>${item.category || "事务服务"}</small>
+            <span class="suggestion-title">${item.title}</span>
+            <span class="suggestion-category">${item.category || "事务服务"}</span>
         `;
 
         div.addEventListener("click", () => {
@@ -104,14 +104,8 @@ function updateHighlight() {
     items.forEach((item, index) => {
         if (index === selectedIndex) {
             item.classList.add("suggestion-item-active");
-            item.style.outline = "2px solid var(--primary-color, #007AFF)";
-            item.style.backgroundColor = "var(--primary-light, rgba(0,122,255,0.1))";
-            item.style.borderRadius = "8px";
         } else {
             item.classList.remove("suggestion-item-active");
-            item.style.outline = "";
-            item.style.backgroundColor = "";
-            item.style.borderRadius = "";
         }
     });
 }

@@ -17,6 +17,8 @@ gtag('config', 'G-2S0K5DDSME');
     <!-- 提前应用夜间模式，避免页面闪动 -->
     <script src="../assets/js/theme-init.js"></script>
 
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231d1d1f'/><text x='50' y='68' font-size='40' font-weight='bold' text-anchor='middle' fill='white'>GSH</text></svg>">
+
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/components.css">
 </head>
@@ -31,17 +33,22 @@ gtag('config', 'G-2S0K5DDSME');
         </div>
     </header>
 
-    <section class="content-section">
-        <!-- 通知详情内容由 notices-list.js 动态填充 -->
-        <div id="notice-detail-container"></div>
-    </section>
+    <main class="notice-detail-main">
+        <article class="notice-detail-article">
+            <header class="notice-detail-header">
+                <h1 id="notice-title">加载中...</h1>
+                <time id="notice-date"></time>
+            </header>
+            <div id="notice-content" class="notice-content-wrapper"></div>
+        </article>
+    </main>
 
     <footer class="footer">
         <p>工学部研究生事务服务中心 © 2026</p>
     </footer>
 
     <script src="../assets/js/theme.js"></script>
-    <script src="../assets/js/notices-list.js"></script>
+    <script src="../assets/js/notice.js"></script>
 
 </body>
 </html>
