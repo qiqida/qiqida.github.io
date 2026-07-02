@@ -86,6 +86,15 @@
     padding: 20px;
 }
 
+.download-category {
+
+    font-size: 22px;
+
+    margin: 0 0 16px 0;
+
+    color: var(--text-color);
+}
+
 /* 下载项 */
 
 .download-item {
@@ -270,6 +279,16 @@
     rgba(120,120,120,0.05);
 
     padding-left: 28px;
+}
+
+/* 键盘选中状态 */
+
+.suggestion-item.suggestion-item-active,
+.suggestion-item:focus {
+    background: rgba(0, 122, 255, 0.1) !important;
+    padding-left: 28px !important;
+    outline: 2px solid #007AFF;
+    border-radius: 8px;
 }
 
 /* 搜索没有结果时的提示文字 */
@@ -591,6 +610,17 @@
     border: none;
 
     cursor: pointer;
+
+    background: var(--text-color);
+
+    color: var(--bg-color);
+
+    font-size: 15px;
+}
+
+.feedback-btn:hover {
+
+    opacity: 0.9;
 }
 
 /* =====================
@@ -618,3 +648,67 @@ background:var(--card-color);
 
 border-radius:12px;
 }
+
+/* 可点击服务卡片 */
+
+a.service-card {
+
+    text-decoration: none;
+
+    color: var(--text-color);
+
+    display: block;
+
+    transition: all 0.3s;
+}
+
+a.service-card:hover {
+
+    transform: translateY(-4px);
+
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+}
+
+/* 回到顶部 */
+
+.back-to-top {
+
+    position: fixed;
+
+    right: 24px;
+
+    bottom: 24px;
+
+    z-index: 999;
+
+    width: 48px;
+
+    height: 48px;
+
+    border: 1px solid var(--border-color);
+
+    border-radius: 50%;
+
+    background: var(--card-color);
+
+    color: var(--text-color);
+
+    font-size: 20px;
+
+    cursor: pointer;
+
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+
+    transition: opacity 0.3s, transform 0.2s;
+}
+
+.back-to-top:hover {
+
+    transform: translateY(-2px);
+}
+
+.back-to-top[hidden] {
+
+    display: none;
+}
+

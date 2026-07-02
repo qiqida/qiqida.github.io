@@ -1,36 +1,21 @@
-
+<!DOCTYPE html>
 <html lang="zh-CN">
 
-<!-- Google Analytics -->
-
-<script async
-src="https://www.googletagmanager.com/gtag/js?id=G-2S0K5DDSME">
-</script>
-
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2S0K5DDSME"></script>
 <script>
-
-window.dataLayer =
-window.dataLayer || [];
-
-function gtag(){
-
-dataLayer.push(arguments);
-
-}
-
+window.dataLayer = window.dataLayer || [];
+function gtag(){ dataLayer.push(arguments); }
 gtag('js', new Date());
-
-gtag(
-'config',
-'G-XXXXXXXXXX'
-);
-
+gtag('config', 'G-2S0K5DDSME');
 </script>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>请假申请 | 工学部研究生事务服务中心</title>
 
-    <title>请假申请 | 工学部研究生服务中心</title>
+    <!-- 提前应用夜间模式，避免页面闪动 -->
+    <script src="../assets/js/theme-init.js"></script>
 
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/components.css">
@@ -38,88 +23,58 @@ gtag(
 
 <body>
 
-    <!-- 顶部导航 -->
-
     <header class="navbar">
-
-        <div class="logo">
-            GSH
+        <div class="logo">工学部研究生事务服务中心</div>
+        <div class="navbar-actions">
+            <a href="../index.html" class="back-btn">返回首页</a>
+            <button id="theme-toggle" type="button">🌙</button>
         </div>
-
-        <a href="../index.html" class="back-btn">
-            返回首页
-        </a>
-
     </header>
 
-    <!-- 页面标题 -->
-
     <section class="page-header">
-
         <h1>请假申请</h1>
-
-        <p>
-            查看请假流程、下载模板、了解常见问题
-        </p>
-
+        <p>请假流程说明与相关表格下载</p>
     </section>
-
-    <!-- 服务卡片 -->
 
     <section class="service-grid">
-
-        <div class="service-card">
-
-            <h3>请假流程</h3>
-
-            <p>
-                查看请假审批流程与注意事项
-            </p>
-
-        </div>
-
-        <div class="service-card">
-
-            <h3>下载模板</h3>
-
-            <p>
-                下载请假申请表
-            </p>
-
-        </div>
-
-        <div class="service-card">
-
-            <h3>常见问题</h3>
-
-            <p>
-                请假多久需要审批？
-            </p>
-
-        </div>
-
+        <a href="download.html#leave" class="service-card">
+            <h3>表格下载</h3>
+            <p>下载请假申请表</p>
+        </a>
+        <a href="faq.html" class="service-card">
+            <h3>请假 FAQ</h3>
+            <p>常见问题与解答</p>
+        </a>
+        <a href="outgoing.html" class="service-card">
+            <h3>外出报备</h3>
+            <p>短期外出登记说明</p>
+        </a>
     </section>
-
-    <!-- 请假流程 -->
 
     <section class="content-section">
-
         <h2>请假流程</h2>
-
         <ol>
-
-            <li>填写请假申请表</li>
-
-            <li>导师审批</li>
-
-            <li>学院审批</li>
-
-            <li>按时销假</li>
-
+            <li>提前与导师沟通，征得同意</li>
+            <li>下载并填写《请假申请表》</li>
+            <li>导师签字后提交学院备案</li>
+            <li>假期结束后按时返校销假</li>
         </ol>
-
     </section>
 
-</body>
+    <section class="content-section">
+        <h2>请假类型说明</h2>
+        <ul>
+            <li><strong>事假：</strong>因私事需要请假，一般需提前 3 天申请</li>
+            <li><strong>病假：</strong>因身体原因需就医或休息，需提供医院证明</li>
+            <li><strong>公假：</strong>因科研、会议等公务外出，需提供相关证明</li>
+        </ul>
+    </section>
 
+    <footer class="footer">
+        <p>工学部研究生事务服务中心 © 2026</p>
+    </footer>
+
+    <script src="../assets/js/theme.js"></script>
+
+</body>
 </html>

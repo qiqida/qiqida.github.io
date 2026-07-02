@@ -1,32 +1,4 @@
-// 深色模式切换
-
-const toggleBtn = document.getElementById("theme-toggle");
-
-toggleBtn.addEventListener("click", () => {
-
-    const currentTheme =
-        document.documentElement.getAttribute("data-theme");
-
-    if (currentTheme === "dark") {
-
-        document.documentElement.removeAttribute("data-theme");
-
-        toggleBtn.textContent = "🌙";
-
-    } else {
-
-        document.documentElement.setAttribute(
-            "data-theme",
-            "dark"
-        );
-
-        toggleBtn.textContent = "☀️";
-    }
-});
-
-// =========================
-// 加载通知数据
-// =========================
+// 首页：加载通知列表
 
 async function loadNotices() {
 
@@ -72,7 +44,6 @@ card.style.cursor = "pointer";
 
 card.onclick = () => {
 
-    // GA事件（非常重要）
     if (typeof gtag !== "undefined") {
         gtag('event', 'notice_click', {
             'notice_title': notice.title,

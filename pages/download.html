@@ -1,85 +1,62 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 
-<!-- Google Analytics -->
-
-<script async
-src="https://www.googletagmanager.com/gtag/js?id=G-2S0K5DDSME">
-</script>
-
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2S0K5DDSME"></script>
 <script>
-
-window.dataLayer =
-window.dataLayer || [];
-
-function gtag(){
-
-dataLayer.push(arguments);
-
-}
-
+window.dataLayer = window.dataLayer || [];
+function gtag(){ dataLayer.push(arguments); }
 gtag('js', new Date());
-
-gtag(
-'config',
-'G-XXXXXXXXXX'
-);
-
+gtag('config', 'G-2S0K5DDSME');
 </script>
+
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文件下载 | 工学部研究生事务服务中心</title>
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <!-- 提前应用夜间模式，避免页面闪动 -->
+    <script src="../assets/js/theme-init.js"></script>
 
-    <title>文件下载</title>
-
-    <link rel="stylesheet"
-          href="../assets/css/style.css">
-
-    <link rel="stylesheet"
-          href="../assets/css/components.css">
-
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
 </head>
 
 <body>
 
     <header class="navbar">
-
-        <div class="logo">
-            GSH
+        <div class="logo">工学部研究生事务服务中心</div>
+        <div class="navbar-actions">
+            <a href="../index.html" class="back-btn">返回首页</a>
+            <button id="theme-toggle" type="button">🌙</button>
         </div>
-
-        <a href="../index.html"
-           class="back-btn">
-
-            返回首页
-
-        </a>
-
     </header>
 
     <section class="page-header">
-
         <h1>文件下载中心</h1>
-
-        <p>
-            常用表格、申请材料、模板下载
-        </p>
-
+        <p>常用表格、申请材料、模板下载</p>
     </section>
 
-<section class="download-list">
+    <section class="download-list" id="leave">
+        <h2 class="download-category">请假模板</h2>
+        <div id="download-container-leave"></div>
+    </section>
 
-    <div id="download-container">
+    <section class="download-list" id="academic">
+        <h2 class="download-category">学术活动模板</h2>
+        <div id="download-container-academic"></div>
+    </section>
 
-    </div>
+    <section class="download-list" id="graduation">
+        <h2 class="download-category">毕业材料</h2>
+        <div id="download-container-graduation"></div>
+    </section>
 
-</section>
+    <footer class="footer">
+        <p>工学部研究生事务服务中心 © 2026</p>
+    </footer>
 
-<script src="../assets/js/download.js"></script>
+    <script src="../assets/js/theme.js"></script>
+    <script src="../assets/js/download.js"></script>
 
 </body>
-
 </html>

@@ -1,0 +1,12 @@
+{
+  "siteName": "工学部研究生事务服务中心",
+  "gaId": "G-2S0K5DDSME",
+  "feedbackUrl": "https://www.wjx.cn/vm/example.aspx",
+  "feedbackNote": "请将 feedbackUrl 替换为实际的问卷星链接",
+  "giscusRepo": "你的用户名/仓库名",
+  "giscusRepoId": "仓库 ID（在 Giscus 官网获取）",
+  "giscusCategory": "General",
+  "giscusCategoryId": "分类 ID（在 Giscus 官网获取）",
+  "giscusMapping": "pathname",
+  "giscusPosition": "top"
+}

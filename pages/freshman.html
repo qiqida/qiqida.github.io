@@ -1,110 +1,99 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2S0K5DDSME"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){ dataLayer.push(arguments); }
+gtag('js', new Date());
+gtag('config', 'G-2S0K5DDSME');
+</script>
+
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新生专区 | 工学部研究生事务服务中心</title>
 
-<meta charset="UTF-8">
+    <!-- 提前应用夜间模式，避免页面闪动 -->
+    <script src="../assets/js/theme-init.js"></script>
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-
-<title>新生专区</title>
-
-<link rel="stylesheet"
-href="../assets/css/style.css">
-
-<link rel="stylesheet"
-href="../assets/css/components.css">
-
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
 </head>
 
 <body>
 
-<header class="navbar">
+    <header class="navbar">
+        <div class="logo">工学部研究生事务服务中心</div>
+        <div class="navbar-actions">
+            <a href="../index.html" class="back-btn">返回首页</a>
+            <button id="theme-toggle" type="button">🌙</button>
+        </div>
+    </header>
 
-<div class="logo">
+    <section class="page-header">
+        <h1>2026级研究生新生专区</h1>
+        <p>入学前必看指南</p>
+    </section>
 
-GSH
+    <section class="service-grid">
+        <a href="#report" class="service-card">
+            <h3>报到流程</h3>
+            <p>入学报到安排</p>
+        </a>
+        <a href="#advisor" class="service-card">
+            <h3>导师选择</h3>
+            <p>导师双选说明</p>
+        </a>
+        <a href="#course" class="service-card">
+            <h3>课程学习</h3>
+            <p>培养方案与选课</p>
+        </a>
+        <a href="#party" class="service-card">
+            <h3>党团关系</h3>
+            <p>组织关系转接</p>
+        </a>
+        <a href="download.html" class="service-card">
+            <h3>资料下载</h3>
+            <p>常用表格下载</p>
+        </a>
+        <a href="#faq" class="service-card">
+            <h3>常见问题</h3>
+            <p>新生 FAQ</p>
+        </a>
+    </section>
 
-</div>
+    <section class="content-section" id="report">
+        <h2>报到流程</h2>
+        <p>请按学校及学院发布的报到通知，准备好身份证件、录取材料等，按时完成线上或现场报到。</p>
+    </section>
 
-<a href="../index.html"
-class="back-btn">
+    <section class="content-section" id="advisor">
+        <h2>导师双选</h2>
+        <p>导师双选时间以学院通知为准，请关注学院官网、研究生系统和年级群消息。</p>
+    </section>
 
-返回首页
+    <section class="content-section" id="course">
+        <h2>课程学习</h2>
+        <p>入学后请查阅培养方案，按要求完成选课与学分修读。</p>
+    </section>
 
-</a>
+    <section class="content-section" id="party">
+        <h2>党团关系转接</h2>
+        <p>请根据录取学院提供的组织关系转接信息办理，转接前建议确认接收单位名称是否准确。</p>
+    </section>
 
-</header>
+    <section class="content-section" id="faq">
+        <h2>常见问题</h2>
+        <div id="section-faq-container" data-faq-src="../data/freshman-faq.json"></div>
+    </section>
 
-<section class="page-header">
+    <footer class="footer">
+        <p>工学部研究生事务服务中心 © 2026</p>
+    </footer>
 
-<h1>
-
-2026级研究生新生专区
-
-</h1>
-
-<p>
-
-入学前必看指南
-
-</p>
-
-</section>
-
-<section class="service-grid">
-
-<div class="service-card">
-
-<h3>报到流程</h3>
-
-<p>入学报到安排</p>
-
-</div>
-
-<div class="service-card">
-
-<h3>导师选择</h3>
-
-<p>导师双选说明</p>
-
-</div>
-
-<div class="service-card">
-
-<h3>课程学习</h3>
-
-<p>培养方案与选课</p>
-
-</div>
-
-<div class="service-card">
-
-<h3>党团关系</h3>
-
-<p>组织关系转接</p>
-
-</div>
-
-<div class="service-card">
-
-<h3>资料下载</h3>
-
-<p>常用表格下载</p>
-
-</div>
-
-<div class="service-card">
-
-<h3>常见问题</h3>
-
-<p>FAQ</p>
-
-</div>
-
-</section>
+    <script src="../assets/js/theme.js"></script>
+    <script src="../assets/js/section-faq.js"></script>
 
 </body>
-
 </html>

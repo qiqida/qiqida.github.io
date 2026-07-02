@@ -1,0 +1,558 @@
+/* ==========================
+   V7.5 Apple 风格 UI 重构版
+   ========================== */
+
+/* ==========================
+   左侧悬浮反馈按钮与面板
+   ========================== */
+
+.feedback-float-btn {
+    position: fixed;
+    left: 20px;
+    bottom: 30px;
+    z-index: 1050;
+    padding: 12px 20px;
+    border-radius: 999px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    background: rgba(255, 255, 255, 0.72);
+    color: #1d1d1f;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.feedback-float-btn:hover {
+    transform: translateY(-2px);
+}
+
+.feedback-panel {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 1100;
+    width: 380px;
+    max-width: 92vw;
+    background: rgba(255, 255, 255, 0.85);
+    border-right: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    transform: translateX(-105%);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+}
+
+.feedback-panel.open {
+    transform: translateX(0);
+}
+
+.feedback-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 24px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.feedback-panel-header h3 {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 600;
+    color: #1d1d1f;
+}
+
+#feedback-panel-close {
+    border: none;
+    background: transparent;
+    color: #86868b;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 8px;
+    transition: background 0.2s ease;
+}
+
+#feedback-panel-close:hover {
+    background: rgba(0, 0, 0, 0.04);
+}
+
+.feedback-panel-body {
+    flex: 1;
+    overflow: auto;
+    padding: 20px 24px;
+}
+
+.feedback-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-group label {
+    font-size: 13px;
+    color: #86868b;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    background: rgba(255, 255, 255, 0.6);
+    color: #1d1d1f;
+    font-size: 15px;
+    line-height: 1.5;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    resize: vertical;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #0071e3;
+    box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.12);
+}
+
+.required {
+    color: #ff3b30;
+}
+
+.feedback-submit-btn {
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    border: none;
+    background: #1d1d1f;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.feedback-submit-btn:hover {
+    opacity: 0.88;
+    transform: translateY(-1px);
+}
+
+.feedback-survey-link {
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    text-align: center;
+    font-size: 13px;
+    color: #86868b;
+}
+
+.survey-link-btn {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 10px 18px;
+    border-radius: 999px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    background: rgba(255, 255, 255, 0.6);
+    color: #1d1d1f;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    transition: transform 0.2s ease;
+}
+
+.survey-link-btn:hover {
+    transform: translateY(-1px);
+}
+
+/* ==========================
+   学生服务数据中心
+   ========================== */
+
+.student-data-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.data-card {
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 18px;
+    padding: 22px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    gap: 6px;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.data-card:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.85);
+}
+
+.data-content h3 {
+    margin: 0;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    color: #1d1d1f;
+}
+
+.data-content p {
+    margin: 4px 0 0;
+    font-size: 13px;
+    color: #86868b;
+}
+
+/* ==========================
+   热门搜索关键词（全宽 + 毛玻璃 + 悬浮动效）
+   ========================== */
+
+.search-card {
+    background: rgba(255, 255, 255, 0.55);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 18px;
+    padding: 32px 28px;
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+}
+
+.search-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 100px;
+}
+
+.search-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 18px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.65);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    color: #1d1d1f;
+    cursor: pointer;
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s ease, box-shadow 0.3s ease;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.search-tag:hover {
+    transform: translateY(-4px);
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+}
+
+.search-tag small {
+    font-size: 11px;
+    color: #86868b;
+    font-weight: 500;
+}
+
+/* ==========================
+   热门下载排行榜（列表风格）
+   ========================== */
+
+.download-table {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 18px;
+    overflow: hidden;
+}
+
+.download-row {
+    display: grid;
+    grid-template-columns: 48px 1fr 130px 110px;
+    gap: 20px;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    transition: background 0.25s ease;
+}
+
+.download-row:last-child {
+    border-bottom: none;
+}
+
+.download-row:hover {
+    background: rgba(255, 255, 255, 0.7);
+}
+
+.download-rank {
+    font-size: 14px;
+    font-weight: 600;
+    color: #86868b;
+    text-align: center;
+}
+
+.download-rank.rank-top {
+    color: #bf4800;
+    font-weight: 700;
+}
+
+.download-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: #1d1d1f;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.download-category {
+    font-size: 13px;
+    color: #86868b;
+}
+
+.download-count {
+    font-size: 13px;
+    color: #86868b;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+.empty-tip {
+    color: #86868b;
+    font-size: 13px;
+    text-align: center;
+    padding: 20px 0;
+}
+
+/* ==========================
+   底部品牌区
+   ========================== */
+
+.site-footer-mini {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer-mini-line {
+    width: 100%;
+    height: 1px;
+    background: rgba(0, 0, 0, 0.08);
+    margin-bottom: 28px;
+}
+
+.footer-mini-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.footer-mini-logo {
+    width: 30px;
+    height: 30px;
+    border-radius: 9px;
+    background: linear-gradient(135deg, #1d1d1f, #434343);
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.footer-mini-name {
+    margin: 0;
+    font-size: 13px;
+    color: #86868b;
+    font-weight: 500;
+    letter-spacing: -0.1px;
+}
+
+.footer-mini-version {
+    margin: 0;
+    font-size: 11px;
+    color: #86868b;
+    opacity: 0.6;
+    font-weight: 400;
+}
+
+/* ==========================
+   移动端适配
+   ========================== */
+
+@media (max-width: 1024px) {
+    .student-data-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .download-row {
+        grid-template-columns: 40px 1fr 110px 90px;
+        gap: 14px;
+    }
+}
+
+@media (max-width: 768px) {
+    .student-data-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .data-card {
+        padding: 18px 16px;
+    }
+
+    .data-content h3 {
+        font-size: 22px;
+    }
+
+    .search-card {
+        padding: 24px 18px;
+    }
+
+    .download-row {
+        grid-template-columns: 36px 1fr 100px 80px;
+        gap: 10px;
+        padding: 12px 14px;
+    }
+
+    .download-name {
+        font-size: 13px;
+    }
+
+    .feedback-panel {
+        width: 100%;
+        max-width: 100%;
+        border-right: none;
+    }
+}
+
+/* 超小屏适配：375 / 390 / 414 */
+@media (max-width: 420px) {
+    .navbar {
+        padding: 14px 16px;
+    }
+
+    .logo {
+        font-size: 15px;
+    }
+
+    .hero {
+        padding: 36px 16px 28px;
+    }
+
+    .hero-mission {
+        font-size: 17px;
+    }
+
+    .search-box {
+        padding: 13px 14px;
+        font-size: 14px;
+    }
+
+    .card-grid {
+        padding: 10px;
+        gap: 10px;
+    }
+
+    .card {
+        padding: 18px;
+    }
+
+    .home-section {
+        margin: 44px auto;
+        padding: 0 14px;
+    }
+
+    .section-header h2 {
+        font-size: 20px;
+    }
+
+    .student-data-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .data-card {
+        padding: 16px 14px;
+    }
+
+    .data-content h3 {
+        font-size: 20px;
+    }
+
+    .search-card {
+        padding: 20px 14px;
+    }
+
+    .search-tags {
+        gap: 10px;
+        min-height: 70px;
+    }
+
+    .search-tag {
+        padding: 8px 14px;
+        font-size: 13px;
+    }
+
+    .download-row {
+        grid-template-columns: 30px 1fr;
+        gap: 8px;
+        padding: 10px 10px;
+    }
+
+    .download-category,
+    .download-count {
+        font-size: 11px;
+    }
+
+    .feedback-float-btn {
+        left: 14px;
+        bottom: 20px;
+        padding: 10px 16px;
+        font-size: 13px;
+    }
+
+    .site-footer-mini {
+        padding: 0 16px 40px;
+    }
+
+    .footer-mini-logo {
+        width: 26px;
+        height: 26px;
+        font-size: 10px;
+    }
+
+    .footer-mini-name {
+        font-size: 12px;
+    }
+
+    .footer-mini-version {
+        font-size: 10px;
+    }
+}

@@ -1,421 +1,208 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 
-<!-- Google Analytics -->
-
-<script async
-src="https://www.googletagmanager.com/gtag/js?id=G-2S0K5DDSME">
-</script>
-
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2S0K5DDSME"></script>
 <script>
-
-window.dataLayer =
-window.dataLayer || [];
-
-function gtag(){
-
-dataLayer.push(arguments);
-
-}
-
+window.dataLayer = window.dataLayer || [];
+function gtag(){ dataLayer.push(arguments); }
 gtag('js', new Date());
-
-gtag(
-'config',
-'G-XXXXXXXXXX'
-);
-
+gtag('config', 'G-2S0K5DDSME');
 </script>
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>工学部研究生事务服务中心</title>
 
-    <title>工学院研究生事务服务中心</title>
+    <!-- 提前应用夜间模式，避免页面闪动 -->
+    <script src="assets/js/theme-init.js"></script>
 
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/components.css">
-    <link rel="stylesheet" href="assets/css/home.css">
+    <link rel="stylesheet" href="assets/css/v8-components.css">
 </head>
 
 <body>
 
-    <!-- 页面顶部导航 -->
     <header class="navbar">
-
-        <div class="logo">
-            工学部研究生事务服务中心
-        </div>
-
-        <button id="theme-toggle">
-            🌙
-        </button>
-
+        <div class="logo">工学部研究生事务服务中心</div>
+        <button id="theme-toggle" type="button">🌙</button>
     </header>
 
-    <!-- 页面主体 -->
     <main>
 
-        <!-- 首页标题区域 -->
         <section class="hero">
-
-            
-
-
-<div class="hero-logo">
-
-    GSH
-
-</div>
-
-<p class="hero-subtitle">
-
-Graduate Service Hub
-
-</p>
-<p class="hero-mission">
-
-把重复的事务工作，变成一次解决
-
-</p>
-<!-- 搜索框 -->
-         <input
-    type="text"
-    id="global-search"
-    class="search-box"
-    placeholder="搜索请假、奖学金、毕业登记表...">
-    <div id="search-suggestions"></div>
-
+            <div class="hero-logo">GSH</div>
+            <p class="hero-subtitle">Graduate Service Hub</p>
+            <p class="hero-mission">把重复的事务工作，变成一次解决</p>
+            <input type="text" id="global-search" class="search-box" placeholder="搜索请假、奖学金、毕业登记表...">
+            <div id="search-suggestions"></div>
         </section>
 
-        <!-- 功能卡片区域 -->
-
-<section class="card-grid">
-
-    <a href="pages/leave.html" class="card">
-
-        <div class="card-icon">📝</div>
-
-        <h3>请假申请</h3>
-
-        <p>查看请假流程与申请模板</p>
-
-    </a>
-
-    <a href="pages/download.html" class="card">
-
-        <div class="card-icon">📂</div>
-
-        <h3>文件下载</h3>
-
-        <p>下载常用表格与材料</p>
-
-    </a>
-
-    <a href="pages/scholarship.html" class="card">
-
-        <div class="card-icon">🎯</div>
-
-        <h3>奖助评优</h3>
-
-        <p>奖学金与评优政策</p>
-
-    </a>
-
-    <a href="pages/academic.html" class="card">
-
-        <div class="card-icon">📚</div>
-
-        <h3>学术活动</h3>
-
-        <p>讲座与学术认定</p>
-
-    </a>
-<a href="pages/freshman.html"
-class="card">
-   <div class="card-icon">🧭</div>
-<h3>新生专区</h3>
-
-<p>
-
-入学指南与常见问题
-
-</p>
-
-</a>
-    <a href="pages/graduation.html" class="card">
-
-        <div class="card-icon">🎓</div>
-
-        <h3>毕业专区</h3>
-
-        <p>毕业与学位申请</p>
-
-    </a>
-
-    <a href="pages/faq.html" class="card">
-
-        <div class="card-icon">❓</div>
-
-        <h3>常见问题</h3>
-
-        <p>常见事务答疑</p>
-
-    </a>
-
-</section>
-
-
-
-        <!-- 最新通知 -->
-      <section class="home-section">
-
-    <div class="section-header">
-
-        <h2>最新通知</h2>
-
-        <a href="#">查看全部</a>
-
-    </div>
-
-    <div id="notice-container">
-
-    </div>
-
-</section>
- <!-- FAQ -->
-<section class="home-section">
-
-    <div class="section-header">
-
-        <h2>热门问题</h2>
-
-        <a href="pages/faq.html">
-
-            查看全部
-
-        </a>
-
-    </div>
-
-    <div id="home-faq-container">
-
-    </div>
-
-</section>
-
- <!-- 热门服务 -->
-<section class="home-section">
-
-    <div class="section-header">
-
-        <h2>热门服务</h2>
-
-    </div>
-
-    <div class="hot-grid">
-
-        <!--
-            热门服务卡片：
-            href 表示点击后跳转到哪里；以后要调整热门顺序，只需要移动整段 <a>...</a>。
-        -->
-        <a href="pages/leave.html" class="hot-card">
-
-            <div class="hot-rank">01</div>
-
-            <h3>请假申请</h3>
-
-            <p>最常办理事项</p>
-
-        </a>
-
-        <a href="pages/graduation.html" class="hot-card">
-
-            <div class="hot-rank">02</div>
-
-            <h3>毕业专区</h3>
-
-            <p>毕业相关服务</p>
-
-        </a>
-
-        <a href="pages/download.html" class="hot-card">
-
-            <div class="hot-rank">03</div>
-
-            <h3>文件下载</h3>
-
-            <p>模板与资料</p>
-
-        </a>
-
-        <a href="pages/scholarship.html" class="hot-card">
-
-            <div class="hot-rank">04</div>
-
-            <h3>奖助评优</h3>
-
-            <p>奖学金与评优</p>
-
-        </a>
-
-    </div>
-
-</section>
-
-<section class="home-section">
-
-    <div class="section-header">
-
-        <h2>办事指南</h2>
-
-    </div>
-
-    <div class="guide-grid">
-
-        <!--
-            办事指南卡片：
-            这里同样使用链接，学生点击卡片即可进入对应页面。
-        -->
-        <a href="pages/leave.html" class="guide-card">
-
-            <h3>请假流程</h3>
-
-            <p>
-
-                查看请假审批流程
-
-            </p>
-
-        </a>
-
-        <a href="pages/graduation.html" class="guide-card">
-
-            <h3>毕业手续</h3>
-
-            <p>
-
-                毕业相关流程说明
-
-            </p>
-
-        </a>
-
-        <a href="pages/scholarship.html" class="guide-card">
-
-            <h3>奖助评优</h3>
-
-            <p>
-
-                了解奖助评选要求
-
-            </p>
-
-        </a>
-
-    </div>
-
-</section>
-
- <!-- 数据中心 -->
-<section class="home-section">
-
-    <div class="section-header">
-
-        <h2>数据中心</h2>
-
-    </div>
-
-    <div class="stats-section">
-
-        <div class="stat-card">
-
-            <h3>12,586</h3>
-
-            <p>累计访问量</p>
-
-        </div>
-
-        <div class="stat-card">
-
-            <h3>78</h3>
-
-            <p>文件数量</p>
-
-        </div>
-
-        <div class="stat-card">
-
-            <h3>53</h3>
-
-            <p>FAQ数量</p>
-
-        </div>
-
-        <div class="stat-card">
-
-            <h3>12</h3>
-
-            <p>通知数量</p>
-
-        </div>
-
-    </div>
-
-</section>
-
+        <section class="card-grid">
+            <a href="pages/leave.html" class="card">
+                <div class="card-icon">📝</div>
+                <h3>请假申请</h3>
+                <p>查看请假流程与申请模板</p>
+            </a>
+            <a href="pages/download.html" class="card">
+                <div class="card-icon">📂</div>
+                <h3>文件下载</h3>
+                <p>下载常用表格与材料</p>
+            </a>
+            <a href="pages/scholarship.html" class="card">
+                <div class="card-icon">🎯</div>
+                <h3>奖助评优</h3>
+                <p>奖学金与评优政策</p>
+            </a>
+            <a href="pages/academic.html" class="card">
+                <div class="card-icon">📚</div>
+                <h3>学术活动</h3>
+                <p>讲座与学术认定</p>
+            </a>
+            <a href="pages/competition.html" class="card">
+                <div class="card-icon">🏆</div>
+                <h3>竞赛专区</h3>
+                <p>电赛、挑战杯、创新创业</p>
+            </a>
+            <a href="pages/freshman.html" class="card">
+                <div class="card-icon">🧭</div>
+                <h3>新生专区</h3>
+                <p>入学指南与常见问题</p>
+            </a>
+            <a href="pages/graduation.html" class="card">
+                <div class="card-icon">🎓</div>
+                <h3>毕业专区</h3>
+                <p>毕业与学位申请</p>
+            </a>
+            <a href="pages/faq.html" class="card">
+                <div class="card-icon">❓</div>
+                <h3>常见问题</h3>
+                <p>常见事务答疑</p>
+            </a>
+        </section>
+
+        <section class="home-section">
+            <div class="section-header">
+                <h2>最新通知</h2>
+                <a href="pages/notices.html">查看全部</a>
+            </div>
+            <div id="notice-container"></div>
+        </section>
+
+        <section class="home-section">
+            <div class="section-header">
+                <h2>热门问题</h2>
+                <a href="pages/faq.html">查看全部</a>
+            </div>
+            <div id="home-faq-container"></div>
+        </section>
+
+        <section class="home-section">
+            <div class="section-header">
+                <h2>热门搜索关键词</h2>
+            </div>
+            <div class="search-card">
+                <div class="search-tags" id="search-stats-container">
+                    <!-- 由 assets/js/search-stats.js 自动生成 -->
+                </div>
+            </div>
+        </section>
+
+        <section class="home-section">
+            <div class="section-header">
+                <h2>热门下载排行榜</h2>
+            </div>
+            <div class="download-table" id="download-rank-container">
+                <!-- 由 assets/js/download-rank.js 自动生成 -->
+            </div>
+        </section>
+
+        <section class="home-section">
+            <div class="section-header">
+                <h2>学生服务数据中心</h2>
+            </div>
+            <div class="student-data-grid">
+                <div class="data-card">
+                    <div class="data-content">
+                        <h3 id="stat-visits">—</h3>
+                        <p>累计访问量</p>
+                    </div>
+                </div>
+                <div class="data-card">
+                    <div class="data-content">
+                        <h3 id="stat-files">—</h3>
+                        <p>文件数量</p>
+                    </div>
+                </div>
+                <div class="data-card">
+                    <div class="data-content">
+                        <h3 id="stat-faq">—</h3>
+                        <p>FAQ 数量</p>
+                    </div>
+                </div>
+                <div class="data-card">
+                    <div class="data-content">
+                        <h3 id="stat-notices">—</h3>
+                        <p>通知数量</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
     </main>
 
-<section class="home-section">
+    <!-- 底部品牌区 -->
+    <footer class="site-footer-mini">
+        <div class="footer-mini-line"></div>
+        <div class="footer-mini-content">
+            <div class="footer-mini-logo">GSH</div>
+            <p class="footer-mini-name">工学部研究生事务服务中心</p>
+            <p class="footer-mini-version">Version 2026</p>
+        </div>
+    </footer>
 
-    <div class="section-header">
+    <!-- 左侧悬浮反馈按钮 -->
+    <button id="feedback-float-btn" class="feedback-float-btn" aria-label="留言反馈">
+        💬 留言反馈
+    </button>
 
-        <h2>意见反馈</h2>
+    <!-- 左侧滑出反馈面板 -->
+    <aside id="feedback-panel" class="feedback-panel" aria-label="反馈面板">
+        <div class="feedback-panel-header">
+            <h3>留言反馈</h3>
+            <button type="button" id="feedback-panel-close" aria-label="关闭">✕</button>
+        </div>
+        <div class="feedback-panel-body">
+            <form id="feedback-form" class="feedback-form">
+                <div class="form-group">
+                    <label for="feedback-name">姓名（可选）</label>
+                    <input type="text" id="feedback-name" name="name" placeholder="请输入您的姓名">
+                </div>
+                <div class="form-group">
+                    <label for="feedback-content">留言内容 <span class="required">*</span></label>
+                    <textarea id="feedback-content" name="content" rows="5" placeholder="请输入您的留言内容..." required></textarea>
+                </div>
+                <button type="submit" class="feedback-submit-btn">提交留言</button>
+            </form>
+            <div class="feedback-survey-link">
+                <p>或通过问卷星提交：</p>
+                <a href="https://www.wjx.cn/vm/example.aspx" target="_blank" rel="noopener" class="survey-link-btn">
+                    打开问卷星
+                </a>
+            </div>
+        </div>
+    </aside>
 
-    </div>
-
-    <div class="feedback-card">
-
-        <h3>
-
-            有新的需求？
-
-        </h3>
-
-        <p>
-
-            欢迎反馈希望增加的功能与服务。
-
-        </p>
-
-        <button class="feedback-btn">
-
-            我要反馈
-
-        </button>
-
-    </div>
-
-</section>
-
-<!-- 增加页脚 -->
-<footer class="footer">
-
-    <p>
-        工学部研究生服务中心 © 2026
-    </p>
-
-    <p>
-        Version 1.0
-    </p>
-
-</footer>
-<!-- 引入脚本 -->
+    <script src="assets/js/theme.js"></script>
     <script src="assets/js/main.js"></script>
     <script src="assets/js/search.js"></script>
     <script src="assets/js/homeFaq.js"></script>
+    <script src="assets/js/stats.js"></script>
+    <script src="assets/js/feedback.js"></script>
+    <script src="assets/js/feedback-float.js"></script>
+    <script src="assets/js/download-rank.js"></script>
+    <script src="assets/js/search-stats.js"></script>
 
 </body>
-
 </html>

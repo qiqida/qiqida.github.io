@@ -12,7 +12,7 @@ gtag('config', 'G-2S0K5DDSME');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>通知详情 | 工学部研究生事务服务中心</title>
+    <title>通知公告 | 工学部研究生事务服务中心</title>
 
     <!-- 提前应用夜间模式，避免页面闪动 -->
     <script src="../assets/js/theme-init.js"></script>
@@ -26,14 +26,18 @@ gtag('config', 'G-2S0K5DDSME');
     <header class="navbar">
         <div class="logo">工学部研究生事务服务中心</div>
         <div class="navbar-actions">
-            <a href="notices.html" class="back-btn">返回通知列表</a>
+            <a href="../index.html" class="back-btn">返回首页</a>
             <button id="theme-toggle" type="button">🌙</button>
         </div>
     </header>
 
+    <section class="page-header">
+        <h1>通知公告</h1>
+        <p>学院研究生事务最新通知与公告</p>
+    </section>
+
     <section class="content-section">
-        <!-- 通知详情内容由 notices-list.js 动态填充 -->
-        <div id="notice-detail-container"></div>
+        <div id="notices-list-container"></div>
     </section>
 
     <footer class="footer">
