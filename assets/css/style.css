@@ -108,6 +108,44 @@ body {
     font-weight: bold;
 }
 
+/* 子页面 GSH Logo */
+
+.logo-gsh {
+
+    display: flex;
+
+    width: 44px;
+
+    height: 44px;
+
+    border-radius: 12px;
+
+    background: linear-gradient(135deg, #111827, #374151);
+
+    color: white;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+
+    text-decoration: none;
+
+    flex-shrink: 0;
+}
+
+[data-theme="dark"] .logo-gsh {
+
+    background: linear-gradient(135deg, #f8fafc, #cbd5e1);
+
+    color: #0f172a;
+}
+
 /* 深色模式按钮 */
 
 #theme-toggle {
@@ -189,15 +227,155 @@ body {
     box-shadow: 0 10px 30px rgba(0,0,0,0.08);
 }
 
-/* 手机端搜索框浮动固定 */
+/* 网页端：隐藏手机端搜索框 */
+.mobile-search {
+    display: none;
+}
+
+/* 网页端搜索框样式 */
+.desktop-search {
+    margin-top: 24px;
+}
+
+.desktop-search .search-box {
+    width: 100%;
+    padding: 18px 22px;
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+    background: var(--card-color);
+    color: var(--text-color);
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: all 0.3s;
+    margin-top: 0;
+}
+
+.desktop-search .search-box:focus {
+    outline: none;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+/* 网页端搜索建议下拉 */
+.desktop-search #search-suggestions-desktop {
+    margin-top: 8px;
+    width: 100%;
+    max-width: 650px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* 手机端布局 */
 @media (max-width: 768px) {
+    /* 导航栏：固定在顶部 */
+    .navbar {
+        position: sticky;
+        top: 0;
+        z-index: 1001;
+        padding: 15px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: var(--bg-color);
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .navbar .logo {
+        font-size: 16px;
+        max-width: none;
+        line-height: 1.3;
+    }
+
+    .navbar #theme-toggle {
+        font-size: 20px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+    }
+
+    /* 手机端搜索框容器：固定在导航栏下方，毛玻璃效果 */
+    .mobile-search .search-bar-wrapper {
+        position: fixed;
+        top: 53px;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        padding: 8px 16px;
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+    }
+
+    [data-theme="dark"] .mobile-search .search-bar-wrapper {
+        background: rgba(30, 30, 30, 0.9);
+    }
+
+    /* 网页端搜索框：在 hero 内部居中 */
+    .desktop-search {
+        display: none;
+    }
+
+    /* 手机端：显示手机端搜索框 */
+    .mobile-search {
+        display: block;
+    }
+
+    /* 搜索框 */
+    .search-box {
+        width: 100%;
+        margin: 0;
+        padding: 12px 16px;
+        border-radius: 12px;
+        border: 1px solid var(--border-color);
+        background: var(--card-color);
+        font-size: 14px;
+        box-sizing: border-box;
+    }
+
+    /* 暗色模式 */
+    [data-theme="dark"] .search-box {
+        background: var(--card-color);
+        color: var(--text-color);
+    }
+
+    [data-theme="dark"] .search-box::placeholder {
+        color: var(--subtext-color);
+    }
+
+    /* 搜索建议下拉 - 贴在搜索框下方 */
+    #search-suggestions {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        width: auto;
+        max-height: 40vh;
+        z-index: 1001;
+        margin: 0;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        border-radius: 0 0 12px 12px;
+    }
+
+    /* hero 区域 - 为固定搜索框留出空间 */
     .hero {
-        padding: 24px 16px 20px;
-        margin-top: 60px;
+        padding: 20px 16px;
+        padding-top: 150px !important;
+        margin-top: 0;
     }
 
     .hero-logo {
-        display: none;
+        display: flex;
+        width: 56px;
+        height: 56px;
+        margin: 0 auto 12px;
+        border-radius: 16px;
+        background: linear-gradient(135deg, #111827, #374151);
+        color: white;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        font-weight: 700;
+        letter-spacing: 1px;
     }
 
     .hero-subtitle {
@@ -205,71 +383,54 @@ body {
     }
 
     .hero-mission {
-        font-size: 18px;
-        margin-bottom: 16px;
+        font-size: 17px;
+        margin-bottom: 0;
     }
 
-    .hero .search-box {
-        position: fixed;
-        top: 12px;
-        left: 16px;
-        right: 60px;
-        width: auto;
-        max-width: none;
-        margin: 0;
-        padding: 14px 18px;
-        border-radius: 14px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-        z-index: 1001;
-        font-size: 15px;
-    }
-
-    #search-suggestions {
-        position: fixed;
-        top: 68px;
-        left: 16px;
-        right: 16px;
-        width: auto;
-        max-width: none;
-        max-height: calc(100vh - 100px);
-        z-index: 1001;
-        margin: 0;
+    .hero h1 {
+        font-size: 32px;
     }
 
     .content-area {
-        padding-top: 20px;
+        padding-top: 0;
     }
 
-    .navbar {
-        display: none;
+    .card-grid {
+        padding: 12px;
+        gap: 12px;
     }
 
-    /* 手机端主题切换按钮 */
-    #theme-toggle {
-        position: fixed;
-        top: 16px;
+    .card {
+        padding: 20px;
+    }
+
+    .home-section {
+        margin: 36px auto;
+    }
+
+    .section-header h2 {
+        font-size: 22px;
+    }
+
+    .hot-rank {
+        font-size: 36px;
+    }
+
+    .download-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .back-to-top {
         right: 16px;
-        z-index: 1002;
+        bottom: 16px;
         width: 44px;
         height: 44px;
-        border-radius: 12px;
-        background: var(--card-color);
-        border: 1px solid var(--border-color);
-        font-size: 20px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-        transition: transform 0.2s ease;
     }
 
-    #theme-toggle:hover {
-        transform: scale(1.05);
-    }
-
-    #theme-toggle:active {
-        transform: scale(0.95);
+    .page-header h1 {
+        font-size: 28px;
     }
 }
 
@@ -430,97 +591,4 @@ body {
     color: var(--subtext-color);
 
     border-top: 1px solid var(--border-color);
-}
-
-/* 手机端适配 */
-
-@media (max-width:768px) {
-
-    .hero h1 {
-
-        font-size: 32px;
-    }
-
-    .navbar {
-
-        padding: 15px 20px;
-    }
-
-    .logo {
-
-        font-size: 16px;
-
-        max-width: 70%;
-
-        line-height: 1.3;
-    }
-
-    .hero {
-
-        padding: 40px 16px 30px;
-    }
-
-    .hero-mission {
-
-        font-size: 18px;
-    }
-
-    .search-box {
-
-        padding: 14px 16px;
-
-        font-size: 15px;
-    }
-
-    .card-grid {
-
-        padding: 12px;
-
-        gap: 12px;
-    }
-
-    .card {
-
-        padding: 20px;
-    }
-
-    .home-section {
-
-        margin: 50px auto;
-    }
-
-    .section-header h2 {
-
-        font-size: 22px;
-    }
-
-    .hot-rank {
-
-        font-size: 36px;
-    }
-
-    .download-item {
-
-        flex-direction: column;
-
-        align-items: flex-start;
-
-        gap: 12px;
-    }
-
-    .back-to-top {
-
-        right: 16px;
-
-        bottom: 16px;
-
-        width: 44px;
-
-        height: 44px;
-    }
-
-    .page-header h1 {
-
-        font-size: 28px;
-    }
 }

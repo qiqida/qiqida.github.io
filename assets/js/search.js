@@ -8,7 +8,9 @@ let currentMatches = [];
 let selectedIndex = -1;
 
 const searchInput = document.getElementById("global-search");
+const searchInputDesktop = document.getElementById("global-search-desktop");
 const suggestionBox = document.getElementById("search-suggestions");
+const suggestionBoxDesktop = document.getElementById("search-suggestions-desktop");
 
 // 读取搜索知识库。GitHub Pages 支持读取同项目里的 JSON 文件。
 async function loadSearchData() {
@@ -46,19 +48,19 @@ function findMatches(keyword) {
 }
 
 // 渲染搜索下拉框。
-function renderSuggestions(matches, keyword) {
-    suggestionBox.innerHTML = "";
+function renderSuggestions(suggestionBoxEl, matches, keyword) {
+    suggestionBoxEl.innerHTML = "";
     selectedIndex = -1;
 
     if (!keyword) {
-        suggestionBox.style.display = "none";
+        suggestionBoxEl.style.display = "none";
         return;
     }
 
-    suggestionBox.style.display = "block";
+    suggestionBoxEl.style.display = "block";
 
     if (matches.length === 0) {
-        suggestionBox.innerHTML = `
+        suggestionBoxEl.innerHTML = `
             <div class="suggestion-empty">
                 暂时没有找到相关内容，可以换个关键词试试
             </div>
@@ -80,17 +82,17 @@ function renderSuggestions(matches, keyword) {
             window.location.href = item.url;
         });
 
-        suggestionBox.appendChild(div);
+        suggestionBoxEl.appendChild(div);
     });
 }
 
 // 高亮移动
-function moveHighlight(delta) {
-    const items = suggestionBox.querySelectorAll(".suggestion-item");
+function moveHighlight(suggestionBoxEl, delta) {
+    const items = suggestionBoxEl.querySelectorAll(".suggestion-item");
     if (items.length === 0) return;
 
     selectedIndex = Math.max(0, Math.min(items.length - 1, selectedIndex + delta));
-    updateHighlight();
+    updateHighlight(suggestionBoxEl);
 
     const selectedItem = items[selectedIndex];
     if (selectedItem) {
@@ -99,8 +101,8 @@ function moveHighlight(delta) {
 }
 
 // 更新高亮状态
-function updateHighlight() {
-    const items = suggestionBox.querySelectorAll(".suggestion-item");
+function updateHighlight(suggestionBoxEl) {
+    const items = suggestionBoxEl.querySelectorAll(".suggestion-item");
     items.forEach((item, index) => {
         if (index === selectedIndex) {
             item.classList.add("suggestion-item-active");
@@ -111,8 +113,8 @@ function updateHighlight() {
 }
 
 // 跳转到当前高亮项
-function goToSelected() {
-    const items = suggestionBox.querySelectorAll(".suggestion-item");
+function goToSelected(suggestionBoxEl) {
+    const items = suggestionBoxEl.querySelectorAll(".suggestion-item");
     if (selectedIndex >= 0 && selectedIndex < items.length) {
         items[selectedIndex].click();
     } else if (currentMatches.length > 0) {
@@ -120,34 +122,35 @@ function goToSelected() {
     }
 }
 
-if (searchInput && suggestionBox) {
-    loadSearchData();
+// 初始化搜索框事件
+function initSearchInput(searchInputEl, suggestionBoxEl) {
+    if (!searchInputEl || !suggestionBoxEl) return;
 
-    searchInput.addEventListener("input", function () {
+    searchInputEl.addEventListener("input", function () {
         const keyword = this.value;
 
         currentMatches = findMatches(keyword);
-        renderSuggestions(currentMatches, keyword.trim());
+        renderSuggestions(suggestionBoxEl, currentMatches, keyword.trim());
     });
 
     // 键盘导航：上下键选择，回车跳转
-    searchInput.addEventListener("keydown", function (event) {
-        if (suggestionBox.style.display === "block") {
+    searchInputEl.addEventListener("keydown", function (event) {
+        if (suggestionBoxEl.style.display === "block") {
             switch (event.key) {
                 case "ArrowDown":
                     event.preventDefault();
-                    moveHighlight(1);
+                    moveHighlight(suggestionBoxEl, 1);
                     break;
                 case "ArrowUp":
                     event.preventDefault();
-                    moveHighlight(-1);
+                    moveHighlight(suggestionBoxEl, -1);
                     break;
                 case "Enter":
                     event.preventDefault();
-                    goToSelected();
+                    goToSelected(suggestionBoxEl);
                     break;
                 case "Escape":
-                    suggestionBox.style.display = "none";
+                    suggestionBoxEl.style.display = "none";
                     selectedIndex = -1;
                     break;
             }
@@ -162,12 +165,26 @@ if (searchInput && suggestionBox) {
     // 点击页面空白处时，关闭搜索建议框。
     document.addEventListener("click", function (event) {
         const clickedInsideSearch =
-            searchInput.contains(event.target) ||
-            suggestionBox.contains(event.target);
+            searchInputEl.contains(event.target) ||
+            suggestionBoxEl.contains(event.target);
 
         if (!clickedInsideSearch) {
-            suggestionBox.style.display = "none";
+            suggestionBoxEl.style.display = "none";
             selectedIndex = -1;
         }
     });
+}
+
+// 初始化两个搜索框
+if (searchInput || searchInputDesktop) {
+    loadSearchData();
+    initSearchInput(searchInput, suggestionBox);
+    initSearchInput(searchInputDesktop, suggestionBoxDesktop);
+}
+
+// 手机端：确保搜索建议框显示
+function ensureMobileSuggestions() {
+    if (!searchInput || !suggestionBox) return;
+    if (window.innerWidth > 768) return;
+    // suggestions 现在用 absolute 定位，相对 wrapper 自动贴合，无需手动设置位置
 }

@@ -1,8 +1,8 @@
 // ==========================
-// 左侧悬浮反馈按钮与面板
-// 说明：点击左侧浮动按钮，从左侧滑出反馈面板。
-// 支持姓名（可选）、留言内容、提交按钮，并接入问卷星链接。
-// 支持遮罩层、手势指示条、滑动关闭。
+// 留言反馈面板
+// 交互：主页右滑出 → 反馈页左滑入，两个页面完全独立切换。
+// 打开方式：点击浮动按钮，或主页右滑。
+// 关闭方式：点击关闭按钮 / 反馈页左滑 / Esc 键。
 // ==========================
 
 function initFeedbackFloat() {
@@ -10,141 +10,193 @@ function initFeedbackFloat() {
     const panel = document.getElementById("feedback-panel");
     const closeBtn = document.getElementById("feedback-panel-close");
     const form = document.getElementById("feedback-form");
+    const pageRoot = document.getElementById("page-root");
 
     if (!floatBtn || !panel) return;
 
-    // 创建遮罩层
-    let overlay = document.querySelector(".feedback-overlay");
-    if (!overlay) {
-        overlay = document.createElement("div");
-        overlay.className = "feedback-overlay";
-        document.body.appendChild(overlay);
-    }
-
-    // 添加手势指示条
+    // 隐藏手势指示条（手机端不再需要）
     const gestureBar = document.createElement("div");
     gestureBar.className = "feedback-panel-gesture";
     panel.insertBefore(gestureBar, panel.firstChild);
 
-    // 打开面板
+    let isOpen = false;
+    let isDragging = false;
+    let startX = 0;
+    let startY = 0;
+    let currentX = 0;
+    let startTime = 0;
+
+    const ANIM_DURATION = 400; // ms，与 CSS transition 保持一致
+
+    function setPosition(open, animate) {
+        const duration = animate ? `${ANIM_DURATION}ms` : "0ms";
+
+        if (open) {
+            // 打开：主页右滑出，反馈页左滑入
+            if (pageRoot) {
+                pageRoot.style.transition = `transform ${duration} cubic-bezier(0.4,0,0.2,1)`;
+                pageRoot.style.transform = "translateX(100vw)";
+            }
+            panel.style.transition = `transform ${duration} cubic-bezier(0.4,0,0.2,1)`;
+            panel.style.transform = "translateX(0)";
+            floatBtn.style.opacity = "0";
+            floatBtn.style.pointerEvents = "none";
+        } else {
+            // 关闭：主页右滑回，反馈页左滑出
+            if (pageRoot) {
+                pageRoot.style.transition = `transform ${duration} cubic-bezier(0.4,0,0.2,1)`;
+                pageRoot.style.transform = "translateX(0)";
+            }
+            panel.style.transition = `transform ${duration} cubic-bezier(0.4,0,0.2,1)`;
+            panel.style.transform = "translateX(-100%)";
+            floatBtn.style.opacity = "1";
+            floatBtn.style.pointerEvents = "auto";
+        }
+
+        isOpen = open;
+        panel.setAttribute("aria-hidden", open ? "false" : "true");
+    }
+
     function openPanel() {
-        panel.classList.add("open");
-        overlay.classList.add("active");
-        floatBtn.style.opacity = "0";
-        floatBtn.style.pointerEvents = "none";
-        document.body.style.overflow = "hidden";
+        if (isOpen) return;
+        setPosition(true, true);
     }
 
-    // 关闭面板
     function closePanel() {
-        panel.classList.remove("open");
-        overlay.classList.remove("active");
-        floatBtn.style.opacity = "1";
-        floatBtn.style.pointerEvents = "auto";
-        document.body.style.overflow = "";
+        if (!isOpen) return;
+        setPosition(false, true);
     }
 
-    // 打开按钮
-    floatBtn.addEventListener("click", openPanel);
-
-    // 关闭按钮
+    // --- 关闭按钮 ---
     if (closeBtn) {
         closeBtn.addEventListener("click", closePanel);
     }
 
-    // 点击遮罩层关闭
-    overlay.addEventListener("click", closePanel);
+    // --- 浮动按钮 ---
+    floatBtn.addEventListener("click", openPanel);
 
-    // 手势滑动关闭（移动端）
-    let touchStartX = 0;
-    let touchStartY = 0;
-    let isDragging = false;
+    // --- Esc 键 ---
+    document.addEventListener("keydown", function(e) {
+        if (e.key === "Escape" && isOpen) closePanel();
+    });
 
-    panel.addEventListener("touchstart", function(e) {
-        // 只在面板左侧区域或手势条上开始拖动
-        const touch = e.touches[0];
-        touchStartX = touch.clientX;
-        touchStartY = touch.clientY;
+    // --- 反馈页：左滑关闭（手势指示条区域 + 面板主体）---
+    function onTouchStart(e) {
+        if (e.touches.length !== 1) return;
+        const t = e.touches[0];
+        startX = t.clientX;
+        startY = t.clientY;
+        startTime = Date.now();
         isDragging = true;
         panel.style.transition = "none";
-    }, { passive: true });
+        if (pageRoot) pageRoot.style.transition = "none";
+    }
 
-    panel.addEventListener("touchmove", function(e) {
-        if (!isDragging) return;
-
-        const touch = e.touches[0];
-        const deltaX = touch.clientX - touchStartX;
-        const deltaY = touch.clientY - touchStartY;
-
-        // 只处理水平滑动（且向左滑）
-        if (deltaX < 0 && Math.abs(deltaX) > Math.abs(deltaY)) {
-            const translateX = Math.min(0, deltaX);
-            panel.style.transform = `translateX(${translateX}px)`;
-
-            // 更新遮罩透明度
-            const progress = Math.abs(deltaX) / 380;
-            overlay.style.opacity = (1 - progress).toString();
+    function onTouchMove(e) {
+        if (!isDragging || !isOpen) return;
+        const t = e.touches[0];
+        const dx = t.clientX - startX;
+        const dy = t.clientY - startY;
+        // 优先响应水平
+        if (Math.abs(dx) < Math.abs(dy) && Math.abs(dx) < 10) return;
+        const offset = Math.min(0, dx); // 只允许向左拖
+        panel.style.transform = `translateX(${offset}px)`;
+        if (pageRoot) {
+            pageRoot.style.transform = `translateX(calc(100vw + ${offset}px))`;
         }
-    }, { passive: true });
+        currentX = offset;
+        if (Math.abs(dx) > 10) e.preventDefault();
+    }
 
-    panel.addEventListener("touchend", function(e) {
+    function onTouchEnd() {
         if (!isDragging) return;
         isDragging = false;
-        panel.style.transition = "";
-
-        const touch = e.changedTouches[0];
-        const deltaX = touch.clientX - touchStartX;
-
-        // 滑动超过 100px 或松手时速度较快则关闭
-        if (deltaX < -100) {
+        const elapsed = Date.now() - startTime;
+        const velocity = elapsed > 0 ? currentX / elapsed : 0;
+        const threshold = window.innerWidth * 0.3;
+        if (currentX < -threshold || velocity < -0.4) {
             closePanel();
         } else {
-            panel.style.transform = "";
-            overlay.style.opacity = "";
+            setPosition(true, true); // 弹回
         }
-    });
+    }
 
-    // ESC 键关闭面板
-    document.addEventListener("keydown", function(event) {
-        if (event.key === "Escape" && panel.classList.contains("open")) {
-            closePanel();
+    panel.addEventListener("touchstart", onTouchStart, { passive: false });
+    panel.addEventListener("touchmove", onTouchMove, { passive: false });
+    panel.addEventListener("touchend", onTouchEnd);
+    panel.addEventListener("touchcancel", onTouchEnd);
+
+    // --- 主页：右滑打开（仅手机端，非输入框聚焦时）---
+    function onHomeTouchStart(e) {
+        if (isOpen) return;
+        if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") return;
+        if (e.touches.length !== 1) return;
+        const t = e.touches[0];
+        // 仅从屏幕左边缘开始才响应右滑打开
+        if (t.clientX > 30) return;
+        startX = t.clientX;
+        startY = t.clientY;
+        startTime = Date.now();
+        isDragging = true;
+        if (pageRoot) pageRoot.style.transition = "none";
+    }
+
+    function onHomeTouchMove(e) {
+        if (!isDragging || isOpen) return;
+        const t = e.touches[0];
+        const dx = t.clientX - startX;
+        const dy = t.clientY - startY;
+        if (Math.abs(dx) < Math.abs(dy) && Math.abs(dx) < 10) return;
+        const offset = Math.max(0, Math.min(window.innerWidth, dx));
+        if (pageRoot) {
+            pageRoot.style.transform = `translateX(${offset}px)`;
         }
-    });
+        panel.style.transition = "none";
+        panel.style.transform = `translateX(${-window.innerWidth + offset}px)`;
+        currentX = offset;
+        if (Math.abs(dx) > 10) e.preventDefault();
+    }
 
-    // 表单提交（演示用途，实际需对接后端）
+    function onHomeTouchEnd() {
+        if (!isDragging || isOpen) return;
+        isDragging = false;
+        const elapsed = Date.now() - startTime;
+        const velocity = elapsed > 0 ? currentX / elapsed : 0;
+        const threshold = window.innerWidth * 0.3;
+        if (currentX > threshold || velocity > 0.4) {
+            openPanel();
+        } else {
+            setPosition(false, true); // 弹回
+        }
+    }
+
+    if (pageRoot) {
+        pageRoot.addEventListener("touchstart", onHomeTouchStart, { passive: false });
+        pageRoot.addEventListener("touchmove", onHomeTouchMove, { passive: false });
+        pageRoot.addEventListener("touchend", onHomeTouchEnd);
+        pageRoot.addEventListener("touchcancel", onHomeTouchEnd);
+    }
+
+    // --- 表单提交 ---
     if (form) {
-        form.addEventListener("submit", function(event) {
-            event.preventDefault();
-
+        form.addEventListener("submit", function(e) {
+            e.preventDefault();
             const nameInput = document.getElementById("feedback-name");
             const contentInput = document.getElementById("feedback-content");
-
             const name = nameInput ? nameInput.value.trim() : "";
             const content = contentInput ? contentInput.value.trim() : "";
-
             if (!content) {
                 alert("请输入留言内容");
                 return;
             }
-
-            // 演示：记录到控制台并提示
             console.log("反馈提交:", { name, content });
-
-            // 此处可扩展为：
-            // 1. 提交到 Giscus（留言墙）
-            // 2. 提交到问卷星（通过 URL 参数传递）
-            // 3. 提交到后端 API
-
             alert("感谢您的反馈！（演示模式）");
-
-            // 清空表单并关闭面板
             form.reset();
             closePanel();
         });
     }
 }
 
-// 页面加载完成后初始化
 if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", initFeedbackFloat);
 } else {

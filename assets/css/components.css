@@ -276,7 +276,7 @@
 
 /* 键盘选中状态 */
 .suggestion-item.suggestion-item-active {
-    background: rgba(0, 0, 0, 0.06) !important;
+    background: #e5e5e5 !important;
 }
 
 /* 深色模式 */
@@ -285,7 +285,7 @@
 }
 
 [data-theme="dark"] .suggestion-item.suggestion-item-active {
-    background: rgba(255, 255, 255, 0.1) !important;
+    background: rgba(255, 255, 255, 0.14) !important;
 }
 
 /* 搜索没有结果时的提示文字 */
@@ -829,6 +829,10 @@ a.service-card:hover {
 
 /* 移动端适配 */
 @media (max-width: 768px) {
+    .page-header {
+        margin-top: 72px;
+    }
+
     .notice-detail-main {
         padding: 20px 14px 40px;
     }
