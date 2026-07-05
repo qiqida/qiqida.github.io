@@ -28,20 +28,20 @@ gtag('config', 'G-2S0K5DDSME');
 
 <body>
 
+    <!-- 手机端搜索框：放在 pageRoot 外面，不受页面 transform 影响 -->
+    <div class="mobile-search" id="mobile-search-container">
+        <div class="search-bar-wrapper">
+            <input type="text" id="global-search" class="search-box" placeholder="搜索请假、奖学金、毕业登记表...">
+            <div id="search-suggestions"></div>
+        </div>
+    </div>
+
     <div id="page-root" class="page-root">
 
     <header class="navbar">
         <div class="logo">工学部研究生事务服务中心</div>
         <button id="theme-toggle" type="button">🌙</button>
     </header>
-
-    <!-- 手机端搜索框：固定在导航栏下方 -->
-    <div class="mobile-search">
-        <div class="search-bar-wrapper">
-            <input type="text" id="global-search" class="search-box" placeholder="搜索请假、奖学金、毕业登记表...">
-            <div id="search-suggestions"></div>
-        </div>
-    </div>
 
     <main>
 
