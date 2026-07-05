@@ -21,6 +21,7 @@ function initFeedbackFloat() {
     let startY = 0;
     let dragOffset = 0;
     let startTime = 0;
+    let hasMoved = false;
 
     function isDesktop() {
         return window.innerWidth > 768;
@@ -114,25 +115,35 @@ function initFeedbackFloat() {
 
     // ==================== 面板触摸滑动（左滑关闭） ====================
 
+    // 判断触摸点是否在表单元素上
+    function isTouchOnFormElement(touch) {
+        const nameInput = document.getElementById("feedback-name");
+        const contentInput = document.getElementById("feedback-content");
+        const submitBtn = panel.querySelector(".feedback-submit");
+
+        const formElements = [nameInput, contentInput, submitBtn];
+        for (const el of formElements) {
+            if (!el) continue;
+            const rect = el.getBoundingClientRect();
+            // 检查触摸点是否在元素范围内
+            if (rect.width > 0 && rect.height > 0 &&
+                touch.clientX >= rect.left && touch.clientX <= rect.right &&
+                touch.clientY >= rect.top && touch.clientY <= rect.bottom) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     function onPanelTouchStart(e) {
         if (!isOpen) return;
         if (e.touches.length !== 1) return;
 
         const touch = e.touches[0];
-        const panelRect = panel.getBoundingClientRect();
 
-        // 判断是否在输入区域（输入框、提交按钮）
-        const nameInput = document.getElementById("feedback-name");
-        const contentInput = document.getElementById("feedback-content");
-        const submitBtn = panel.querySelector(".feedback-submit");
-
-        const formElements = [nameInput, contentInput, submitBtn].filter(Boolean);
-        for (const el of formElements) {
-            const rect = el.getBoundingClientRect();
-            if (rect.width > 0 && touch.clientX >= rect.left && touch.clientX <= rect.right &&
-                touch.clientY >= rect.top && touch.clientY <= rect.bottom) {
-                return; // 在输入区域，不拦截
-            }
+        // 如果触摸在表单元素上，不拦截，让表单正常响应
+        if (isTouchOnFormElement(touch)) {
+            return;
         }
 
         // 记录起始位置
@@ -141,6 +152,7 @@ function initFeedbackFloat() {
         startTime = Date.now();
         isDragging = true;
         dragOffset = 0;
+        hasMoved = false;
 
         // 临时移除 class，用 inline style 控制
         panel.classList.remove("is-open");
@@ -160,8 +172,12 @@ function initFeedbackFloat() {
         const dx = touch.clientX - startX;
         const dy = touch.clientY - startY;
 
-        // 优先垂直滚动时不拦截
-        if (Math.abs(dy) > Math.abs(dx) && Math.abs(dx) < 15) return;
+        // 如果还没有移动过，先判断方向
+        if (!hasMoved) {
+            // 优先垂直滚动时不拦截
+            if (Math.abs(dy) > Math.abs(dx) && Math.abs(dx) < 20) return;
+            hasMoved = true;
+        }
 
         // 只处理左滑
         if (dx >= 0) return;
@@ -185,6 +201,20 @@ function initFeedbackFloat() {
     function onPanelTouchEnd() {
         if (!isDragging || !isOpen) return;
         isDragging = false;
+
+        // 只有真正发生了左滑（移动距离超过 10px）才关闭
+        if (!hasMoved || dragOffset >= -10) {
+            // 没有滑动，弹回打开状态
+            panel.style.transform = "";
+            panel.style.transition = "";
+            if (pageRoot) {
+                pageRoot.style.transform = "";
+                pageRoot.style.transition = "";
+            }
+            panel.classList.add("is-open");
+            if (pageRoot) pageRoot.classList.add("feedback-open");
+            return;
+        }
 
         const elapsed = Date.now() - startTime;
         const velocity = elapsed > 0 ? Math.abs(dragOffset) / elapsed : 0;
