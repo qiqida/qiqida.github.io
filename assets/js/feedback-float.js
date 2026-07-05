@@ -13,7 +13,7 @@ function initFeedbackFloat() {
 
     if (!floatBtn || !panel) return;
 
-    const ANIM_DURATION = 300;
+    const ANIM_DURATION = 350;
 
     let isOpen = false;
     let isDragging = false;
@@ -30,74 +30,57 @@ function initFeedbackFloat() {
         return Math.min(380, window.innerWidth * (isDesktop() ? 0.9 : 1));
     }
 
-    // 强制重排以确保样式立即应用
-    function forceReflow(el) {
-        if (el) el.offsetHeight;
-    }
-
-    // 重置所有 transform 到初始状态
-    function resetAllTransforms() {
-        panel.style.transition = "none";
-        panel.style.transform = "";
-        panel.style.willChange = "";
-
-        if (pageRoot) {
-            pageRoot.style.transition = "none";
-            pageRoot.style.transform = "";
-            pageRoot.style.willChange = "";
-        }
-
-        forceReflow(panel);
-        forceReflow(pageRoot);
-    }
-
-    function openPanel(animate = true) {
+    // 打开面板
+    function openPanel() {
         if (isOpen) return;
         isOpen = true;
 
-        const duration = animate ? `${ANIM_DURATION}ms` : "0ms";
-        const panelW = getPanelWidth();
-
-        panel.style.willChange = "transform";
-        panel.style.transition = `transform ${duration} cubic-bezier(0.4,0,0.2,1)`;
-        panel.style.transform = "translateX(0)";
-
-        if (pageRoot) {
-            pageRoot.style.willChange = "transform";
-            pageRoot.style.transition = `transform ${duration} cubic-bezier(0.4,0,0.2,1)`;
-            pageRoot.style.transform = isDesktop() ? `translateX(${panelW}px)` : "translateX(100%)";
-        }
+        panel.classList.add("is-open");
+        if (pageRoot) pageRoot.classList.add("feedback-open");
 
         floatBtn.style.opacity = "0";
         floatBtn.style.pointerEvents = "none";
         panel.setAttribute("aria-hidden", "false");
     }
 
-    function closePanel(animate = true) {
+    // 关闭面板 - 带动画效果
+    function closePanel() {
         if (!isOpen) return;
         isOpen = false;
 
-        const duration = animate ? `${ANIM_DURATION}ms` : "0ms";
-
-        panel.style.transition = `transform ${duration} cubic-bezier(0.4,0,0.2,1)`;
-        panel.style.transform = "translateX(-100%)";
+        // 先设置 inline transform 作为起点，然后设置 transition，最后触发动画
+        panel.style.transform = "translateX(0)";
+        panel.style.transition = `transform ${ANIM_DURATION}ms cubic-bezier(0.4, 0, 0.2, 1)`;
 
         if (pageRoot) {
-            pageRoot.style.transition = `transform ${duration} cubic-bezier(0.4,0,0.2,1)`;
-            pageRoot.style.transform = "translateX(0)";
+            const panelW = getPanelWidth();
+            if (isDesktop()) {
+                pageRoot.style.transform = `translateX(${panelW}px)`;
+            } else {
+                pageRoot.style.transform = "translateX(100%)";
+            }
+            pageRoot.style.transition = `transform ${ANIM_DURATION}ms cubic-bezier(0.4, 0, 0.2, 1)`;
         }
+
+        // 触发动画
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                panel.style.transform = "translateX(-100%)";
+                if (pageRoot) {
+                    pageRoot.style.transform = "translateX(0)";
+                }
+            });
+        });
 
         // 动画结束后清理
         setTimeout(() => {
-            if (!isOpen) {
-                panel.style.willChange = "";
-                panel.style.transition = "none";
-                panel.style.transform = "";
-                if (pageRoot) {
-                    pageRoot.style.willChange = "";
-                    pageRoot.style.transition = "none";
-                    pageRoot.style.transform = "";
-                }
+            panel.classList.remove("is-open");
+            if (pageRoot) pageRoot.classList.remove("feedback-open");
+            panel.style.transform = "";
+            panel.style.transition = "";
+            if (pageRoot) {
+                pageRoot.style.transform = "";
+                pageRoot.style.transition = "";
             }
         }, ANIM_DURATION + 50);
 
@@ -129,33 +112,43 @@ function initFeedbackFloat() {
         }
     });
 
-    // ==================== 面板触摸滑动（仅面板打开时，左滑关闭） ====================
+    // ==================== 面板触摸滑动（左滑关闭） ====================
 
     function onPanelTouchStart(e) {
         if (!isOpen) return;
         if (e.touches.length !== 1) return;
 
-        // 只在面板左侧区域（手势条附近）开始触摸才响应
         const touch = e.touches[0];
         const panelRect = panel.getBoundingClientRect();
-        const leftEdge = panelRect.left;
-        const rightEdge = panelRect.right;
-        const touchX = touch.clientX;
 
-        // 手势条位置大约在右侧 40px
-        const gestureZone = rightEdge - 60;
+        // 判断是否在输入区域（输入框、提交按钮）
+        const nameInput = document.getElementById("feedback-name");
+        const contentInput = document.getElementById("feedback-content");
+        const submitBtn = panel.querySelector(".feedback-submit");
 
-        // 如果触摸点在手势区域（右侧）不响应，让面板内部滚动
-        if (touchX > gestureZone) return;
+        const formElements = [nameInput, contentInput, submitBtn].filter(Boolean);
+        for (const el of formElements) {
+            const rect = el.getBoundingClientRect();
+            if (rect.width > 0 && touch.clientX >= rect.left && touch.clientX <= rect.right &&
+                touch.clientY >= rect.top && touch.clientY <= rect.bottom) {
+                return; // 在输入区域，不拦截
+            }
+        }
 
+        // 记录起始位置
         startX = touch.clientX;
         startY = touch.clientY;
         startTime = Date.now();
         isDragging = true;
         dragOffset = 0;
 
+        // 临时移除 class，用 inline style 控制
+        panel.classList.remove("is-open");
         panel.style.transition = "none";
-        if (pageRoot) pageRoot.style.transition = "none";
+        if (pageRoot) {
+            pageRoot.classList.remove("feedback-open");
+            pageRoot.style.transition = "none";
+        }
 
         e.preventDefault();
     }
@@ -167,8 +160,8 @@ function initFeedbackFloat() {
         const dx = touch.clientX - startX;
         const dy = touch.clientY - startY;
 
-        // 必须先判断方向（水平为主或超过阈值）
-        if (Math.abs(dx) < Math.abs(dy) && Math.abs(dx) < 15) return;
+        // 优先垂直滚动时不拦截
+        if (Math.abs(dy) > Math.abs(dx) && Math.abs(dx) < 15) return;
 
         // 只处理左滑
         if (dx >= 0) return;
@@ -195,12 +188,21 @@ function initFeedbackFloat() {
 
         const elapsed = Date.now() - startTime;
         const velocity = elapsed > 0 ? Math.abs(dragOffset) / elapsed : 0;
-        const threshold = getPanelWidth() * 0.3;
+        const threshold = getPanelWidth() * 0.25;
 
-        if (dragOffset < -threshold || velocity > 0.5) {
+        if (dragOffset < -threshold || velocity > 0.4) {
+            // 左滑关闭
             closePanel();
         } else {
-            openPanel(true); // 弹回
+            // 弹回打开状态
+            panel.style.transform = "";
+            panel.style.transition = "";
+            if (pageRoot) {
+                pageRoot.style.transform = "";
+                pageRoot.style.transition = "";
+            }
+            panel.classList.add("is-open");
+            if (pageRoot) pageRoot.classList.add("feedback-open");
         }
     }
 
@@ -212,14 +214,13 @@ function initFeedbackFloat() {
     // ==================== 主页触摸滑动（右滑打开，仅面板关闭时） ====================
 
     function onHomeTouchStart(e) {
-        // 面板打开时，主页不响应任何滑动
         if (isOpen) return;
         if (e.touches.length !== 1) return;
 
-        // 输入框不响应滑动
-        if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") return;
-
         const touch = e.touches[0];
+
+        // 输入框不响应滑动
+        if (touch.target.tagName === "INPUT" || touch.target.tagName === "TEXTAREA") return;
 
         // 只从屏幕左边缘开始响应右滑
         if (touch.clientX > 30) return;
@@ -242,8 +243,8 @@ function initFeedbackFloat() {
         const dx = touch.clientX - startX;
         const dy = touch.clientY - startY;
 
-        // 必须先判断方向
-        if (Math.abs(dx) < Math.abs(dy) && Math.abs(dx) < 15) return;
+        // 优先垂直滚动时不拦截
+        if (Math.abs(dy) > Math.abs(dx) && Math.abs(dx) < 10) return;
 
         // 只处理右滑
         if (dx <= 0) return;
@@ -277,10 +278,20 @@ function initFeedbackFloat() {
         const threshold = getPanelWidth() * 0.3;
 
         if (dragOffset > threshold || velocity > 0.4) {
+            panel.style.transform = "";
+            panel.style.transition = "";
+            if (pageRoot) {
+                pageRoot.style.transform = "";
+                pageRoot.style.transition = "";
+            }
             openPanel();
         } else {
-            // 弹回关闭状态
-            resetAllTransforms();
+            panel.style.transform = "";
+            panel.style.transition = "";
+            if (pageRoot) {
+                pageRoot.style.transform = "";
+                pageRoot.style.transition = "";
+            }
         }
     }
 

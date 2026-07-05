@@ -47,11 +47,37 @@
     transform: translateX(-100%);
     display: flex;
     flex-direction: column;
+    /* 初始状态无 transition，由 JS 和 class 控制 */
+}
+
+/* 打开状态：使用 class 控制动画 */
+.feedback-panel.is-open {
+    transform: translateX(0);
     transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.feedback-panel.open {
+/* 关闭状态：带动画效果 */
+.feedback-panel.is-closing {
+    transform: translateX(-100%);
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 主页在反馈面板打开时的状态 */
+.page-root.feedback-open {
+    transform: translateX(100%);
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (min-width: 769px) {
+    .page-root.feedback-open {
+        transform: translateX(380px);
+    }
+}
+
+/* 主页关闭动画 */
+.page-root.feedback-closing {
     transform: translateX(0);
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* 遮罩层 */
