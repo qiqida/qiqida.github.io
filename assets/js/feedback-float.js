@@ -1,6 +1,6 @@
 // ==========================
 // 留言反馈面板
-// 手机端：全屏滑动，左滑关闭
+// 手机端：全屏滑动，左滑关闭（仅通过顶部手势区域）
 // 桌面端：分屏效果
 // ==========================
 
@@ -21,7 +21,6 @@ function initFeedbackFloat() {
     let startY = 0;
     let dragOffset = 0;
     let startTime = 0;
-    let hasMoved = false;
 
     function isDesktop() {
         return window.innerWidth > 768;
@@ -113,46 +112,24 @@ function initFeedbackFloat() {
         }
     });
 
-    // ==================== 面板触摸滑动（左滑关闭） ====================
+    // ==================== 面板全屏手势区域（左滑关闭 - 移动端除输入框外） ====================
 
-    // 判断触摸点是否在表单元素上
-    function isTouchOnFormElement(touch) {
-        const nameInput = document.getElementById("feedback-name");
-        const contentInput = document.getElementById("feedback-content");
-        const submitBtn = panel.querySelector(".feedback-submit");
-
-        const formElements = [nameInput, contentInput, submitBtn];
-        for (const el of formElements) {
-            if (!el) continue;
-            const rect = el.getBoundingClientRect();
-            // 检查触摸点是否在元素范围内
-            if (rect.width > 0 && rect.height > 0 &&
-                touch.clientX >= rect.left && touch.clientX <= rect.right &&
-                touch.clientY >= rect.top && touch.clientY <= rect.bottom) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    function onPanelTouchStart(e) {
+    function onPanelSwipeStart(e) {
         if (!isOpen) return;
         if (e.touches.length !== 1) return;
 
-        const touch = e.touches[0];
-
-        // 如果触摸在表单元素上，不拦截，让表单正常响应
-        if (isTouchOnFormElement(touch)) {
+        // 排除输入框和textarea
+        const target = e.target;
+        if (target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.tagName === "BUTTON") {
             return;
         }
 
-        // 记录起始位置
+        const touch = e.touches[0];
         startX = touch.clientX;
         startY = touch.clientY;
         startTime = Date.now();
         isDragging = true;
         dragOffset = 0;
-        hasMoved = false;
 
         // 临时移除 class，用 inline style 控制
         panel.classList.remove("is-open");
@@ -165,22 +142,18 @@ function initFeedbackFloat() {
         e.preventDefault();
     }
 
-    function onPanelTouchMove(e) {
+    function onPanelSwipeMove(e) {
         if (!isDragging || !isOpen) return;
 
         const touch = e.touches[0];
         const dx = touch.clientX - startX;
         const dy = touch.clientY - startY;
 
-        // 如果还没有移动过，先判断方向
-        if (!hasMoved) {
-            // 优先垂直滚动时不拦截
-            if (Math.abs(dy) > Math.abs(dx) && Math.abs(dx) < 20) return;
-            hasMoved = true;
-        }
-
         // 只处理左滑
         if (dx >= 0) return;
+
+        // 优先垂直滚动时不处理（但反馈页面已禁用垂直滚动）
+        if (Math.abs(dy) > Math.abs(dx) && Math.abs(dx) < 10) return;
 
         const panelW = getPanelWidth();
         dragOffset = Math.max(-panelW, Math.min(0, dx));
@@ -198,48 +171,37 @@ function initFeedbackFloat() {
         e.preventDefault();
     }
 
-    function onPanelTouchEnd() {
+    function onPanelSwipeEnd() {
         if (!isDragging || !isOpen) return;
         isDragging = false;
 
-        // 只有真正发生了左滑（移动距离超过 10px）才关闭
-        if (!hasMoved || dragOffset >= -10) {
-            // 没有滑动，弹回打开状态
-            panel.style.transform = "";
-            panel.style.transition = "";
-            if (pageRoot) {
-                pageRoot.style.transform = "";
-                pageRoot.style.transition = "";
-            }
-            panel.classList.add("is-open");
-            if (pageRoot) pageRoot.classList.add("feedback-open");
-            return;
-        }
-
         const elapsed = Date.now() - startTime;
         const velocity = elapsed > 0 ? Math.abs(dragOffset) / elapsed : 0;
-        const threshold = getPanelWidth() * 0.25;
+        const threshold = getPanelWidth() * 0.3;
+
+        // 清理 inline style
+        panel.style.transform = "";
+        panel.style.transition = "";
+        if (pageRoot) {
+            pageRoot.style.transform = "";
+            pageRoot.style.transition = "";
+        }
 
         if (dragOffset < -threshold || velocity > 0.4) {
             // 左滑关闭
             closePanel();
         } else {
             // 弹回打开状态
-            panel.style.transform = "";
-            panel.style.transition = "";
-            if (pageRoot) {
-                pageRoot.style.transform = "";
-                pageRoot.style.transition = "";
-            }
             panel.classList.add("is-open");
             if (pageRoot) pageRoot.classList.add("feedback-open");
         }
     }
 
-    panel.addEventListener("touchstart", onPanelTouchStart, { passive: false });
-    panel.addEventListener("touchmove", onPanelTouchMove, { passive: false });
-    panel.addEventListener("touchend", onPanelTouchEnd);
-    panel.addEventListener("touchcancel", onPanelTouchEnd);
+    // 绑定到整个面板
+    panel.addEventListener("touchstart", onPanelSwipeStart, { passive: false });
+    panel.addEventListener("touchmove", onPanelSwipeMove, { passive: false });
+    panel.addEventListener("touchend", onPanelSwipeEnd);
+    panel.addEventListener("touchcancel", onPanelSwipeEnd);
 
     // ==================== 主页触摸滑动（右滑打开，仅面板关闭时） ====================
 

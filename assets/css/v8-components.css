@@ -249,6 +249,17 @@
     transform: translateY(-1px);
 }
 
+/* 问卷链接区域 */
+.feedback-survey-link {
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    text-align: center;
+    font-size: 13px;
+    color: #86868b;
+    touch-action: manipulation;
+}
+
 /* 深色模式反馈面板 */
 [data-theme="dark"] .feedback-float-btn {
     background: rgba(30, 41, 59, 0.85);
@@ -636,37 +647,34 @@
 }
 
 @media (max-width: 768px) {
-    .student-data-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
-    }
-
-    .data-card {
-        padding: 18px 16px;
-    }
-
-    .data-content h3 {
-        font-size: 22px;
-    }
-
-    .search-card {
-        padding: 24px 18px;
-    }
-
-    .download-row {
-        grid-template-columns: 36px 1fr 100px 80px;
-        gap: 10px;
-        padding: 12px 14px;
-    }
-
-    .download-name {
-        font-size: 13px;
-    }
-
+    /* 移动端反馈面板：全屏覆盖，禁止滚动 */
     .feedback-panel {
         width: 100%;
         max-width: 100%;
         border-right: none;
+        height: 100vh;
+        height: 100dvh;
+        overflow: hidden;
+        overscroll-behavior: none;
+        touch-action: pan-y;
+    }
+
+    /* 反馈面板主体禁止滚动 */
+    .feedback-panel-body {
+        overflow: hidden;
+        height: calc(100vh - 60px);
+        height: calc(100dvh - 60px);
+        overscroll-behavior: none;
+        -webkit-overflow-scrolling: auto;
+    }
+
+    /* 反馈表单本身允许内部滚动但限制在面板内 */
+    .feedback-form {
+        height: 100%;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 20px;
     }
 }
 
