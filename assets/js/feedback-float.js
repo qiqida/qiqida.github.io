@@ -405,23 +405,87 @@ function initFeedbackFloat() {
     // ==================== 表单提交 ====================
 
     if (form) {
-        form.addEventListener("submit", function(e) {
-            e.preventDefault();
-            const nameInput = document.getElementById("feedback-name");
-            const contentInput = document.getElementById("feedback-content");
-            const content = contentInput ? contentInput.value.trim() : "";
-            if (!content) {
-                showToast("请输入留言内容");
-                return;
-            }
-            console.log("反馈提交:", {
-                name: nameInput ? nameInput.value.trim() : "",
-                content: content
+        // 监听提交按钮点击
+        const submitBtn = form.querySelector('.feedback-submit-btn');
+        if (submitBtn) {
+            submitBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const nameInput = document.getElementById("feedback-name");
+                const contentInput = document.getElementById("feedback-content");
+                const content = contentInput ? contentInput.value.trim() : "";
+                if (!content) {
+                    showToast("请输入留言内容");
+                    return;
+                }
+                console.log("反馈提交:", {
+                    name: nameInput ? nameInput.value.trim() : "",
+                    content: content
+                });
+                showToast("感谢您的反馈！（演示模式）");
+                form.reset();
+                // 不关闭面板，保持在反馈页面
             });
-            showToast("感谢您的反馈！（演示模式）");
-            form.reset();
-            // 不关闭面板，保持在反馈页面
+        }
+    }
+
+    // ==================== 移动端 input focus 处理 ====================
+
+    function setupInputFocusHandling() {
+        const formInputs = panel.querySelectorAll('input, textarea');
+        formInputs.forEach(input => {
+            // focus 时记录 viewport 状态
+            input.addEventListener('focus', function() {
+                if (!isMobile()) return;
+
+                // 调试日志
+                console.log('[Focus In]', {
+                    innerWidth: window.innerWidth,
+                    visualViewportWidth: window.visualViewport?.width,
+                    visualViewportScale: window.visualViewport?.scale,
+                    bodyPosition: document.body.style.position,
+                    bodyWidth: document.body.style.width,
+                    bodyHeight: document.body.style.height,
+                    bodyOverflow: document.body.style.overflow
+                });
+            });
+
+            // blur 时记录 viewport 状态
+            input.addEventListener('blur', function() {
+                if (!isMobile()) return;
+
+                // 调试日志
+                console.log('[Focus Out]', {
+                    innerWidth: window.innerWidth,
+                    visualViewportWidth: window.visualViewport?.width,
+                    visualViewportScale: window.visualViewport?.scale,
+                    bodyPosition: document.body.style.position,
+                    bodyWidth: document.body.style.width,
+                    bodyHeight: document.body.style.height,
+                    bodyOverflow: document.body.style.overflow
+                });
+            });
         });
+    }
+
+    // 辅助函数：判断是否为移动端
+    function isMobile() {
+        return window.innerWidth <= 768;
+    }
+
+    // 在打开面板时设置 input focus 处理
+    function openPanel() {
+        if (isOpen) return;
+        isOpen = true;
+
+        panel.classList.add("is-open");
+        if (pageRoot) pageRoot.classList.add("feedback-open");
+
+        floatBtn.style.opacity = "0";
+        floatBtn.style.pointerEvents = "none";
+        panel.setAttribute("aria-hidden", "false");
+
+        // 设置 input focus 处理
+        setupInputFocusHandling();
     }
 }
 
