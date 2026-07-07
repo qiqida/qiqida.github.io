@@ -249,6 +249,31 @@
     transform: translateY(-1px);
 }
 
+/* Toast提示样式 */
+.feedback-toast {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.85);
+    color: #fff;
+    padding: 16px 24px;
+    border-radius: 12px;
+    font-size: 14px;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    max-width: 80%;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .feedback-toast {
+    background: rgba(255, 255, 255, 0.9);
+    color: #1d1d1f;
+}
+
 /* 问卷链接区域 */
 .feedback-survey-link {
     margin-top: 18px;
@@ -647,23 +672,34 @@
 }
 
 @media (max-width: 768px) {
-    /* 移动端反馈面板：全屏覆盖，禁止滚动 */
+    /* 问题3修复：反馈面板打开时锁定body滚动 */
+    body.feedback-open {
+        overflow: hidden;
+        height: 100vh;
+        height: 100dvh;
+        position: fixed;
+        width: 100%;
+    }
+
+    /* 移动端反馈面板：全屏覆盖，使用100dvh固定高度 */
     .feedback-panel {
         width: 100%;
         max-width: 100%;
         border-right: none;
-        height: 100vh;
+        /* 问题2修复：使用100dvh代替100vh，确保正确处理移动端地址栏 */
         height: 100dvh;
         overflow: hidden;
         overscroll-behavior: none;
         touch-action: pan-y;
+        /* 注意：不要添加 transform: none !important，会导致默认显示面板 */
+        /* 面板默认应该保持 translateX(-100%) */
     }
 
     /* 反馈面板主体禁止滚动 */
     .feedback-panel-body {
-        overflow: hidden;
-        height: calc(100vh - 60px);
+        /* 问题2修复：使用100dvh */
         height: calc(100dvh - 60px);
+        overflow: hidden;
         overscroll-behavior: none;
         -webkit-overflow-scrolling: auto;
     }
@@ -675,6 +711,16 @@
         overscroll-behavior: contain;
         -webkit-overflow-scrolling: touch;
         padding-bottom: 20px;
+        /* 问题3修复：确保表单内部滚动不受父级影响 */
+        position: relative;
+        z-index: 1;
+    }
+
+    /* 问题1修复：确保input/textarea/button字体为16px，防止移动端focus时缩放 */
+    .feedback-panel input,
+    .feedback-panel textarea,
+    .feedback-panel button {
+        font-size: 16px !important;
     }
 }
 
@@ -684,13 +730,17 @@
         padding: 14px 16px;
     }
 
+    /* 问题2修复：确保超小屏也使用100dvh */
     .feedback-panel {
         width: 100%;
         max-width: 100%;
         border-right: none;
         left: 0 !important;
         right: 0 !important;
-        overflow-x: hidden;
+        height: 100dvh;
+        overflow: hidden;
+        overscroll-behavior: none;
+        /* 注意：不要添加 transform/zoom，禁止会破坏默认隐藏状态 */
     }
 
     .feedback-panel-body {
