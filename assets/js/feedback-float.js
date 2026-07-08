@@ -4,6 +4,169 @@
 // 桌面端：分屏效果
 // ==========================
 
+// ==================== 调试函数 ====================
+function getDebugState() {
+    const pageRoot = document.getElementById("page-root");
+    const feedbackPanel = document.getElementById("feedback-panel");
+    return {
+        window: {
+            innerWidth: window.innerWidth,
+            innerHeight: window.innerHeight
+        },
+        documentElement: {
+            clientWidth: document.documentElement.clientWidth,
+            scrollWidth: document.documentElement.scrollWidth
+        },
+        body: {
+            clientWidth: document.body.clientWidth,
+            scrollWidth: document.body.scrollWidth,
+            className: document.body.className,
+            style: {
+                position: document.body.style.position,
+                width: document.body.style.width,
+                height: document.body.style.height,
+                overflow: document.body.style.overflow
+            }
+        },
+        pageRoot: {
+            clientWidth: pageRoot ? pageRoot.clientWidth : null,
+            scrollWidth: pageRoot ? pageRoot.scrollWidth : null,
+            className: pageRoot ? pageRoot.className : null,
+            style: pageRoot ? {
+                transform: pageRoot.style.transform,
+                position: pageRoot.style.position,
+                width: pageRoot.style.width,
+                overflow: pageRoot.style.overflow
+            } : null
+        },
+        feedbackPanel: feedbackPanel ? feedbackPanel.getBoundingClientRect() : null
+    };
+}
+
+function checkOverflow() {
+    const vw = window.innerWidth;
+    const elements = document.querySelectorAll("*");
+    let result = [];
+    elements.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.right > vw + 5) {
+            result.push({
+                tag: el.tagName,
+                class: el.className,
+                id: el.id,
+                width: Math.round(rect.width),
+                right: Math.round(rect.right)
+            });
+        }
+    });
+    console.table(result);
+}
+
+function checkPageRootSize() {
+    const pageRoot = document.getElementById("page-root");
+    if (!pageRoot) {
+        console.log("pageRoot not found");
+        return;
+    }
+    const result = {
+        "pageRoot": {
+            offsetWidth: pageRoot.offsetWidth,
+            scrollWidth: pageRoot.scrollWidth,
+            clientWidth: pageRoot.clientWidth
+        }
+    };
+    const children = pageRoot.children;
+    for (let i = 0; i < children.length; i++) {
+        const child = children[i];
+        result[child.tagName + (child.id ? "#" + child.id : "") + "." + child.className] = {
+            offsetWidth: child.offsetWidth,
+            scrollWidth: child.scrollWidth,
+            clientWidth: child.clientWidth
+        };
+    }
+    console.log("pageRoot & children sizes:", result);
+}
+
+// ==================== 全局调试监听器 ====================
+(function setupDebugListeners() {
+    // visualViewport 监听
+    if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', function() {
+            console.log('[VisualViewport Resize]', {
+                innerWidth: window.innerWidth,
+                visualViewportWidth: window.visualViewport.width,
+                visualViewportHeight: window.visualViewport.height,
+                visualViewportScale: window.visualViewport.scale,
+                visualViewportOffsetLeft: window.visualViewport.offsetLeft,
+                visualViewportOffsetTop: window.visualViewport.offsetTop,
+                visualViewportPageLeft: window.visualViewport.pageLeft,
+                visualViewportPageTop: window.visualViewport.pageTop
+            });
+        });
+
+        window.visualViewport.addEventListener('scroll', function() {
+            console.log('[VisualViewport Scroll]', {
+                visualViewportOffsetLeft: window.visualViewport.offsetLeft,
+                visualViewportOffsetTop: window.visualViewport.offsetTop,
+                visualViewportPageLeft: window.visualViewport.pageLeft,
+                visualViewportPageTop: window.visualViewport.pageTop
+            });
+        });
+    }
+
+    // window resize 监听
+    window.addEventListener('resize', function() {
+        console.log('[Window Resize]', {
+            innerWidth: window.innerWidth,
+            innerHeight: window.innerHeight,
+            documentClientWidth: document.documentElement.clientWidth
+        });
+    });
+
+    // MutationObserver - 监听 body 和 pageRoot 的变化
+    const observerConfig = {
+        attributes: true,
+        attributeOldValue: true,
+        attributeFilter: ['class', 'style']
+    };
+
+    function createObserver(name) {
+        const target = document.getElementById(name) || document.body;
+        return new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.type === 'attributes') {
+                    console.log(`[${name} Mutation]`, {
+                        target: mutation.target.tagName + (mutation.target.id ? '#' + mutation.target.id : '') + (mutation.target.className ? '.' + mutation.target.className : ''),
+                        attributeName: mutation.attributeName,
+                        oldValue: mutation.oldValue,
+                        newValue: mutation.target.getAttribute(mutation.attributeName)
+                    });
+                }
+            });
+        });
+    }
+
+    // 监听 body
+    const bodyObserver = createObserver('body');
+    bodyObserver.observe(document.body, observerConfig);
+
+    // 监听 pageRoot
+    const pageRoot = document.getElementById("page-root");
+    if (pageRoot) {
+        const pageRootObserver = createObserver("page-root");
+        pageRootObserver.observe(pageRoot, observerConfig);
+    }
+
+    // 监听 feedback-panel
+    const feedbackPanel = document.getElementById("feedback-panel");
+    if (feedbackPanel) {
+        const panelObserver = createObserver("feedback-panel");
+        panelObserver.observe(feedbackPanel, observerConfig);
+    }
+
+    console.log('[Debug] 监听器已设置');
+})();
+
 function initFeedbackFloat() {
     const floatBtn = document.getElementById("feedback-float-btn");
     const panel = document.getElementById("feedback-panel");
@@ -43,37 +206,14 @@ function initFeedbackFloat() {
 
     // ==================== 辅助函数：打开外部链接前清理状态 ====================
     function openExternalLink(url) {
-        // 先清理 body 状态
-        document.body.classList.remove("feedback-open");
-        document.body.style.position = "";
-        document.body.style.height = "";
-        document.body.style.overflow = "";
-        document.body.style.width = "";
-
-        // 清理 panel 状态
-        panel.classList.remove("is-open");
-        panel.style.transform = "";
-        panel.style.transition = "";
-
-        // 清理 pageRoot 状态
-        if (pageRoot) {
-            pageRoot.classList.remove("feedback-open");
-            pageRoot.style.transform = "";
-            pageRoot.style.transition = "";
-        }
-
-        // 重置状态变量
-        isOpen = false;
-        isDragging = false;
-
-        // 恢复浮动按钮
-        floatBtn.style.opacity = "1";
-        floatBtn.style.pointerEvents = "auto";
-
-        // 延迟跳转，等待状态清理完成
-        setTimeout(() => {
-            window.location.href = url;
-        }, 50);
+        console.log('[openExternalLink] 准备跳转（已阻止）', {
+            url: url,
+            state: getDebugState()
+        });
+        // 临时：只记录日志，不跳转
+        // setTimeout(() => {
+        //     window.location.href = url;
+        // }, 50);
     }
 
     // ==================== 辅助函数：显示Toast提示 ====================
@@ -117,18 +257,24 @@ function initFeedbackFloat() {
         if (isOpen) return;
         isOpen = true;
 
+        console.log('[openPanel] 打开前', getDebugState());
+
         panel.classList.add("is-open");
         if (pageRoot) pageRoot.classList.add("feedback-open");
 
         floatBtn.style.opacity = "0";
         floatBtn.style.pointerEvents = "none";
         panel.setAttribute("aria-hidden", "false");
+
+        console.log('[openPanel] 打开后', getDebugState());
     }
 
     // 关闭面板 - 带动画效果
     function closePanel() {
         if (!isOpen) return;
         isOpen = false;
+
+        console.log('[closePanel] 关闭前', getDebugState());
 
         // 先设置 inline transform 作为起点，然后设置 transition，最后触发动画
         panel.style.transform = "translateX(0)";
@@ -164,6 +310,8 @@ function initFeedbackFloat() {
                 pageRoot.style.transform = "";
                 pageRoot.style.transition = "";
             }
+
+            console.log('[closePanel] 清理后', getDebugState());
         }, ANIM_DURATION + 50);
 
         floatBtn.style.opacity = "1";
@@ -190,10 +338,21 @@ function initFeedbackFloat() {
     const surveyLink = document.getElementById("survey-link");
     if (surveyLink) {
         surveyLink.addEventListener("click", function(e) {
+            console.log('[Survey Link] 点击前', getDebugState());
+
             e.preventDefault();
             e.stopPropagation();
+
             const url = this.getAttribute("href");
+            console.log('[Survey Link] href:', url);
+
             openExternalLink(url);
+
+            // 延迟后再次检查状态
+            setTimeout(() => {
+                console.log('[Survey Link] 200ms后', getDebugState());
+                checkOverflow();
+            }, 200);
         });
     }
 
@@ -409,21 +568,16 @@ function initFeedbackFloat() {
         const submitBtn = form.querySelector('.feedback-submit-btn');
         if (submitBtn) {
             submitBtn.addEventListener('click', function(e) {
+                console.log('[Submit Button] 点击前', getDebugState());
+
                 e.preventDefault();
-                const nameInput = document.getElementById("feedback-name");
-                const contentInput = document.getElementById("feedback-content");
-                const content = contentInput ? contentInput.value.trim() : "";
-                if (!content) {
-                    showToast("请输入留言内容");
-                    return;
-                }
-                console.log("反馈提交:", {
-                    name: nameInput ? nameInput.value.trim() : "",
-                    content: content
-                });
-                showToast("感谢您的反馈！（演示模式）");
-                form.reset();
-                // 不关闭面板，保持在反馈页面
+                e.stopPropagation();
+
+                // 延迟后再次检查状态
+                setTimeout(() => {
+                    console.log('[Submit Button] 200ms后', getDebugState());
+                    checkOverflow();
+                }, 200);
             });
         }
     }
@@ -437,15 +591,10 @@ function initFeedbackFloat() {
             input.addEventListener('focus', function() {
                 if (!isMobile()) return;
 
-                // 调试日志
                 console.log('[Focus In]', {
                     innerWidth: window.innerWidth,
                     visualViewportWidth: window.visualViewport?.width,
-                    visualViewportScale: window.visualViewport?.scale,
-                    bodyPosition: document.body.style.position,
-                    bodyWidth: document.body.style.width,
-                    bodyHeight: document.body.style.height,
-                    bodyOverflow: document.body.style.overflow
+                    visualViewportScale: window.visualViewport?.scale
                 });
             });
 
@@ -453,15 +602,10 @@ function initFeedbackFloat() {
             input.addEventListener('blur', function() {
                 if (!isMobile()) return;
 
-                // 调试日志
                 console.log('[Focus Out]', {
                     innerWidth: window.innerWidth,
                     visualViewportWidth: window.visualViewport?.width,
-                    visualViewportScale: window.visualViewport?.scale,
-                    bodyPosition: document.body.style.position,
-                    bodyWidth: document.body.style.width,
-                    bodyHeight: document.body.style.height,
-                    bodyOverflow: document.body.style.overflow
+                    visualViewportScale: window.visualViewport?.scale
                 });
             });
         });
