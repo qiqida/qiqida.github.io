@@ -17,7 +17,17 @@ async function loadNotices() {
 
         if (!container) return;
 
-        notices.forEach(notice => {
+        // 分离置顶和非置顶通知
+        const pinned = notices.filter(n => n.pinned);
+        const unpinned = notices.filter(n => !n.pinned);
+
+        // 合并：置顶在前（最多3个），非置顶在后，总共最多5个
+        const sortedNotices = [
+            ...pinned.slice(0, 3),
+            ...unpinned
+        ].slice(0, 5);
+
+        sortedNotices.forEach(notice => {
 
             const card =
                 document.createElement("div");
@@ -25,9 +35,14 @@ async function loadNotices() {
             card.className =
                 "notice-card";
 
-           card.innerHTML = `
+            // 置顶标签
+            const pinnedBadge = notice.pinned
+                ? '<span class="pinned-badge">置顶</span>'
+                : '';
 
-    <h3>${notice.title}</h3>
+            card.innerHTML = `
+
+    <h3>${pinnedBadge}${notice.title}</h3>
 
     <p>${notice.date}</p>
 
