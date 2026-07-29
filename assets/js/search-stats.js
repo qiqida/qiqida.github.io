@@ -29,12 +29,24 @@ async function loadSearchStats() {
         container.querySelectorAll(".search-tag").forEach((tag) => {
             tag.addEventListener("click", () => {
                 const keyword = tag.getAttribute("data-keyword") || tag.textContent.trim().split("\n")[0].trim();
-                const searchInput = document.getElementById("global-search");
-                if (searchInput) {
-                    searchInput.value = keyword;
-                    searchInput.dispatchEvent(new Event("input", { bubbles: true }));
-                    searchInput.focus();
-                    searchInput.scrollIntoView({ behavior: "smooth", block: "center" });
+
+                // 同时处理移动端和桌面端搜索框
+                const mobileInput = document.getElementById("global-search");
+                const desktopInput = document.getElementById("global-search-desktop");
+
+                // 设置两个搜索框的值并触发事件
+                [mobileInput, desktopInput].forEach((input) => {
+                    if (input) {
+                        input.value = keyword;
+                        input.dispatchEvent(new Event("input", { bubbles: true }));
+                    }
+                });
+
+                // 聚焦并滚动到搜索框（优先桌面端，移动端备用）
+                const targetInput = desktopInput || mobileInput;
+                if (targetInput) {
+                    targetInput.focus();
+                    targetInput.scrollIntoView({ behavior: "smooth", block: "center" });
                 }
             });
         });
