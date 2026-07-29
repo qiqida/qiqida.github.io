@@ -370,8 +370,13 @@
     justify-content: center;
     text-align: center;
     flex-direction: column;
-    gap: 6px;
+    gap: 8px;
     transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.data-icon {
+    font-size: 32px;
+    margin-bottom: 4px;
 }
 
 .data-card:hover {
@@ -409,6 +414,42 @@
 
 [data-theme="dark"] .data-content p {
     color: #94a3b8;
+}
+
+/* 数据加载中状态 */
+.data-content h3.stats-loading {
+    background: linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0.06) 25%,
+        rgba(0, 0, 0, 0.12) 50%,
+        rgba(0, 0, 0, 0.06) 75%
+    );
+    background-size: 200% 100%;
+    animation: stats-shimmer 1.5s infinite;
+    border-radius: 6px;
+    min-width: 60px;
+    min-height: 32px;
+    color: transparent !important;
+}
+
+[data-theme="dark"] .data-content h3.stats-loading {
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.06) 25%,
+        rgba(255, 255, 255, 0.12) 50%,
+        rgba(255, 255, 255, 0.06) 75%
+    );
+    background-size: 200% 100%;
+    animation: stats-shimmer 1.5s infinite;
+}
+
+@keyframes stats-shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
 }
 
 /* ==========================
