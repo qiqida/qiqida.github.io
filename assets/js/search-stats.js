@@ -20,7 +20,6 @@ async function loadSearchStats() {
                 return `
                 <span class="search-tag" style="font-size: ${size}px;" data-keyword="${item.keyword}">
                     ${item.keyword}
-                    <small>${item.count}</small>
                 </span>
             `;
             })
