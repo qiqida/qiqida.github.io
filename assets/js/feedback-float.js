@@ -5,6 +5,30 @@
 // ==========================
 
 // ==================== 调试函数 ====================
+
+// Debug 模式开关（通过 URL 参数 ?debug=1 开启）
+const DEBUG_MODE = new URLSearchParams(window.location.search).has('debug');
+
+// API 请求调试函数
+function debugAPI(method, url, status, response, error) {
+    if (!DEBUG_MODE) return;
+    
+    const timestamp = new Date().toISOString();
+    console.group(`[API Debug] ${method} ${url}`);
+    console.log('⏰ 时间:', timestamp);
+    console.log('📤 请求方法:', method);
+    console.log('🔗 请求地址:', url);
+    console.log('📥 状态码:', status);
+    
+    if (error) {
+        console.error('❌ 错误:', error);
+    } else {
+        console.log('📦 响应 JSON:', response);
+    }
+    
+    console.groupEnd();
+}
+
 function getDebugState() {
     const pageRoot = document.getElementById("page-root");
     const feedbackPanel = document.getElementById("feedback-panel");
@@ -563,23 +587,102 @@ function initFeedbackFloat() {
 
     // ==================== 表单提交 ====================
 
+    async function submitFeedback() {
+        const nameInput = form.querySelector('#feedback-name');
+        const contentInput = form.querySelector('#feedback-content');
+        const submitBtn = form.querySelector('.feedback-submit-btn');
+        const charCount = form.querySelector('.char-count');
+        
+        const name = nameInput?.value?.trim() || '';
+        const content = contentInput?.value?.trim() || '';
+
+        // 验证必填项
+        if (!content) {
+            showToast('请输入留言内容');
+            contentInput?.focus();
+            return;
+        }
+
+        // 字数超限检查
+        if (content.length > 500) {
+            showToast('留言内容不能超过500字');
+            contentInput?.focus();
+            return;
+        }
+
+        // 禁用按钮，显示加载状态
+        if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.textContent = '提交中...';
+        }
+
+        try {
+            const apiUrl = 'https://qiqida-stats-worker.dddhui-qi.workers.dev/api/feedback';
+            console.log('[Feedback] 提交留言请求:', { name, content, url: apiUrl });
+            
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, content })
+            });
+
+            const result = await response.json();
+            debugAPI('POST', apiUrl, response.status, result);
+
+            if (result.success) {
+                showToast('留言提交成功');
+                // 清空表单（保留当前抽屉不关闭）
+                if (nameInput) nameInput.value = '';
+                if (contentInput) contentInput.value = '';
+                if (charCount) charCount.textContent = '0/500';
+            } else {
+                showToast(result.error || '提交失败');
+            }
+        } catch (error) {
+            debugAPI('POST', 'https://qiqida-stats-worker.dddhui-qi.workers.dev/api/feedback', null, null, error);
+            console.error('留言提交失败:', error);
+            showToast('网络错误，请稍后重试');
+        } finally {
+            // 恢复按钮状态
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.textContent = '提交留言';
+            }
+        }
+    }
+
     if (form) {
-        // 监听提交按钮点击
         const submitBtn = form.querySelector('.feedback-submit-btn');
         if (submitBtn) {
             submitBtn.addEventListener('click', function(e) {
-                console.log('[Submit Button] 点击前', getDebugState());
-
                 e.preventDefault();
                 e.stopPropagation();
-
-                // 延迟后再次检查状态
-                setTimeout(() => {
-                    console.log('[Submit Button] 200ms后', getDebugState());
-                    checkOverflow();
-                }, 200);
+                submitFeedback();
             });
         }
+    }
+
+    // ==================== 字数统计 ====================
+
+    function setupCharCount() {
+        const contentInput = form.querySelector('#feedback-content');
+        const charCount = form.querySelector('.char-count');
+        
+        if (!contentInput || !charCount) return;
+
+        function updateCharCount() {
+            const length = contentInput.value.length;
+            charCount.textContent = `${length}/500`;
+            
+            if (length > 500) {
+                charCount.classList.add('over-limit');
+            } else {
+                charCount.classList.remove('over-limit');
+            }
+        }
+
+        contentInput.addEventListener('input', updateCharCount);
+        updateCharCount();
     }
 
     // ==================== 移动端 input focus 处理 ====================
@@ -630,6 +733,8 @@ function initFeedbackFloat() {
 
         // 设置 input focus 处理
         setupInputFocusHandling();
+        // 设置字数统计
+        setupCharCount();
     }
 }
 

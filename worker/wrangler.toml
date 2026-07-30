@@ -2,8 +2,16 @@ name = "qiqida-stats-worker"
 main = "src/index.ts"
 compatibility_date = "2024-07-01"
 
+[[d1_databases]]
+binding = "DB"
+database_name = "feedback_db"
+database_id = "c3ae52f4-41bf-4b2b-afe7-c9c29888152a"
+
 [vars]
 GITHUB_REPO = "qiqida/qiqida.github.io"
 GITHUB_BRANCH = "main"
 CACHE_TTL = "300"
 GA_ENABLED = "true"
+
+# 管理员密钥（请在 Cloudflare Dashboard 中设置为 secrets）
+# ADMIN_KEY = "your-secret-key"
