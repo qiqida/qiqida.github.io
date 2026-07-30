@@ -61,10 +61,10 @@ async function handleFeedbackSubmit(request: Request, env: Env): Promise<Respons
     
     // 验证必填字段
     if (!content || content.trim().length === 0) {
-      return new Response(JSON.stringify({ success: false, error: "留言内容不能为空" }), {
+      return withCors(new Response(JSON.stringify({ success: false, error: "留言内容不能为空" }), {
         status: 400,
         headers: { "Content-Type": "application/json" },
-      });
+      }));
     }
     
     // 限制内容长度为500字
@@ -83,22 +83,22 @@ async function handleFeedbackSubmit(request: Request, env: Env): Promise<Respons
       VALUES (?, ?, ?, ?)
     `).bind(trimmedName, trimmedContent, ipHash, userAgent).run();
     
-    return new Response(JSON.stringify({
+    return withCors(new Response(JSON.stringify({
       success: true,
       id: result.meta?.last_row_id,
       message: "留言提交成功"
     }), {
       headers: { "Content-Type": "application/json" },
-    });
+    }));
   } catch (error) {
     console.error("Feedback submit error:", error);
-    return new Response(JSON.stringify({ 
+    return withCors(new Response(JSON.stringify({ 
       success: false, 
       error: "提交失败，请稍后重试" 
     }), {
       status: 500,
       headers: { "Content-Type": "application/json" },
-    });
+    }));
   }
 }
 
@@ -106,18 +106,18 @@ async function handleFeedbackList(request: Request, env: Env): Promise<Response>
   // 简单的管理员验证
   const authHeader = request.headers.get("authorization");
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    return new Response(JSON.stringify({ error: "未授权" }), {
+    return withCors(new Response(JSON.stringify({ error: "未授权" }), {
       status: 401,
       headers: { "Content-Type": "application/json" },
-    });
+    }));
   }
   
   const token = authHeader.slice(7);
   if (token !== env.ADMIN_KEY) {
-    return new Response(JSON.stringify({ error: "密钥无效" }), {
+    return withCors(new Response(JSON.stringify({ error: "密钥无效" }), {
       status: 401,
       headers: { "Content-Type": "application/json" },
-    });
+    }));
   }
   
   try {
@@ -138,61 +138,63 @@ async function handleFeedbackList(request: Request, env: Env): Promise<Response>
       SELECT COUNT(*) as total FROM messages WHERE status = ?
     `).bind(status).first() as { total: number };
     
-    return new Response(JSON.stringify({
+    return withCors(new Response(JSON.stringify({
       messages: messages.results || [],
       total: countResult?.total || 0,
       limit,
       offset
     }), {
       headers: { "Content-Type": "application/json" },
-    });
+    }));
   } catch (error) {
     console.error("Feedback list error:", error);
-    return new Response(JSON.stringify({ error: "查询失败" }), {
+    return withCors(new Response(JSON.stringify({ error: "查询失败" }), {
       status: 500,
       headers: { "Content-Type": "application/json" },
-    });
+    }));
   }
 }
 
 async function handleFeedbackUpdate(request: Request, env: Env): Promise<Response> {
   const authHeader = request.headers.get("authorization");
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    return new Response(JSON.stringify({ error: "未授权" }), {
+    return withCors(new Response(JSON.stringify({ error: "未授权" }), {
       status: 401,
       headers: { "Content-Type": "application/json" },
-    });
+    }));
   }
   
   const token = authHeader.slice(7);
   if (token !== env.ADMIN_KEY) {
-    return new Response(JSON.stringify({ error: "密钥无效" }), {
+    return withCors(new Response(JSON.stringify({ error: "密钥无效" }), {
       status: 401,
       headers: { "Content-Type": "application/json" },
-    });
+    }));
   }
   
   try {
     const { id, status } = await request.json() as { id: number; status: string };
     
     if (!id || !["pending", "approved", "rejected"].includes(status)) {
-      return new Response(JSON.stringify({ error: "参数错误" }), {
+      return withCors(new Response(JSON.stringify({ error: "参数错误" }), {
         status: 400,
         headers: { "Content-Type": "application/json" },
-      });
+      }));
     }
     
     await env.DB.prepare(`
       UPDATE messages SET status = ? WHERE id = ?
     `).bind(status, id).run();
     
-    return new Response(JSON.stringify({ success: true }));
+    return withCors(new Response(JSON.stringify({ success: true }), {
+      headers: { "Content-Type": "application/json" },
+    }));
   } catch (error) {
     console.error("Feedback update error:", error);
-    return new Response(JSON.stringify({ error: "更新失败" }), {
+    return withCors(new Response(JSON.stringify({ error: "更新失败" }), {
       status: 500,
       headers: { "Content-Type": "application/json" },
-    });
+    }));
   }
 }
 
@@ -417,11 +419,23 @@ function derFromPem(pem: string): ArrayBuffer {
 export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
-    const corsHeaders = {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "GET, POST, PUT, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type, Authorization",
-    };
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "GET, POST, PUT, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type, Authorization",
+};
+
+function withCors(response: Response): Response {
+  const newHeaders = new Headers(response.headers);
+  Object.entries(corsHeaders).forEach(([key, value]) => {
+    newHeaders.set(key, value);
+  });
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers: newHeaders,
+  });
+}
 
     // 处理 OPTIONS 预检请求
     if (request.method === "OPTIONS") {
