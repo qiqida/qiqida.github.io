@@ -7,9 +7,9 @@ const STATS_API = "https://qiqida-stats-worker.dddhui-qi.workers.dev/api/stats";
 // 本地备用值（API 失败时使用）
 const FALLBACK_STATS = {
   week: 1000,
-  files: 78,
-  faq: 53,
-  notices: 0
+  files: 3,
+  faq: 3,
+  notices: 7
 };
 
 // loading 状态计数
