@@ -30,11 +30,15 @@ function setLoading(loading) {
       statsLoadingCount++;
     } else {
       statsLoadingCount = Math.max(0, statsLoadingCount - 1);
-      if (statsLoadingCount === 0) {
-        el.classList.remove("stats-loading");
-      }
     }
   });
+
+  // 所有元素都移除 loading 状态
+  if (statsLoadingCount === 0) {
+    elements.forEach(el => {
+      if (el) el.classList.remove("stats-loading");
+    });
+  }
 }
 
 // 格式化数字显示
@@ -61,28 +65,15 @@ async function loadStats() {
 
   try {
     // 尝试从本地 JSON 获取备用数据
-    const [faqRes, gradFaqRes, freshFaqRes, noticesRes] = await Promise.all([
+    const [faqRes, noticesRes] = await Promise.all([
       fetch("data/faq.json").catch(() => null),
-      fetch("data/graduation-faq.json").catch(() => null),
-      fetch("data/freshman-faq.json").catch(() => null),
       fetch("data/notices.json").catch(() => null)
     ]);
 
-    let faqTotal = 0;
-
     if (faqRes?.ok) {
       const faqData = await faqRes.json();
-      faqTotal += Array.isArray(faqData) ? faqData.length : 0;
+      fallbackData.faq = Array.isArray(faqData) ? faqData.length : 0;
     }
-    if (gradFaqRes?.ok) {
-      const gradFaqData = await gradFaqRes.json();
-      faqTotal += Array.isArray(gradFaqData) ? gradFaqData.length : 0;
-    }
-    if (freshFaqRes?.ok) {
-      const freshFaqData = await freshFaqRes.json();
-      faqTotal += Array.isArray(freshFaqData) ? freshFaqData.length : 0;
-    }
-    fallbackData.faq = faqTotal;
 
     if (noticesRes?.ok) {
       const noticesData = await noticesRes.json();

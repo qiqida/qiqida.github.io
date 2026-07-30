@@ -199,14 +199,10 @@ async function fetchDataStats(env: Env): Promise<{ filesCount: number; faqCount:
   const files = [
     { path: "downloads.json", key: "filesCount" },
     { path: "faq.json", key: "faqCount" },
-    { path: "graduation-faq.json", key: "faqPart" },
-    { path: "freshman-faq.json", key: "faqPart" },
     { path: "notices.json", key: "noticeCount" },
   ];
-
-  // 用于累积 FAQ 数量
-  let faqTotal = 0;
   let filesCount = 0;
+  let faqCount = 0;
   let noticeCount = 0;
 
   // 并行请求所有文件
@@ -242,14 +238,14 @@ async function fetchDataStats(env: Env): Promise<{ filesCount: number; faqCount:
     if (!result) continue;
     if (result.key === "filesCount") {
       filesCount = result.count;
-    } else if (result.key === "faqPart") {
-      faqTotal += result.count;
+    } else if (result.key === "faqCount") {
+      faqCount = result.count;
     } else if (result.key === "noticeCount") {
       noticeCount = result.count;
     }
   }
 
-  return { filesCount, faqCount: faqTotal, noticeCount };
+  return { filesCount, faqCount, noticeCount };
 }
 
 /**
