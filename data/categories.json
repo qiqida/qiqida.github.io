@@ -1,0 +1,76 @@
+{
+    "leave": {
+        "title": "请假申请",
+        "items": [
+            { "name": "请假流程", "type": "流程", "url": "pages/leave.html#flow" },
+            { "name": "请假类型说明", "type": "说明", "url": "pages/leave.html#types" },
+            { "name": "请假申请表", "type": "表格", "url": "pages/download.html#leave" },
+            { "name": "请假常见问题", "type": "FAQ", "url": "pages/faq.html" }
+        ]
+    },
+    "freshman": {
+        "title": "新生专区",
+        "items": [
+            { "name": "报到流程", "type": "流程", "url": "pages/freshman.html#report" },
+            { "name": "导师双选", "type": "流程", "url": "pages/freshman.html#advisor" },
+            { "name": "课程学习", "type": "流程", "url": "pages/freshman.html#course" },
+            { "name": "党团关系转接", "type": "流程", "url": "pages/freshman.html#party" },
+            { "name": "常用表格下载", "type": "表格", "url": "pages/download.html" },
+            { "name": "新生常见问题", "type": "FAQ", "url": "pages/freshman.html#faq" }
+        ]
+    },
+    "graduation": {
+        "title": "毕业专区",
+        "items": [
+            { "name": "毕业登记表", "type": "表格", "url": "pages/download.html#graduation" },
+            { "name": "学位申请", "type": "流程", "url": "pages/graduation.html#degree" },
+            { "name": "论文送审", "type": "流程", "url": "pages/graduation.html#review" },
+            { "name": "答辩安排", "type": "流程", "url": "pages/graduation.html#defense" },
+            { "name": "离校手续", "type": "流程", "url": "pages/graduation.html#leave-school" },
+            { "name": "毕业常见问题", "type": "FAQ", "url": "pages/graduation.html#faq" }
+        ]
+    },
+    "internship": {
+        "title": "实习专区",
+        "items": [
+            { "name": "实习申请", "type": "流程", "url": "pages/internship.html" },
+            { "name": "实习证明开具", "type": "流程", "url": "pages/internship.html" },
+            { "name": "安全责任书", "type": "表格", "url": "pages/internship.html" },
+            { "name": "实习常见问题", "type": "FAQ", "url": "pages/internship.html" }
+        ]
+    },
+    "party": {
+        "title": "党团事务专区",
+        "items": [
+            { "name": "党组织关系转接", "type": "流程", "url": "pages/party.html" },
+            { "name": "团组织关系转接", "type": "流程", "url": "pages/party.html" },
+            { "name": "党团常见问题", "type": "FAQ", "url": "pages/party.html" }
+        ]
+    },
+    "download": {
+        "title": "文件专区",
+        "items": [
+            { "name": "请假模板", "type": "表格", "url": "pages/download.html#leave" },
+            { "name": "学术活动模板", "type": "表格", "url": "pages/download.html#academic" },
+            { "name": "毕业材料", "type": "表格", "url": "pages/download.html#graduation" }
+        ]
+    },
+    "other": {
+        "title": "其他事务专区",
+        "items": [
+            { "name": "学生证补办", "type": "流程", "url": "pages/other.html" },
+            { "name": "成绩证明", "type": "流程", "url": "pages/other.html" },
+            { "name": "在读证明", "type": "流程", "url": "pages/other.html" },
+            { "name": "其他常见问题", "type": "FAQ", "url": "pages/other.html" }
+        ]
+    },
+    "faq": {
+        "title": "常见问题",
+        "items": [
+            { "name": "常见问题总览", "type": "FAQ", "url": "pages/faq.html" },
+            { "name": "毕业相关问题", "type": "FAQ", "url": "pages/graduation.html#faq" },
+            { "name": "新生相关问题", "type": "FAQ", "url": "pages/freshman.html#faq" },
+            { "name": "请假相关问题", "type": "FAQ", "url": "pages/faq.html" }
+        ]
+    }
+}

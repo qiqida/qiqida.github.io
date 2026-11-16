@@ -24,6 +24,7 @@ gtag('config', 'G-2S0K5DDSME');
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/components.css">
     <link rel="stylesheet" href="assets/css/v8-components.css">
+    <link rel="stylesheet" href="assets/css/card-sublist.css">
 </head>
 
 <body>
@@ -57,48 +58,88 @@ gtag('config', 'G-2S0K5DDSME');
         </section>
 
         <section class="content-area" id="content-area">
-            <section class="card-grid">
-            <a href="pages/leave.html" class="card">
-                <div class="card-icon">📝</div>
-                <h3>请假申请</h3>
-                <p>请假流程说明与相关表格下载</p>
-            </a>
-            <a href="pages/freshman.html" class="card">
-                <div class="card-icon">🧭</div>
-                <h3>新生专区</h3>
-                <p>入学指南与报到流程</p>
-            </a>
-            <a href="pages/graduation.html" class="card">
-                <div class="card-icon">🎓</div>
-                <h3>毕业专区</h3>
-                <p>毕业与学位申请</p>
-            </a>
-            <a href="pages/internship.html" class="card">
-                <div class="card-icon">💼</div>
-                <h3>实习专区</h3>
-                <p>实习申请与证明开具</p>
-            </a>
-            <a href="pages/party.html" class="card">
-                <div class="card-icon">🏛️</div>
-                <h3>党团事务专区</h3>
-                <p>党组织关系与团组织事务</p>
-            </a>
-            <a href="pages/download.html" class="card">
-                <div class="card-icon">📂</div>
-                <h3>文件专区</h3>
-                <p>常用表格与材料下载</p>
-            </a>
-            <a href="pages/other.html" class="card">
-                <div class="card-icon">📦</div>
-                <h3>其他事务专区</h3>
-                <p>学生证、成绩证明等事务</p>
-            </a>
-            <a href="pages/faq.html" class="card">
-                <div class="card-icon">❓</div>
-                <h3>常见问题</h3>
-                <p>常见问题汇总与解答</p>
-            </a>
-        </section>
+            <section class="card-grid" id="card-grid">
+                <div class="card" data-category="leave">
+                    <a class="card-overlay" href="pages/leave.html" aria-label="请假申请"></a>
+                    <div class="card-body">
+                        <div class="card-icon">📝</div>
+                        <h3>请假申请</h3>
+                        <p>请假流程说明与相关表格下载</p>
+                        <span class="card-toggle" role="button" tabindex="0" aria-expanded="false">查看子板块</span>
+                    </div>
+                    <div class="card-sublist" aria-label="请假申请包含的子板块"></div>
+                </div>
+                <div class="card" data-category="freshman">
+                    <a class="card-overlay" href="pages/freshman.html" aria-label="新生专区"></a>
+                    <div class="card-body">
+                        <div class="card-icon">🧭</div>
+                        <h3>新生专区</h3>
+                        <p>入学指南与报到流程</p>
+                        <span class="card-toggle" role="button" tabindex="0" aria-expanded="false">查看子板块</span>
+                    </div>
+                    <div class="card-sublist" aria-label="新生专区包含的子板块"></div>
+                </div>
+                <div class="card" data-category="graduation">
+                    <a class="card-overlay" href="pages/graduation.html" aria-label="毕业专区"></a>
+                    <div class="card-body">
+                        <div class="card-icon">🎓</div>
+                        <h3>毕业专区</h3>
+                        <p>毕业与学位申请</p>
+                        <span class="card-toggle" role="button" tabindex="0" aria-expanded="false">查看子板块</span>
+                    </div>
+                    <div class="card-sublist" aria-label="毕业专区包含的子板块"></div>
+                </div>
+                <div class="card" data-category="internship">
+                    <a class="card-overlay" href="pages/internship.html" aria-label="实习专区"></a>
+                    <div class="card-body">
+                        <div class="card-icon">💼</div>
+                        <h3>实习专区</h3>
+                        <p>实习申请与证明开具</p>
+                        <span class="card-toggle" role="button" tabindex="0" aria-expanded="false">查看子板块</span>
+                    </div>
+                    <div class="card-sublist" aria-label="实习专区包含的子板块"></div>
+                </div>
+                <div class="card" data-category="party">
+                    <a class="card-overlay" href="pages/party.html" aria-label="党团事务专区"></a>
+                    <div class="card-body">
+                        <div class="card-icon">🏛️</div>
+                        <h3>党团事务专区</h3>
+                        <p>党组织关系与团组织事务</p>
+                        <span class="card-toggle" role="button" tabindex="0" aria-expanded="false">查看子板块</span>
+                    </div>
+                    <div class="card-sublist" aria-label="党团事务专区包含的子板块"></div>
+                </div>
+                <div class="card" data-category="download">
+                    <a class="card-overlay" href="pages/download.html" aria-label="文件专区"></a>
+                    <div class="card-body">
+                        <div class="card-icon">📂</div>
+                        <h3>文件专区</h3>
+                        <p>常用表格与材料下载</p>
+                        <span class="card-toggle" role="button" tabindex="0" aria-expanded="false">查看子板块</span>
+                    </div>
+                    <div class="card-sublist" aria-label="文件专区包含的子板块"></div>
+                </div>
+                <div class="card" data-category="other">
+                    <a class="card-overlay" href="pages/other.html" aria-label="其他事务专区"></a>
+                    <div class="card-body">
+                        <div class="card-icon">📦</div>
+                        <h3>其他事务专区</h3>
+                        <p>学生证、成绩证明等事务</p>
+                        <span class="card-toggle" role="button" tabindex="0" aria-expanded="false">查看子板块</span>
+                    </div>
+                    <div class="card-sublist" aria-label="其他事务专区包含的子板块"></div>
+                </div>
+                <div class="card" data-category="faq">
+                    <a class="card-overlay" href="pages/faq.html" aria-label="常见问题"></a>
+                    <div class="card-body">
+                        <div class="card-icon">❓</div>
+                        <h3>常见问题</h3>
+                        <p>常见问题汇总与解答</p>
+                        <span class="card-toggle" role="button" tabindex="0" aria-expanded="false">查看子板块</span>
+                    </div>
+                    <div class="card-sublist" aria-label="常见问题包含的子板块"></div>
+                </div>
+            </section>
 
         <section class="home-section">
             <div class="section-header">
@@ -220,6 +261,7 @@ gtag('config', 'G-2S0K5DDSME');
     <script src="assets/js/feedback-float.js"></script>
     <script src="assets/js/download-rank.js"></script>
     <script src="assets/js/search-stats.js"></script>
+    <script src="assets/js/card-sublist.js"></script>
 
 </body>
 </html>
