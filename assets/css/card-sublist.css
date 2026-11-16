@@ -48,8 +48,14 @@ body.mode-desktop .card-grid {
 /* 卡片内的文字与图标不可点，保证覆盖层可以接收点击 */
 .card-body > h3,
 .card-body > p,
-.card-body > .card-icon {
+.card-body > .card-icon,
+.card-body > .card-subcount {
     pointer-events: none;
+}
+
+/* 右侧留出箭头按钮的空间 */
+.card-body {
+    padding-right: 34px;
 }
 
 /* 描述文字统一占两行高度，保证所有卡片视觉尺寸一致 */
@@ -75,72 +81,117 @@ body.mode-desktop .card-grid {
     box-shadow: 0 20px 48px rgba(0, 0, 0, 0.45);
 }
 
-/* ---------- 「查看子板块」按钮 ---------- */
-.card-toggle {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
+/* ---------- 子板块数量标签 ---------- */
+.card-subcount {
+    font-size: 12px;
+    color: var(--subtext-color);
     margin-top: auto;
     padding-top: 10px;
-    font-size: 12px;
-    font-weight: 500;
-    color: #0071e3;
     opacity: 0;
     transform: translateY(-4px);
     transition:
         opacity 0.3s ease,
-        transform 0.34s cubic-bezier(0.22, 1, 0.36, 1),
-        color 0.3s ease;
-    cursor: pointer;
-    align-self: flex-start;
-    white-space: nowrap;
-    user-select: none;
-    -webkit-user-select: none;
-    pointer-events: auto;
-    position: relative;
-    z-index: 5;
+        transform 0.34s cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
 }
 
-/* 桌面端：仅在悬停或展开时显示 */
+/* ---------- 展开箭头按钮（右上角） ---------- */
+.card-toggle {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.04);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 6;
+    transition:
+        background 0.25s ease,
+        opacity 0.3s ease,
+        transform 0.34s cubic-bezier(0.22, 1, 0.36, 1);
+    -webkit-tap-highlight-color: transparent;
+}
+
+[data-theme="dark"] .card-toggle {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.card-toggle:hover {
+    background: rgba(0, 113, 227, 0.12);
+}
+
+[data-theme="dark"] .card-toggle:hover {
+    background: rgba(10, 132, 255, 0.18);
+}
+
+/* 箭头图形：向右的 ▸，展开后转为向下 ▼ */
+.card-toggle-icon {
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-right: 1.8px solid var(--subtext-color);
+    border-bottom: 1.8px solid var(--subtext-color);
+    transform: rotate(-45deg);
+    transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+    margin-left: -2px;
+}
+
+.card.is-expanded .card-toggle-icon {
+    transform: rotate(45deg);
+    margin-left: 0;
+    margin-top: -2px;
+}
+
+.card.is-expanded .card-toggle {
+    background: rgba(0, 113, 227, 0.12);
+}
+
+/* 桌面端：箭头默认隐藏，悬停时出现 */
+body.mode-desktop .card-toggle {
+    opacity: 0;
+    transform: scale(0.85);
+    pointer-events: none;
+}
+
 body.mode-desktop .card:hover .card-toggle,
+body.mode-desktop .card:focus-within .card-toggle,
 body.mode-desktop .card.is-expanded .card-toggle {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+}
+
+/* 用户主动收起后，箭头立即隐藏，直到鼠标再次进入卡片 */
+body.mode-desktop .card.user-collapsed .card-toggle {
+    opacity: 0;
+    transform: scale(0.85);
+    pointer-events: none;
+}
+
+/* 桌面端：数量标签随悬停显示 */
+body.mode-desktop .card:hover .card-subcount,
+body.mode-desktop .card.is-expanded .card-subcount {
     opacity: 1;
     transform: translateY(0);
 }
 
-/* 移动端：常驻显示（无 hover 能力） */
+/* 移动端：箭头常驻显示 */
 body.mode-mobile .card-toggle {
     opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+}
+
+/* 移动端：数量标签常驻显示 */
+body.mode-mobile .card-subcount {
+    opacity: 1;
     transform: none;
-}
-
-/* 用户主动收起后，按钮立即隐藏，直到鼠标再次进入卡片 */
-body.mode-desktop .card.user-collapsed .card-toggle {
-    opacity: 0;
-    transform: translateY(-4px);
-    pointer-events: none;
-}
-
-.card.is-expanded .card-toggle {
-    color: var(--subtext-color);
-}
-
-/* 箭头标记 */
-.card-toggle::after {
-    content: "";
-    display: inline-block;
-    width: 6px;
-    height: 6px;
-    border-right: 1.5px solid currentColor;
-    border-bottom: 1.5px solid currentColor;
-    transform: rotate(-45deg);
-    transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
-    margin-left: 2px;
-}
-
-.card.is-expanded .card-toggle::after {
-    transform: rotate(45deg);
-    margin-top: -3px;
 }
 
 /* ---------- 子板块列表容器 ---------- */
@@ -260,6 +311,14 @@ body.mode-desktop [data-theme="dark"] .card .card-sublist {
 /* ==========================
    移动端 / 触屏
    ========================== */
+body.mode-mobile .card {
+    padding-right: 46px;
+}
+
+body.mode-mobile .card-body {
+    padding-right: 0;
+}
+
 body.mode-mobile .card:hover {
     transform: none;
 }
@@ -271,7 +330,8 @@ body.mode-mobile .card.is-expanded {
 
 /* 移动端就地撑高：子板块在卡片内部，与卡片同属一个框 */
 body.mode-mobile .card-sublist {
-    position: static;
+    position: relative;
+    z-index: 3;
     max-width: 100%;
     margin-top: 0;
     padding: 0;

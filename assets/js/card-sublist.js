@@ -83,11 +83,11 @@
             })
             .join("");
 
-        // 更新「查看子板块」文案为数量提示
-        const toggle = card.querySelector(".card-toggle");
+        // 更新子板块数量标签
+        const count = card.querySelector(".card-subcount");
 
-        if (toggle) {
-            toggle.textContent = "查看 " + items.length + " 个子板块";
+        if (count) {
+            count.textContent = items.length + " 个子板块";
         }
     }
 
@@ -128,7 +128,6 @@
 
         if (toggle) {
             toggle.setAttribute("aria-expanded", "true");
-            toggle.textContent = "收起子板块";
         }
     }
 
@@ -145,13 +144,12 @@
 
         if (toggle) {
             toggle.setAttribute("aria-expanded", "false");
-            toggle.textContent = "查看 " + list.children.length + " 个子板块";
         }
     }
 
     /**
-     * 用户主动收起（点击「收起子板块」）
-     * 桌面端需要记住这个意图：按钮立刻隐藏，并且不再被 focusin 自动展开，
+     * 用户主动收起（点击箭头按钮）
+     * 桌面端需要记住这个意图：箭头立刻隐藏，并且不再被 focusin 自动展开，
      * 直到鼠标真正离开并重新进入该卡片。
      */
     function collapseByUser(card) {
@@ -210,28 +208,9 @@
     // 交互绑定
     // ==========================
     function bindEvents() {
-        // 「查看子板块」按钮：点击切换展开（两种设备都可用）
+        // 箭头按钮：点击切换展开（两种设备都可用）
+        // 按钮是原生 <button>，点击不会触发卡片的 .card-overlay 跳转
         grid.addEventListener("click", function (event) {
-            const toggle = event.target.closest(".card-toggle");
-
-            if (toggle) {
-                event.preventDefault();
-                event.stopPropagation();
-
-                const card = toggle.closest(".card");
-
-                if (!card) return;
-
-                toggleCard(card);
-            }
-        });
-
-        // 「查看子板块」按钮的键盘操作
-        grid.addEventListener("keydown", function (event) {
-            if (event.key !== "Enter" && event.key !== " " && event.key !== "Spacebar") {
-                return;
-            }
-
             const toggle = event.target.closest(".card-toggle");
 
             if (!toggle) return;
@@ -241,8 +220,13 @@
 
             const card = toggle.closest(".card");
 
-            if (card) toggleCard(card);
+            if (!card) return;
+
+            toggleCard(card);
         });
+
+        // 注意：箭头是原生 <button>，Enter / 空格会自动派发 click，
+        // 因此不再额外监听 keydown，避免重复切换。
 
         // 桌面端：悬停展开
         cards.forEach(function (card) {
