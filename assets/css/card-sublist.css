@@ -86,6 +86,29 @@ body.mode-desktop .card-grid {
 }
 
 
+/* 触屏设备：点箭头后按钮会保留焦点，
+   若沿用 :focus-within 的浮起效果会出现「粘滞」——
+   卡片一直浮起带阴影，必须点别处才复原。
+   这里在触屏下禁用 focus-within 的浮起，改用 :active 做按压反馈。 */
+@media (hover: none), (any-pointer: coarse) {
+
+    .card:focus-within {
+        transform: none;
+        box-shadow: none;
+        z-index: auto;
+    }
+
+    [data-theme="dark"] .card:focus-within {
+        box-shadow: none;
+    }
+
+    /* 展开态保持原有边框高亮，不受 focus 影响 */
+    .card.is-expanded {
+        transform: none;
+    }
+}
+
+
 .card.is-expanded {
     transform: translateY(-6px);
     z-index: 35;

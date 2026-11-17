@@ -227,6 +227,13 @@
             if (!card) return;
 
             toggleCard(card);
+
+            // 触屏设备：点击后按钮会保留焦点，导致 .card:focus-within
+            // 等焦点样式一直生效（卡片浮起、阴影残留）。
+            // 移动端主动移开焦点，避免任何 focus 残留。
+            if (mode === "mobile" && typeof toggle.blur === "function") {
+                toggle.blur();
+            }
         });
 
         // 注意：箭头是原生 <button>，Enter / 空格会自动派发 click，
