@@ -69,22 +69,39 @@ body.mode-desktop .card-grid {
 }
 
 /* 悬停时卡片浮起 */
-.card:hover,
 .card:focus-within {
     transform: translateY(-6px);
     box-shadow: 0 20px 48px rgba(0, 0, 0, 0.1);
     z-index: 30;
 }
 
+
+/* 悬停时卡片浮起 */
+@media (hover: hover) and (any-pointer: fine) {
+    .card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 20px 48px rgba(0, 0, 0, 0.1);
+        z-index: 30;
+    }
+}
+
+
 .card.is-expanded {
     transform: translateY(-6px);
     z-index: 35;
 }
 
-[data-theme="dark"] .card:hover,
 [data-theme="dark"] .card:focus-within {
     box-shadow: 0 20px 48px rgba(0, 0, 0, 0.45);
 }
+
+
+@media (hover: hover) and (any-pointer: fine) {
+    [data-theme="dark"] .card:hover {
+        box-shadow: 0 20px 48px rgba(0, 0, 0, 0.45);
+    }
+}
+
 
 /* ---------- 子板块数量标签 ---------- */
 .card-subcount {
@@ -127,13 +144,19 @@ body.mode-desktop .card-grid {
     background: rgba(255, 255, 255, 0.08);
 }
 
-.card-toggle:hover {
-    background: rgba(0, 113, 227, 0.12);
+@media (hover: hover) and (any-pointer: fine) {
+    .card-toggle:hover {
+        background: rgba(0, 113, 227, 0.12);
+    }
 }
 
-[data-theme="dark"] .card-toggle:hover {
-    background: rgba(10, 132, 255, 0.18);
+
+@media (hover: hover) and (any-pointer: fine) {
+    [data-theme="dark"] .card-toggle:hover {
+        background: rgba(10, 132, 255, 0.18);
+    }
 }
+
 
 /* 箭头图形：向右的 ▸，展开后转为向下 ▼ */
 .card-toggle-icon {
@@ -164,13 +187,21 @@ body.mode-desktop .card-toggle {
     pointer-events: none;
 }
 
-body.mode-desktop .card:hover .card-toggle,
-body.mode-desktop .card:focus-within .card-toggle,
-body.mode-desktop .card.is-expanded .card-toggle {
+body.mode-desktop .card:focus-within .card-toggle, body.mode-desktop .card.is-expanded .card-toggle {
     opacity: 1;
     transform: scale(1);
     pointer-events: auto;
 }
+
+
+@media (hover: hover) and (any-pointer: fine) {
+    body.mode-desktop .card:hover .card-toggle {
+        opacity: 1;
+        transform: scale(1);
+        pointer-events: auto;
+    }
+}
+
 
 /* 用户主动收起后，箭头立即隐藏，直到鼠标再次进入卡片 */
 body.mode-desktop .card.user-collapsed .card-toggle {
@@ -180,11 +211,20 @@ body.mode-desktop .card.user-collapsed .card-toggle {
 }
 
 /* 桌面端：数量标签随悬停显示 */
-body.mode-desktop .card:hover .card-subcount,
 body.mode-desktop .card.is-expanded .card-subcount {
     opacity: 1;
     transform: translateY(0);
 }
+
+
+/* 桌面端：数量标签随悬停显示 */
+@media (hover: hover) and (any-pointer: fine) {
+    body.mode-desktop .card:hover .card-subcount {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 
 /* 移动端：箭头常驻显示 */
 body.mode-mobile .card-toggle {
@@ -272,10 +312,13 @@ body.mode-mobile .card-subcount {
         transform 0.24s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.card-subitem:hover {
-    background: rgba(0, 113, 227, 0.08);
-    transform: translateX(3px);
+@media (hover: hover) and (any-pointer: fine) {
+    .card-subitem:hover {
+        background: rgba(0, 113, 227, 0.08);
+        transform: translateX(3px);
+    }
 }
+
 
 .card-subitem-name {
     font-weight: 500;
@@ -300,9 +343,12 @@ body.mode-mobile .card-subcount {
     background: rgba(255, 255, 255, 0.1);
 }
 
-[data-theme="dark"] .card-subitem:hover {
-    background: rgba(10, 132, 255, 0.14);
+@media (hover: hover) and (any-pointer: fine) {
+    [data-theme="dark"] .card-subitem:hover {
+        background: rgba(10, 132, 255, 0.14);
+    }
 }
+
 
 /* ==========================
    桌面端：浮层展开
@@ -357,9 +403,12 @@ body.mode-mobile .card {
     padding-right: 30px;
 }
 
-body.mode-mobile .card:hover {
-    transform: none;
+@media (hover: hover) and (any-pointer: fine) {
+    body.mode-mobile .card:hover {
+        transform: none;
+    }
 }
+
 
 body.mode-mobile .card.is-expanded {
     transform: none;

@@ -493,12 +493,14 @@ body {
     gap: 8px;
 }
 /* 悬停效果 */
-.card:hover {
+@media (hover: hover) and (any-pointer: fine) {
+    .card:hover {
+        transform: translateY(-8px);
 
-    transform: translateY(-8px);
-
-    box-shadow: 0 16px 40px rgba(0,0,0,0.08);
+        box-shadow: 0 16px 40px rgba(0,0,0,0.08);
+    }
 }
+
 
 /* 通知区 */
 

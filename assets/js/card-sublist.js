@@ -20,13 +20,17 @@
     if (cards.length === 0) return;
 
     // 模式判定：视口宽度 >= 769 且设备支持 hover → 桌面浮层模式
+    // 与 CSS 中的 @media (hover: hover) and (any-pointer: fine) 保持一致：
+    // 触屏设备（含 iPad 触摸态）走移动端模式，不会出现粘滞 hover
     const DESKTOP_MIN_WIDTH = 769;
 
     let mode = "";
 
     function detectMode() {
         const wideEnough = window.innerWidth >= DESKTOP_MIN_WIDTH;
-        const canHover = window.matchMedia("(hover: hover)").matches;
+        const canHover =
+            window.matchMedia("(hover: hover)").matches &&
+            window.matchMedia("(any-pointer: fine)").matches;
 
         return wideEnough && canHover ? "desktop" : "mobile";
     }

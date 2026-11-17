@@ -1,0 +1,75 @@
+/* ==========================
+   移动端交互反馈优化
+   —— 解决「粘滞 hover」：
+      触屏设备上 :hover 状态会一直保持（手指点住后高亮不消失，
+      必须点空白处才复位）。这里把 hover 样式限定在真正支持悬停的
+      设备上（由转换脚本批量处理），并为触屏设备补上 :active 反馈，
+      按下即有响应、抬手即复原，体验更接近原生 App。
+   ========================== */
+
+@media (hover: none), (any-pointer: coarse) {
+
+    /* 关键词标签 / 通用卡片：按下时轻微下沉 + 背景加深 */
+    .search-tag:active,
+    .data-card:active,
+    .download-row:active,
+    .notice-card:active,
+    .popular-card:active,
+    .hot-card:active,
+    .guide-card:active,
+    .ranking-item:active,
+    .suggestion-item:active {
+        transform: scale(0.98);
+        background: rgba(0, 113, 227, 0.08);
+        box-shadow: none;
+    }
+
+    /* 板块卡片：按下时轻微下沉（展开态保持原位，避免箭头跳动） */
+    .card:active {
+        transform: scale(0.985);
+    }
+
+    .card.is-expanded:active {
+        transform: none;
+    }
+
+    /* 反馈按钮类 */
+    .feedback-float-btn:active {
+        transform: translateY(0) scale(0.97);
+    }
+
+    .feedback-submit-btn:active {
+        opacity: 0.8;
+        transform: translateY(0);
+    }
+
+    .survey-link-btn:active {
+        transform: translateY(0) scale(0.98);
+    }
+
+    /* 深色模式下的按压反馈 */
+    [data-theme="dark"] .search-tag:active,
+    [data-theme="dark"] .data-card:active,
+    [data-theme="dark"] .download-row:active,
+    [data-theme="dark"] .suggestion-item:active {
+        background: rgba(255, 255, 255, 0.1);
+    }
+}
+
+/* ==========================
+   触摸设备上禁用「悬停跟随」类效果
+   —— 部分移动浏览器在手指滑动时会短暂触发 hover 并跟着手指高亮
+   ========================== */
+@media (hover: none), (any-pointer: coarse) {
+
+    .search-tag,
+    .data-card,
+    .notice-card,
+    .popular-card,
+    .hot-card,
+    .guide-card,
+    .ranking-item,
+    .download-row {
+        -webkit-tap-highlight-color: rgba(0, 113, 227, 0.12);
+    }
+}

@@ -159,10 +159,12 @@
     transition: all 0.3s;
 }
 
-.notice-card:hover {
-
-    transform: translateY(-3px);
+@media (hover: hover) and (any-pointer: fine) {
+    .notice-card:hover {
+        transform: translateY(-3px);
+    }
 }
+
 
 .notice-card h3 {
 
@@ -287,9 +289,12 @@
 }
 
 /* Hover */
-.suggestion-item:hover {
-    background: rgba(0, 0, 0, 0.04);
+@media (hover: hover) and (any-pointer: fine) {
+    .suggestion-item:hover {
+        background: rgba(0, 0, 0, 0.04);
+    }
 }
+
 
 /* 键盘选中状态 */
 .suggestion-item.suggestion-item-active {
@@ -297,9 +302,12 @@
 }
 
 /* 深色模式 */
-[data-theme="dark"] .suggestion-item:hover {
-    background: rgba(255, 255, 255, 0.06);
+@media (hover: hover) and (any-pointer: fine) {
+    [data-theme="dark"] .suggestion-item:hover {
+        background: rgba(255, 255, 255, 0.06);
+    }
 }
+
 
 [data-theme="dark"] .suggestion-item.suggestion-item-active {
     background: rgba(255, 255, 255, 0.14) !important;
@@ -379,10 +387,12 @@
     transition: all .3s;
 }
 
-.popular-card:hover {
-
-    transform: translateY(-4px);
+@media (hover: hover) and (any-pointer: fine) {
+    .popular-card:hover {
+        transform: translateY(-4px);
+    }
 }
+
 
 .hero-logo {
 
@@ -487,10 +497,12 @@
     border-bottom: 1px solid rgba(37,99,235,0.25);
 }
 
-.markdown-body a:hover {
-
-    border-bottom-color: #2563eb;
+@media (hover: hover) and (any-pointer: fine) {
+    .markdown-body a:hover {
+        border-bottom-color: #2563eb;
+    }
 }
+
 
 .markdown-body hr {
 
@@ -536,10 +548,12 @@
     display: block;
 }
 
-.hot-card:hover {
-
-    transform: translateY(-5px);
+@media (hover: hover) and (any-pointer: fine) {
+    .hot-card:hover {
+        transform: translateY(-5px);
+    }
 }
+
 
 .hot-rank {
 
@@ -557,10 +571,12 @@
     margin-bottom: 8px;
 }
 
-.ranking-item:hover {
-
-    transform: translateY(-3px);
+@media (hover: hover) and (any-pointer: fine) {
+    .ranking-item:hover {
+        transform: translateY(-3px);
+    }
 }
+
 
 /* =====================
 办事指南
@@ -595,10 +611,12 @@
     display: block;
 }
 
-.guide-card:hover {
-
-    transform: translateY(-4px);
+@media (hover: hover) and (any-pointer: fine) {
+    .guide-card:hover {
+        transform: translateY(-4px);
+    }
 }
+
 
 .feedback-card {
 
@@ -632,10 +650,12 @@
     font-size: 15px;
 }
 
-.feedback-btn:hover {
-
-    opacity: 0.9;
+@media (hover: hover) and (any-pointer: fine) {
+    .feedback-btn:hover {
+        opacity: 0.9;
+    }
 }
+
 
 /* =====================
 时间线
@@ -676,12 +696,14 @@ a.service-card {
     transition: all 0.3s;
 }
 
-a.service-card:hover {
+@media (hover: hover) and (any-pointer: fine) {
+    a.service-card:hover {
+        transform: translateY(-4px);
 
-    transform: translateY(-4px);
-
-    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    }
 }
+
 
 /* 回到顶部 */
 
@@ -716,10 +738,12 @@ a.service-card:hover {
     transition: opacity 0.3s, transform 0.2s;
 }
 
-.back-to-top:hover {
-
-    transform: translateY(-2px);
+@media (hover: hover) and (any-pointer: fine) {
+    .back-to-top:hover {
+        transform: translateY(-2px);
+    }
 }
+
 
 .back-to-top[hidden] {
 
@@ -815,9 +839,12 @@ a.service-card:hover {
     transition: border-color 0.2s;
 }
 
-.notice-content-wrapper .markdown-body a:hover {
-    border-bottom-color: #2563eb;
+@media (hover: hover) and (any-pointer: fine) {
+    .notice-content-wrapper .markdown-body a:hover {
+        border-bottom-color: #2563eb;
+    }
 }
+
 
 .notice-content-wrapper .markdown-body strong {
     color: var(--text-color);
@@ -840,9 +867,12 @@ a.service-card:hover {
     border-bottom-color: rgba(96,165,250,0.3);
 }
 
-[data-theme="dark"] .notice-content-wrapper .markdown-body a:hover {
-    border-bottom-color: #60a5fa;
+@media (hover: hover) and (any-pointer: fine) {
+    [data-theme="dark"] .notice-content-wrapper .markdown-body a:hover {
+        border-bottom-color: #60a5fa;
+    }
 }
+
 
 /* 移动端适配 */
 @media (max-width: 768px) {

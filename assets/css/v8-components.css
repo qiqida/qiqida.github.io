@@ -27,9 +27,12 @@
     gap: 6px;
 }
 
-.feedback-float-btn:hover {
-    transform: translateY(-2px);
+@media (hover: hover) and (any-pointer: fine) {
+    .feedback-float-btn:hover {
+        transform: translateY(-2px);
+    }
 }
+
 
 .feedback-panel {
     position: fixed;
@@ -150,9 +153,12 @@
     transition: background 0.2s ease;
 }
 
-#feedback-panel-close:hover {
-    background: rgba(0, 0, 0, 0.04);
+@media (hover: hover) and (any-pointer: fine) {
+    #feedback-panel-close:hover {
+        background: rgba(0, 0, 0, 0.04);
+    }
 }
+
 
 .feedback-panel-body {
     flex: 1;
@@ -217,10 +223,13 @@
     transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-.feedback-submit-btn:hover {
-    opacity: 0.88;
-    transform: translateY(-1px);
+@media (hover: hover) and (any-pointer: fine) {
+    .feedback-submit-btn:hover {
+        opacity: 0.88;
+        transform: translateY(-1px);
+    }
 }
+
 
 .feedback-submit-btn:disabled {
     opacity: 0.6;
@@ -272,9 +281,12 @@
     transition: transform 0.2s ease;
 }
 
-.survey-link-btn:hover {
-    transform: translateY(-1px);
+@media (hover: hover) and (any-pointer: fine) {
+    .survey-link-btn:hover {
+        transform: translateY(-1px);
+    }
 }
+
 
 /* Toast提示样式 */
 .feedback-toast {
@@ -336,9 +348,12 @@
     color: #94a3b8;
 }
 
-[data-theme="dark"] #feedback-panel-close:hover {
-    background: rgba(255, 255, 255, 0.08);
+@media (hover: hover) and (any-pointer: fine) {
+    [data-theme="dark"] #feedback-panel-close:hover {
+        background: rgba(255, 255, 255, 0.08);
+    }
 }
+
 
 [data-theme="dark"] .form-group label {
     color: #94a3b8;
@@ -361,9 +376,12 @@
     background: #667eea;
 }
 
-[data-theme="dark"] .feedback-submit-btn:hover {
-    background: #7c8ff5;
+@media (hover: hover) and (any-pointer: fine) {
+    [data-theme="dark"] .feedback-submit-btn:hover {
+        background: #7c8ff5;
+    }
 }
+
 
 [data-theme="dark"] .feedback-survey-link {
     border-top: 1px solid rgba(255, 255, 255, 0.08);
@@ -406,10 +424,13 @@
     margin-bottom: 4px;
 }
 
-.data-card:hover {
-    transform: translateY(-2px);
-    background: rgba(255, 255, 255, 0.85);
+@media (hover: hover) and (any-pointer: fine) {
+    .data-card:hover {
+        transform: translateY(-2px);
+        background: rgba(255, 255, 255, 0.85);
+    }
 }
+
 
 .data-content h3 {
     margin: 0;
@@ -431,9 +452,12 @@
     border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-[data-theme="dark"] .data-card:hover {
-    background: rgba(30, 41, 59, 0.95);
+@media (hover: hover) and (any-pointer: fine) {
+    [data-theme="dark"] .data-card:hover {
+        background: rgba(30, 41, 59, 0.95);
+    }
 }
+
 
 [data-theme="dark"] .data-content h3 {
     color: #f8fafc;
@@ -519,11 +543,14 @@
     font-weight: 500;
 }
 
-.search-tag:hover {
-    transform: translateY(-4px);
-    background: rgba(255, 255, 255, 0.9);
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+@media (hover: hover) and (any-pointer: fine) {
+    .search-tag:hover {
+        transform: translateY(-4px);
+        background: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+    }
 }
+
 
 .search-tag small {
     font-size: 11px;
@@ -543,10 +570,13 @@
     color: #f8fafc;
 }
 
-[data-theme="dark"] .search-tag:hover {
-    background: rgba(30, 41, 59, 0.95);
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+@media (hover: hover) and (any-pointer: fine) {
+    [data-theme="dark"] .search-tag:hover {
+        background: rgba(30, 41, 59, 0.95);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+    }
 }
+
 
 [data-theme="dark"] .search-tag small {
     color: #94a3b8;
@@ -578,9 +608,12 @@
     border-bottom: none;
 }
 
-.download-row:hover {
-    background: rgba(255, 255, 255, 0.7);
+@media (hover: hover) and (any-pointer: fine) {
+    .download-row:hover {
+        background: rgba(255, 255, 255, 0.7);
+    }
 }
+
 
 .download-rank {
     font-size: 14px;
@@ -625,9 +658,12 @@
     border-bottom-color: rgba(255, 255, 255, 0.06);
 }
 
-[data-theme="dark"] .download-row:hover {
-    background: rgba(30, 41, 59, 0.8);
+@media (hover: hover) and (any-pointer: fine) {
+    [data-theme="dark"] .download-row:hover {
+        background: rgba(30, 41, 59, 0.8);
+    }
 }
+
 
 [data-theme="dark"] .download-rank {
     color: #94a3b8;
