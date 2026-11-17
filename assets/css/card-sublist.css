@@ -53,6 +53,11 @@ body.mode-desktop .card-grid {
     pointer-events: none;
 }
 
+/* 箭头按钮需要能接收点击 */
+.card-body > .card-toggle {
+    pointer-events: auto;
+}
+
 /* 右侧留出箭头按钮的空间 */
 .card-body {
     padding-right: 34px;
@@ -95,7 +100,7 @@ body.mode-desktop .card-grid {
     pointer-events: none;
 }
 
-/* ---------- 展开箭头按钮（右上角） ---------- */
+/* ---------- 展开箭头按钮 ---------- */
 .card-toggle {
     position: absolute;
     top: 14px;
@@ -186,6 +191,43 @@ body.mode-mobile .card-toggle {
     opacity: 1;
     transform: scale(1);
     pointer-events: auto;
+}
+
+/* ==========================
+   移动端：箭头移到卡片右侧垂直居中并放大
+   —— 以 .card-body 为参照，避免展开后箭头随卡片变高而下移
+   ========================== */
+body.mode-mobile .card-body {
+    position: relative;
+    /* 为箭头预留出独立区域，避免压住标题文字 */
+    padding-right: 48px;
+}
+
+body.mode-mobile .card-toggle {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 40px;
+    height: 40px;
+    transform: translateY(-50%);
+    background: rgba(0, 113, 227, 0.08);
+}
+
+[data-theme="dark"] body.mode-mobile .card-toggle {
+    background: rgba(10, 132, 255, 0.16);
+}
+
+/* 放大箭头图形 */
+body.mode-mobile .card-toggle-icon {
+    width: 12px;
+    height: 12px;
+    border-width: 2.2px;
+    margin-left: -3px;
+}
+
+body.mode-mobile .card.is-expanded .card-toggle-icon {
+    margin-left: 0;
+    margin-top: -3px;
 }
 
 /* 移动端：数量标签常驻显示 */
@@ -312,11 +354,7 @@ body.mode-desktop [data-theme="dark"] .card .card-sublist {
    移动端 / 触屏
    ========================== */
 body.mode-mobile .card {
-    padding-right: 46px;
-}
-
-body.mode-mobile .card-body {
-    padding-right: 0;
+    padding-right: 30px;
 }
 
 body.mode-mobile .card:hover {
