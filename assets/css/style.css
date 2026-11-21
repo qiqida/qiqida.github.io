@@ -433,12 +433,6 @@ body {
         font-size: 36px;
     }
 
-    .download-item {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 12px;
-    }
-
     .back-to-top {
         right: 16px;
         bottom: 16px;

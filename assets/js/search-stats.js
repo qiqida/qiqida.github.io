@@ -1,7 +1,11 @@
 // ==========================
-// 搜索关键词统计（V7.5 Apple 风格）
-// 说明：读取 data/search-stats.json，渲染全宽居中词云。
-// 支持毛玻璃效果与 hover 动效，点击后聚焦搜索框并滚动到搜索框。
+// 常见搜索词（首页）
+//
+// 数据来自 data/search-stats.json，由 tools/assets.py 生成。
+// 这一组词是「学生最常搜的几件事」，**不标搜索次数** ——
+// 之前的 count 是编的，标出来反而不准。
+//
+// 点一下就把词填进搜索框并聚焦，方便直接看结果。
 // ==========================
 
 async function loadSearchStats() {
@@ -10,24 +14,30 @@ async function loadSearchStats() {
 
     try {
         const response = await fetch("data/search-stats.json");
+        if (!response.ok) throw new Error("HTTP " + response.status);
         const stats = await response.json();
 
-        const maxCount = Math.max(...stats.map((item) => item.count));
+        if (!Array.isArray(stats) || stats.length === 0) {
+            throw new Error("没有搜索词数据");
+        }
 
+        // 所有词用同一样式。
+        // 之前按 count 算字号，词有大有小，看起来像「有人搜得多」，
+        // 现在不标次数，大小统一，视觉上更干净。
         container.innerHTML = stats
             .map((item) => {
-                const size = 13 + (item.count / maxCount) * 6;
+                const keyword = item.keyword || "";
+                if (!keyword) return "";
                 return `
-                <span class="search-tag" style="font-size: ${size}px;" data-keyword="${item.keyword}">
-                    ${item.keyword}
-                </span>
-            `;
+                <button type="button" class="search-tag" data-keyword="${keyword}">
+                    ${keyword}
+                </button>`;
             })
             .join("");
 
         container.querySelectorAll(".search-tag").forEach((tag) => {
             tag.addEventListener("click", () => {
-                const keyword = tag.getAttribute("data-keyword") || tag.textContent.trim().split("\n")[0].trim();
+                const keyword = tag.getAttribute("data-keyword") || tag.textContent.trim();
 
                 // 同时处理移动端和桌面端搜索框
                 const mobileInput = document.getElementById("global-search");
@@ -50,8 +60,8 @@ async function loadSearchStats() {
             });
         });
     } catch (error) {
-        console.error("搜索关键词统计加载失败", error);
-        container.innerHTML = '<p class="empty-tip">暂无搜索数据</p>';
+        console.error("常见搜索词加载失败", error);
+        container.innerHTML = '<p class="empty-tip">暂无搜索词数据</p>';
     }
 }
 

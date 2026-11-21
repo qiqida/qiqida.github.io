@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# 不收录预览目录与内部构建产物
+Disallow: /网站改版2/
+Disallow: /网站改版/
+
+Sitemap: https://qiqida.github.io/sitemap.xml

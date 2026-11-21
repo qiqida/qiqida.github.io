@@ -1,0 +1,368 @@
+{
+  "freshman": {
+    "title": "新生专区",
+    "desc": "报到、迎新、党团转接、入学教育、培养方案与导师双选",
+    "icon": "🧭",
+    "page": "pages/freshman.html",
+    "items": [
+      {
+        "name": "报到与迎新",
+        "type": "流程",
+        "desc": "从录取到正式上课的完整流程、缴费渠道与报到材料清单",
+        "url": "pages/freshman-report.html"
+      },
+      {
+        "name": "党团关系转接",
+        "type": "流程",
+        "desc": "党组织关系与团组织关系的转入步骤",
+        "url": "pages/freshman-party.html"
+      },
+      {
+        "name": "入学教育与体检",
+        "type": "流程",
+        "desc": "入学教育安排、体检与安全教育考试",
+        "url": "pages/freshman-education.html"
+      },
+      {
+        "name": "培养方案与选课",
+        "type": "流程",
+        "desc": "培养方案确认、选课入口与学分要求",
+        "url": "pages/freshman-course.html"
+      },
+      {
+        "name": "导师双选",
+        "type": "流程",
+        "desc": "双向选择流程与注意事项",
+        "url": "pages/freshman-advisor.html"
+      },
+      {
+        "name": "实验室安全考试",
+        "type": "流程",
+        "desc": "实验室安全准入考试的入口与流程",
+        "url": "pages/freshman-safety.html"
+      }
+    ]
+  },
+  "study": {
+    "title": "在校学习专区",
+    "desc": "请假与考勤、选课退课、考试与成绩、学籍异动、毕业设计、学术资源",
+    "icon": "📚",
+    "page": "pages/study.html",
+    "items": [
+      {
+        "name": "请假与考勤",
+        "type": "流程",
+        "desc": "线下请假条与线上出省报备两条线、天数与审批级别",
+        "url": "pages/study-leave.html"
+      },
+      {
+        "name": "选课与退课",
+        "type": "流程",
+        "desc": "选课、退课与补选的操作入口",
+        "url": "pages/study-course.html"
+      },
+      {
+        "name": "考试与成绩",
+        "type": "流程",
+        "desc": "缓考、补考与成绩复核",
+        "url": "pages/study-exam.html"
+      },
+      {
+        "name": "学籍异动",
+        "type": "流程",
+        "desc": "休学、复学、转专业与保留学籍",
+        "url": "pages/study-status.html"
+      },
+      {
+        "name": "毕业设计",
+        "type": "流程",
+        "desc": "开题、中期检查、查重与答辩的培养环节",
+        "url": "pages/study-thesis.html"
+      },
+      {
+        "name": "学术资源使用",
+        "type": "流程",
+        "desc": "学术资源访问申请与校外访问方法",
+        "url": "pages/study-academic.html"
+      },
+      {
+        "name": "专利与软著申请",
+        "type": "流程",
+        "desc": "专利与软件著作权的申请入口与流程",
+        "url": "pages/study-patent.html"
+      },
+      {
+        "name": "一站式申请",
+        "type": "流程",
+        "desc": "研究生一件事一次办的应用范围与入口",
+        "url": "pages/study-one-stop.html"
+      }
+    ]
+  },
+  "aid": {
+    "title": "奖助专区",
+    "desc": "奖学金、助学金与助学贷款、困难认定、三助一辅岗位",
+    "icon": "💰",
+    "page": "pages/aid.html",
+    "items": [
+      {
+        "name": "奖学金申请",
+        "type": "流程",
+        "desc": "学业奖学金等级金额、评分规则与评选流程",
+        "url": "pages/aid-scholarship.html"
+      },
+      {
+        "name": "助学金与助学贷款",
+        "type": "流程",
+        "desc": "国家助学金与生源地信用助学贷款",
+        "url": "pages/aid-loan.html"
+      },
+      {
+        "name": "家庭经济困难认定",
+        "type": "流程",
+        "desc": "四项佐证材料与提交要求",
+        "url": "pages/aid-hardship.html"
+      },
+      {
+        "name": "三助一辅岗位",
+        "type": "流程",
+        "desc": "助研、助教、助管岗位招聘",
+        "url": "pages/aid-assistant.html"
+      }
+    ]
+  },
+  "party": {
+    "title": "党团专区",
+    "desc": "党组织关系转接、团组织关系、党员发展、班级与班委",
+    "icon": "🏛️",
+    "page": "pages/party.html",
+    "items": [
+      {
+        "name": "党组织关系转接",
+        "type": "流程",
+        "desc": "线上转接与线下介绍信两种方式",
+        "url": "pages/party-transfer.html"
+      },
+      {
+        "name": "团组织关系与智慧团建",
+        "type": "流程",
+        "desc": "团员关系转入与智慧团建操作",
+        "url": "pages/party-league.html"
+      },
+      {
+        "name": "党员发展流程",
+        "type": "流程",
+        "desc": "入党各阶段与要求",
+        "url": "pages/party-develop.html"
+      },
+      {
+        "name": "班级与班委",
+        "type": "流程",
+        "desc": "班级划分与班委报名",
+        "url": "pages/party-class.html"
+      }
+    ]
+  },
+  "life": {
+    "title": "生活与证件专区",
+    "desc": "宿舍、一卡通、网络账号、场地借用、心理医保、学生证与证明",
+    "icon": "🏠",
+    "page": "pages/life.html",
+    "items": [
+      {
+        "name": "宿舍报修与退宿",
+        "type": "流程",
+        "desc": "水电报修、退宿与校外住宿",
+        "url": "pages/life-dorm.html"
+      },
+      {
+        "name": "一卡通补办",
+        "type": "流程",
+        "desc": "绑定、挂失、补办与领取",
+        "url": "pages/life-card.html"
+      },
+      {
+        "name": "网络与账号",
+        "type": "流程",
+        "desc": "校园网账号与正版软件获取",
+        "url": "pages/life-network.html"
+      },
+      {
+        "name": "场地借用与活动申报",
+        "type": "流程",
+        "desc": "场地借用与活动申报流程",
+        "url": "pages/life-venue.html"
+      },
+      {
+        "name": "心理咨询与医保",
+        "type": "流程",
+        "desc": "医保参保与心理咨询预约",
+        "url": "pages/life-medical.html"
+      },
+      {
+        "name": "学生证补办",
+        "type": "流程",
+        "desc": "研究生证填写与补办流程",
+        "url": "pages/life-idcard.html"
+      },
+      {
+        "name": "在读与成绩证明",
+        "type": "流程",
+        "desc": "在读证明与成绩单开具",
+        "url": "pages/life-certificate.html"
+      }
+    ]
+  },
+  "career": {
+    "title": "实习就业与毕业专区",
+    "desc": "实习与外出报备、实习证明、三方协议、升学出国、毕业与离校",
+    "icon": "🎓",
+    "page": "pages/career.html",
+    "items": [
+      {
+        "name": "实习申请与外出报备",
+        "type": "流程",
+        "desc": "实习三张表与外出报备须知",
+        "url": "pages/career-internship.html"
+      },
+      {
+        "name": "实习证明开具",
+        "type": "流程",
+        "desc": "实习证明的申请与开具",
+        "url": "pages/career-proof.html"
+      },
+      {
+        "name": "就业推荐与三方协议",
+        "type": "流程",
+        "desc": "就业推荐表与三方协议签订",
+        "url": "pages/career-employment.html"
+      },
+      {
+        "name": "升学与出国交流",
+        "type": "流程",
+        "desc": "保研考研与因公出国境",
+        "url": "pages/career-abroad.html"
+      },
+      {
+        "name": "毕业资格审核",
+        "type": "流程",
+        "desc": "毕业资格审核的条件与流程",
+        "url": "pages/career-qualify.html"
+      },
+      {
+        "name": "学位申请与论文送审",
+        "type": "流程",
+        "desc": "学位申请、论文送审与答辩安排",
+        "url": "pages/career-degree.html"
+      },
+      {
+        "name": "毕业材料与档案",
+        "type": "流程",
+        "desc": "毕业登记表、材料清单与档案转递",
+        "url": "pages/career-archive.html"
+      },
+      {
+        "name": "离校手续",
+        "type": "流程",
+        "desc": "离校前要办的事项与办理顺序",
+        "url": "pages/career-leave-school.html"
+      }
+    ]
+  },
+  "download": {
+    "title": "文件专区",
+    "desc": "请假条、申请表、证明协议、申请书与总结模板下载",
+    "icon": "📂",
+    "page": "pages/download.html",
+    "items": [
+      {
+        "name": "请假条与报备单",
+        "type": "流程",
+        "desc": "请假条与各类报备单模板",
+        "url": "pages/download-leave.html"
+      },
+      {
+        "name": "申请表与审批表",
+        "type": "流程",
+        "desc": "各类申请表、审批表与承诺书",
+        "url": "pages/download-forms.html"
+      },
+      {
+        "name": "证明与协议模板",
+        "type": "流程",
+        "desc": "证明、协议与四方协议书",
+        "url": "pages/download-proof.html"
+      },
+      {
+        "name": "申请书与总结模板",
+        "type": "流程",
+        "desc": "申请书、说明与总结模板",
+        "url": "pages/download-apply.html"
+      },
+      {
+        "name": "附件与截图归档",
+        "type": "流程",
+        "desc": "流程图、指引与说明类附件",
+        "url": "pages/download-archive.html"
+      }
+    ]
+  },
+  "faq": {
+    "title": "问题专区",
+    "desc": "系统操作、材料审核、流程卡点、找谁问与反馈",
+    "icon": "❓",
+    "page": "pages/faq.html",
+    "items": [
+      {
+        "name": "系统操作问题",
+        "type": "流程",
+        "desc": "账号、登录与各平台操作问题",
+        "url": "pages/faq-system.html"
+      },
+      {
+        "name": "材料与审核问题",
+        "type": "流程",
+        "desc": "材料缺漏与审核退回问题",
+        "url": "pages/faq-material.html"
+      },
+      {
+        "name": "流程卡点",
+        "type": "流程",
+        "desc": "流程走到一半卡住怎么办",
+        "url": "pages/faq-block.html"
+      },
+      {
+        "name": "找谁问与反馈",
+        "type": "流程",
+        "desc": "该找哪个部门、怎么反馈问题",
+        "url": "pages/faq-contact.html"
+      }
+    ]
+  },
+  "about": {
+    "title": "关于与联系",
+    "desc": "网站说明、咨询方式与办公时间、办事地点指引",
+    "icon": "ℹ️",
+    "page": "pages/about.html",
+    "items": [
+      {
+        "name": "网站说明与免责声明",
+        "type": "流程",
+        "desc": "本站定位、内容口径与免责说明",
+        "url": "pages/about-disclaimer.html"
+      },
+      {
+        "name": "咨询方式与办公时间",
+        "type": "流程",
+        "desc": "各办公室联系方式与办公时间",
+        "url": "pages/about-contact.html"
+      },
+      {
+        "name": "办事地点指引",
+        "type": "流程",
+        "desc": "线下办事地点、楼层与交通",
+        "url": "pages/about-place.html"
+      }
+    ]
+  }
+}

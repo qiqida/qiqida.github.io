@@ -359,7 +359,10 @@ function initFeedbackFloat() {
     });
 
     // --- 问卷星链接（移动端使用JS跳转） ---
+    // 链接地址来自 data/site-config.json；如果没配或还是示例地址，这一整块就不显示，
+    // 避免用户点了打不开。
     const surveyLink = document.getElementById("survey-link");
+    const surveyBlock = document.getElementById("feedback-survey-block");
     if (surveyLink) {
         surveyLink.addEventListener("click", function(e) {
             console.log('[Survey Link] 点击前', getDebugState());
@@ -370,6 +373,8 @@ function initFeedbackFloat() {
             const url = this.getAttribute("href");
             console.log('[Survey Link] href:', url);
 
+            if (!url || url === "#") return;
+
             openExternalLink(url);
 
             // 延迟后再次检查状态
@@ -379,6 +384,23 @@ function initFeedbackFloat() {
             }, 200);
         });
     }
+
+    // 读取问卷星配置
+    (async function loadSurveyConfig() {
+        if (!surveyBlock) return;
+        try {
+            const res = await fetch("data/site-config.json");
+            if (!res.ok) return;
+            const config = await res.json();
+            const url = (config && config.feedbackUrl || "").trim();
+            // 空地址或官方示例地址都视为「未配置」
+            if (!url || url === "#" || url.indexOf("/vm/example.aspx") >= 0) return;
+            if (surveyLink) surveyLink.setAttribute("href", url);
+            surveyBlock.hidden = false;
+        } catch (err) {
+            console.warn('[Survey Link] 配置读取失败，隐藏问卷星入口', err);
+        }
+    })();
 
     // --- Esc 键 ---
     document.addEventListener("keydown", function(e) {

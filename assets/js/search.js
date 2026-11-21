@@ -1,11 +1,21 @@
 // ==========================
 // 首页搜索系统
 // 说明：搜索数据来自 data/knowledge-base.json，之后只需要维护 JSON 即可。
+//
+// 支持三种输入：
+//   1. 中文       ——「请假」
+//   2. 拼音全拼   ——「qingjia」
+//   3. 拼音首字母 ——「qj」
+// 第 2、3 种由 data/pinyin-table.json（汉字 → 首字母）在前端转换，
+// 不需要额外引拼音库。
 // ==========================
 
 let searchData = [];
 let currentMatches = [];
 let selectedIndex = -1;
+
+// 汉字 → 首字母对照表（构建期生成）
+let pinyinTable = {};
 
 const searchInput = document.getElementById("global-search");
 const searchInputDesktop = document.getElementById("global-search-desktop");
@@ -25,6 +35,25 @@ async function loadSearchData() {
     } catch (error) {
         console.error("搜索数据加载失败", error);
     }
+
+    // 拼音对照表是可选的，取不到也不影响中文搜索
+    try {
+        const res = await fetch("data/pinyin-table.json");
+        if (res.ok) pinyinTable = await res.json();
+    } catch (error) {
+        /* 忽略：拼音搜索不可用 */
+    }
+}
+
+// 把输入里的每个汉字替换成它的拼音首字母。
+// 例：「请假」-> 「qj」；「请」查不到就原样保留。
+function toInitials(text) {
+    let out = "";
+    for (const ch of text) {
+        const ini = pinyinTable[ch];
+        out += ini || ch;
+    }
+    return out.toLowerCase();
 }
 
 // 把标题、分类、关键词合并成一段文字，便于做模糊匹配。
@@ -43,7 +72,41 @@ function findMatches(keyword) {
     if (!value) return [];
 
     return searchData
-        .filter(item => getSearchText(item).includes(value))
+        .filter(item => {
+            if (getSearchText(item).includes(value)) return true;
+
+            // 输入是纯拉丁字母时，当作拼音来匹配。
+            // 两种：
+            //   首字母：qj → 请假
+            //   全拼  ：qingjia → 请假
+            //
+            // 注意不能只判断「转换后的首字母 != 原输入」——
+            // 用户直接输入 "qj" 时转换结果仍是 "qj"，
+            // 那样就永远进不到这个分支了。
+            if (/^[a-z]+$/.test(value)) {
+                // 首字母匹配
+                if (item.initials) {
+                    const flatInitials = item.initials.replace(/\s+/g, "");
+                    if (flatInitials.includes(value)) return true;
+                }
+                // 全拼匹配
+                if (item.pinyin) {
+                    const flatPinyin = item.pinyin.replace(/\s+/g, "");
+                    if (flatPinyin.includes(value)) return true;
+                }
+                return false;
+            }
+
+            // 输入里含汉字时，把它转成首字母再匹配。
+            // 例：输入「请假」时也能命中拼音首字母是 qj 的其它条目。
+            const initials = toInitials(value);
+            if (initials !== value && item.initials) {
+                const flatInitials = item.initials.replace(/\s+/g, "");
+                if (flatInitials.includes(initials)) return true;
+            }
+
+            return false;
+        })
         .slice(0, 6);
 }
 

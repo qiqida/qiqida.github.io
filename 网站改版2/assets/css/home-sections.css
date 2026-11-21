@@ -1,0 +1,103 @@
+/* ==========================
+   首页新区块样式
+   —— 场景速查、热门流程 Top6
+   ========================== */
+
+/* ---------- 区块说明文字 ---------- */
+.section-hint {
+    margin: -6px 0 16px;
+    font-size: 13.5px;
+    color: var(--subtext-color);
+    line-height: 1.6;
+}
+
+/* ==========================
+   常用事务（6 条，2 列 / 3 列自适应）
+   ========================== */
+.scenario-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 12px;
+}
+
+.scenario-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 18px;
+    border-radius: 16px;
+    background: var(--card-color);
+    border: 1px solid var(--border-color);
+    text-decoration: none;
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+                box-shadow 0.3s ease,
+                border-color 0.3s ease;
+}
+
+.scenario-item:hover {
+    transform: translateY(-3px);
+    border-color: rgba(0, 113, 227, 0.35);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.07);
+}
+
+.scenario-phrase {
+    font-size: 14.5px;
+    font-weight: 600;
+    color: var(--text-color);
+    white-space: nowrap;
+}
+
+.scenario-arrow {
+    color: #0071e3;
+    font-size: 13px;
+    flex-shrink: 0;
+}
+
+.scenario-target {
+    font-size: 13px;
+    color: var(--subtext-color);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+}
+
+.scenario-zone {
+    margin-left: auto;
+    flex-shrink: 0;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: rgba(0, 113, 227, 0.08);
+    color: #0071e3;
+    font-size: 11.5px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+[data-theme="dark"] .scenario-zone {
+    background: rgba(10, 132, 255, 0.14);
+    color: #0a84ff;
+}
+
+/* ==========================
+   移动端
+   ========================== */
+@media (max-width: 768px) {
+
+    .scenario-grid {
+        grid-template-columns: 1fr;
+        gap: 9px;
+    }
+
+    .scenario-item {
+        padding: 13px 15px;
+    }
+
+    .scenario-phrase {
+        font-size: 14px;
+    }
+
+    .scenario-target {
+        display: none;
+    }
+}

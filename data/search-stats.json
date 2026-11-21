@@ -1,52 +1,119 @@
 [
-    {
-        "keyword": "请假",
-        "count": 1256,
-        "date": "2026-06-30"
-    },
-    {
-        "keyword": "奖学金",
-        "count": 987,
-        "date": "2026-06-30"
-    },
-    {
-        "keyword": "毕业",
-        "count": 856,
-        "date": "2026-06-30"
-    },
-    {
-        "keyword": "申请",
-        "count": 743,
-        "date": "2026-06-30"
-    },
-    {
-        "keyword": "表格",
-        "count": 621,
-        "date": "2026-06-30"
-    },
-    {
-        "keyword": "竞赛",
-        "count": 534,
-        "date": "2026-06-30"
-    },
-    {
-        "keyword": "论文",
-        "count": 489,
-        "date": "2026-06-30"
-    },
-    {
-        "keyword": "答辩",
-        "count": 412,
-        "date": "2026-06-30"
-    },
-    {
-        "keyword": "助学金",
-        "count": 367,
-        "date": "2026-06-30"
-    },
-    {
-        "keyword": "报到",
-        "count": 298,
-        "date": "2026-06-30"
-    }
+  {
+    "keyword": "报到"
+  },
+  {
+    "keyword": "迎新"
+  },
+  {
+    "keyword": "选导"
+  },
+  {
+    "keyword": "入学教育"
+  },
+  {
+    "keyword": "请假"
+  },
+  {
+    "keyword": "出省"
+  },
+  {
+    "keyword": "选课"
+  },
+  {
+    "keyword": "退课"
+  },
+  {
+    "keyword": "考试"
+  },
+  {
+    "keyword": "成绩"
+  },
+  {
+    "keyword": "休学"
+  },
+  {
+    "keyword": "保留学籍"
+  },
+  {
+    "keyword": "奖学金"
+  },
+  {
+    "keyword": "助学金"
+  },
+  {
+    "keyword": "困难认定"
+  },
+  {
+    "keyword": "助学贷款"
+  },
+  {
+    "keyword": "三助"
+  },
+  {
+    "keyword": "党组织关系"
+  },
+  {
+    "keyword": "团组织关系"
+  },
+  {
+    "keyword": "党员发展"
+  },
+  {
+    "keyword": "班委"
+  },
+  {
+    "keyword": "一卡通"
+  },
+  {
+    "keyword": "校园卡"
+  },
+  {
+    "keyword": "宿舍报修"
+  },
+  {
+    "keyword": "退宿"
+  },
+  {
+    "keyword": "校外住宿"
+  },
+  {
+    "keyword": "学生证"
+  },
+  {
+    "keyword": "在读证明"
+  },
+  {
+    "keyword": "实习"
+  },
+  {
+    "keyword": "三方协议"
+  },
+  {
+    "keyword": "就业推荐"
+  },
+  {
+    "keyword": "毕业资格"
+  },
+  {
+    "keyword": "学位申请"
+  },
+  {
+    "keyword": "答辩"
+  },
+  {
+    "keyword": "离校"
+  },
+  {
+    "keyword": "申请表"
+  },
+  {
+    "keyword": "请假条"
+  },
+  {
+    "keyword": "证明"
+  },
+  {
+    "keyword": "流程图"
+  }
 ]

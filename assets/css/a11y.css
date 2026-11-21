@@ -1,0 +1,217 @@
+/* ==========================
+   无障碍 / 打印 / 动效偏好
+   —— 集中放在一个文件，方便统一维护
+========================= */
+
+/* ---------- 键盘焦点可见 ----------
+   浏览器默认焦点框在浅色卡片和深色模式下经常看不见，
+   这里用 :focus-visible 画一个明显的焦点环。
+   用 :focus-visible 而不是 :focus，是为了让鼠标点击时
+   不出现焦点框（只给键盘用户显示）。 */
+:focus-visible {
+    outline: 2px solid #0071e3;
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+[data-theme="dark"] :focus-visible {
+    outline-color: #0a84ff;
+}
+
+/* 焦点落在深色卡片上时，用外发光保证对比度 */
+.card:focus-visible,
+.subcard:focus-visible,
+.pagenav-link:focus-visible,
+.back-to-zone:focus-visible,
+.notice-item:focus-visible {
+    outline: 2px solid #0071e3;
+    outline-offset: 3px;
+    box-shadow: 0 0 0 5px rgba(0, 113, 227, 0.16);
+}
+
+[data-theme="dark"] .card:focus-visible,
+[data-theme="dark"] .subcard:focus-visible,
+[data-theme="dark"] .pagenav-link:focus-visible,
+[data-theme="dark"] .back-to-zone:focus-visible,
+[data-theme="dark"] .notice-item:focus-visible {
+    outline-color: #0a84ff;
+    box-shadow: 0 0 0 5px rgba(10, 132, 255, 0.2);
+}
+
+/* 跳过导航：键盘用户按 Tab 第一下就能跳到正文 */
+.skip-to-content {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    z-index: 9999;
+    padding: 10px 18px;
+    border-radius: 0 0 10px 0;
+    background: #0071e3;
+    color: #fff;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.skip-to-content:focus {
+    left: 0;
+}
+
+/* ---------- 减少动效 ----------
+   系统里开了「减弱动态效果」的用户，
+   所有过渡与动画都关掉。 */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    html {
+        scroll-behavior: auto !important;
+    }
+}
+
+/* ---------- 打印 ----------
+   学生经常要打印请假条、流程图、材料清单去办事，
+   打印时把导航、按钮、背景色这些都去掉，只留内容。 */
+@media print {
+
+    /* 隐藏所有交互元素与装饰 */
+    .navbar,
+    .mobile-search,
+    .search-bar-wrapper,
+    .suggestion-box,
+    .feedback-float-btn,
+    .feedback-panel,
+    .feedback-overlay,
+    .pagenav,
+    .back-to-zone,
+    .back-to-top-link,
+    .breadcrumb,
+    .guide-toc,
+    .card-sublist-btn,
+    .feedback-btn,
+    .theme-toggle,
+    .site-footer-mini .footer-mini-links,
+    .skip-to-content {
+        display: none !important;
+    }
+
+    /* 页面本体 */
+    body {
+        background: #fff !important;
+        color: #000 !important;
+        font-size: 12pt;
+        line-height: 1.6;
+    }
+
+    .guide-main,
+    .page-header,
+    .footer {
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .page-header {
+        margin-bottom: 18pt;
+        padding-bottom: 8pt;
+        border-bottom: 1.5pt solid #000;
+    }
+
+    .page-header h1 {
+        font-size: 17pt;
+        margin: 0 0 6pt;
+    }
+
+    .guide-block {
+        margin-bottom: 18pt;
+        padding-bottom: 10pt;
+        border-bottom: 0.5pt solid #ccc;
+        break-inside: avoid;
+    }
+
+    /* 表格要能完整印出来 */
+    .table-wrap {
+        overflow: visible !important;
+        border: 0.5pt solid #999;
+    }
+
+    table {
+        width: 100% !important;
+        min-width: 0 !important;
+        font-size: 10pt;
+        page-break-inside: auto;
+    }
+
+    thead {
+        display: table-header-group;
+    }
+
+    tr {
+        page-break-inside: avoid;
+    }
+
+    th,
+    td {
+        border: 0.5pt solid #999 !important;
+        padding: 5pt 7pt !important;
+    }
+
+    /* 流程图不要被裁掉 */
+    .mermaid-block {
+        border: 0.5pt solid #999;
+        padding: 8pt 4pt;
+        overflow: visible !important;
+        page-break-inside: avoid;
+    }
+
+    .mermaid-block svg {
+        max-width: 100% !important;
+        height: auto !important;
+    }
+
+    /* 代码块换行，不要横向截断 */
+    .code-block,
+    pre {
+        overflow: visible !important;
+        white-space: pre-wrap !important;
+        word-break: break-word;
+        border: 0.5pt solid #999;
+        font-size: 9.5pt;
+    }
+
+    /* 待填写占位框在纸面上要看得出来 */
+    .todo-placeholder {
+        border: 0.5pt dashed #c2620a !important;
+        background: none !important;
+        color: #c2620a !important;
+    }
+
+    /* 链接在纸面上显示地址，方便核对 */
+    .guide-main a[href^="http"]::after {
+        content: " (" attr(href) ")";
+        font-size: 8.5pt;
+        color: #666;
+        word-break: break-all;
+    }
+
+    img {
+        max-width: 100% !important;
+        page-break-inside: avoid;
+    }
+
+    h2,
+    h3 {
+        page-break-after: avoid;
+    }
+
+    .footer-note {
+        font-size: 9pt;
+        color: #555;
+    }
+}

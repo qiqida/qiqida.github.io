@@ -1,0 +1,453 @@
+/* ==========================
+   流程指南页面样式
+   —— 用于流程页（长文、表格、流程图）
+   ========================== */
+
+.guide-main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px 30px;
+}
+
+/* ---------- 正文末尾的「返回顶部」文字链接 ---------- */
+/* 锚点在 body 上，吸顶导航栏会遮住一点，加 scroll-margin 避开 */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    scroll-margin-top: 76px;
+}
+
+/* 注意：.guide-main p 的特异性更高，这里要写得更具体才生效 */
+.guide-main .back-to-top-link {
+    margin: 40px 0 26px;
+    text-align: right;
+    line-height: 1.4;
+    color: var(--subtext-color);
+}
+
+.guide-main .back-to-top-link a {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 0;
+    font-size: 12.5px;
+    font-weight: 400;
+    color: var(--subtext-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.guide-main .back-to-top-link a:hover {
+    color: #0071e3;
+}
+
+[data-theme="dark"] .guide-main .back-to-top-link a:hover {
+    color: #0a84ff;
+}
+
+/* ---------- 页内目录 ---------- */
+.guide-toc {
+    margin: 24px 0 36px;
+    padding: 20px 22px;
+    border-radius: 18px;
+    background: var(--card-color);
+    border: 1px solid var(--border-color);
+}
+
+.guide-toc-title {
+    margin: 0 0 12px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--subtext-color);
+    letter-spacing: 0.05em;
+}
+
+.guide-toc ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 10px 18px;
+}
+
+.guide-toc li {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.guide-toc a {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.guide-toc a:hover {
+    color: #0071e3;
+}
+
+[data-theme="dark"] .guide-toc a:hover {
+    color: #0a84ff;
+}
+
+.guide-toc-desc {
+    font-size: 12.5px;
+    color: var(--subtext-color);
+    line-height: 1.5;
+}
+
+/* ---------- 子板块分块 ---------- */
+.guide-block {
+    margin-bottom: 44px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.guide-block:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.guide-block-title {
+    margin-top: 0;
+    scroll-margin-top: 80px;
+    position: relative;
+}
+
+.guide-block-desc {
+    margin: -6px 0 20px;
+    font-size: 13.5px;
+    color: var(--subtext-color);
+}
+
+.guide-empty {
+    padding: 24px;
+    border-radius: 14px;
+    background: rgba(0, 0, 0, 0.03);
+    color: var(--subtext-color);
+    text-align: center;
+    font-size: 14px;
+}
+
+[data-theme="dark"] .guide-empty {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.guide-main > h2,
+.guide-main > h3,
+.guide-main > h4 {
+    scroll-margin-top: 80px;
+}
+
+/* ---------- 标题锚点 ---------- */
+.guide-main .anchor-link {
+    margin-left: 8px;
+    font-size: 0.6em;
+    color: var(--subtext-color);
+    text-decoration: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    font-weight: 400;
+}
+
+.guide-main h2:hover .anchor-link,
+.guide-main h3:hover .anchor-link,
+.guide-main h4:hover .anchor-link {
+    opacity: 0.6;
+}
+
+.guide-main .anchor-link:hover {
+    opacity: 1;
+    color: #0071e3;
+}
+
+/* ---------- 段落 ---------- */
+.guide-main p {
+    line-height: 1.85;
+    margin-bottom: 14px;
+    color: var(--text-color);
+}
+
+.guide-main strong {
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+/* ---------- 列表 ---------- */
+.guide-main ul,
+.guide-main ol {
+    margin: 0 0 16px;
+    padding-left: 24px;
+    line-height: 1.85;
+}
+
+.guide-main li {
+    margin-bottom: 8px;
+    color: var(--text-color);
+}
+
+.guide-main li > ul,
+.guide-main li > ol {
+    margin-top: 8px;
+    margin-bottom: 4px;
+}
+
+/* ---------- 引用块 ---------- */
+.guide-quote {
+    margin: 18px 0;
+    padding: 14px 18px;
+    border-left: 3px solid #0071e3;
+    border-radius: 0 12px 12px 0;
+    background: rgba(0, 113, 227, 0.06);
+}
+
+.guide-quote p {
+    margin: 0 0 8px;
+    font-size: 14.5px;
+    line-height: 1.8;
+}
+
+.guide-quote p:last-child {
+    margin-bottom: 0;
+}
+
+[data-theme="dark"] .guide-quote {
+    background: rgba(10, 132, 255, 0.1);
+    border-left-color: #0a84ff;
+}
+
+/* ---------- 表格 ---------- */
+.table-wrap {
+    overflow-x: auto;
+    margin: 18px 0;
+    border-radius: 14px;
+    border: 1px solid var(--border-color);
+    background: var(--card-color);
+    -webkit-overflow-scrolling: touch;
+}
+
+.guide-main table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    min-width: 480px;
+}
+
+.guide-main thead {
+    background: rgba(0, 113, 227, 0.06);
+}
+
+[data-theme="dark"] .guide-main thead {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.guide-main th,
+.guide-main td {
+    padding: 11px 14px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+    line-height: 1.65;
+    vertical-align: top;
+}
+
+.guide-main th {
+    font-weight: 600;
+    color: var(--text-color);
+    white-space: nowrap;
+}
+
+.guide-main tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.guide-main tbody tr:hover {
+    background: rgba(0, 0, 0, 0.02);
+}
+
+[data-theme="dark"] .guide-main tbody tr:hover {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+/* ---------- 代码 ---------- */
+.guide-main code {
+    padding: 2px 6px;
+    border-radius: 6px;
+    background: rgba(0, 0, 0, 0.06);
+    font-size: 0.9em;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    word-break: break-all;
+}
+
+[data-theme="dark"] .guide-main code {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.code-block {
+    margin: 18px 0;
+    padding: 16px 18px;
+    border-radius: 14px;
+    background: var(--card-color);
+    border: 1px solid var(--border-color);
+    overflow-x: auto;
+    line-height: 1.7;
+}
+
+.code-block code {
+    padding: 0;
+    background: none;
+    font-size: 13px;
+    white-space: pre;
+}
+
+/* ---------- 图片 ---------- */
+.guide-main img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 18px auto;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+}
+
+/* ---------- mermaid 流程图 ---------- */
+.mermaid-block {
+    margin: 22px 0;
+    padding: 18px 12px;
+    border-radius: 16px;
+    background: var(--card-color);
+    border: 1px solid var(--border-color);
+    overflow-x: auto;
+    text-align: center;
+    -webkit-overflow-scrolling: touch;
+}
+
+.mermaid-block .mermaid-pre {
+    display: inline-block;
+    min-width: 100%;
+}
+
+/* mermaid 渲染出的 SVG：保持 JS 设置的原始尺寸，不要被容器压缩。
+   横向流程图在窄屏上通过左右滑动查看。 */
+.mermaid-block svg {
+    max-width: none !important;
+    height: auto !important;
+    display: block;
+    margin: 0 auto;
+}
+
+/* 渲染失败时的降级显示 */
+.mermaid-fallback {
+    text-align: left;
+}
+
+.mermaid-fallback-title {
+    margin: 0 0 10px;
+    font-size: 13.5px;
+    color: var(--subtext-color);
+}
+
+.mermaid-error {
+    border-color: rgba(255, 149, 0, 0.4);
+}
+
+/* ---------- 附件下载链接 ---------- */
+.guide-main .internal-link {
+    color: #0071e3;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0, 113, 227, 0.3);
+    word-break: break-all;
+}
+
+.guide-main .internal-link:hover {
+    border-bottom-color: #0071e3;
+}
+
+[data-theme="dark"] .guide-main .internal-link {
+    color: #0a84ff;
+    border-bottom-color: rgba(10, 132, 255, 0.35);
+}
+
+/* 指向附件文件的链接加个下载标记 */
+.guide-main a[href$=".doc"],
+.guide-main a[href$=".docx"],
+.guide-main a[href$=".pdf"],
+.guide-main a[href$=".xls"],
+.guide-main a[href$=".xlsx"],
+.guide-main a[href$=".png"],
+.guide-main a[href$=".jpg"] {
+    padding-right: 18px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230071e3' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4'/%3E%3Cpolyline points='7 10 12 15 17 10'/%3E%3Cline x1='12' y1='15' x2='12' y2='3'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: 13px;
+}
+
+/* ---------- 待填写占位符 ---------- */
+.todo-placeholder {
+    display: inline-block;
+    padding: 1px 7px;
+    border-radius: 6px;
+    background: rgba(255, 149, 0, 0.14);
+    color: #c2620a;
+    font-size: 0.9em;
+    font-weight: 500;
+    border: 1px dashed rgba(255, 149, 0, 0.45);
+}
+
+[data-theme="dark"] .todo-placeholder {
+    background: rgba(255, 149, 0, 0.16);
+    color: #ffb340;
+    border-color: rgba(255, 149, 0, 0.4);
+}
+
+/* ---------- 页脚说明 ---------- */
+.footer-note {
+    font-size: 12.5px;
+    color: var(--subtext-color);
+    line-height: 1.7;
+    max-width: 720px;
+    margin: 8px auto 0;
+}
+
+/* ---------- 移动端 ---------- */
+@media (max-width: 768px) {
+    .guide-main {
+        padding: 0 14px 40px;
+    }
+
+    .guide-toc {
+        padding: 16px;
+        margin: 18px 0 28px;
+    }
+
+    .guide-toc ul {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .guide-main th,
+    .guide-main td {
+        padding: 9px 11px;
+        font-size: 13.5px;
+    }
+
+    .guide-main table {
+        font-size: 13.5px;
+        min-width: 400px;
+    }
+
+    .guide-quote {
+        padding: 12px 14px;
+    }
+
+    .mermaid-block {
+        padding: 14px 8px;
+    }
+}

@@ -63,9 +63,32 @@ body.mode-desktop .card-grid {
     padding-right: 34px;
 }
 
-/* 描述文字统一占两行高度，保证所有卡片视觉尺寸一致 */
-.card-body > p {
-    min-height: 2.6em;
+/* ---------- 标题与简介：统一两行高度，卡片视觉一致 ---------- */
+
+/* 标题：字号缩小到 18px，固定占两行高度。
+   「生活与证件专区」「实习就业与毕业专区」这类长标题能完整显示，
+   短标题也占满两行，所有卡片高度一致。 */
+.card-body > h3 {
+    font-size: 18px;
+    line-height: 1.45;
+    min-height: 2.9em;
+    max-height: 2.9em;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    word-break: break-word;
+}
+
+/* 简介：单行，超出省略号，固定占一行高度 */
+.card-body > p.card-brief {
+    min-height: 1.6em;
+    max-height: 1.6em;
+    font-size: 13px;
+    line-height: 1.6;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* 悬停时卡片浮起 */
@@ -457,8 +480,9 @@ body.mode-mobile .card.is-expanded .card-sublist {
 }
 
 /* 移动端描述文字不必强制两行 */
-body.mode-mobile .card-body > p {
-    min-height: 0;
+body.mode-mobile .card-body > p.card-brief {
+    min-height: 1.6em;
+    max-height: 1.6em;
 }
 
 /* 平板及以下 */

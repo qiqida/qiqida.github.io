@@ -1,0 +1,866 @@
+[
+  {
+    "title": "新生专区",
+    "category": "专区总览",
+    "url": "pages/freshman.html",
+    "desc": "报到、迎新、党团转接、入学教育、培养方案与导师双选",
+    "keywords": [
+      "新生专区",
+      "从报到到上课"
+    ],
+    "pinyin": "xinshengzhuanqu congbaodaodaoshangke",
+    "initials": "xszq cbddsk"
+  },
+  {
+    "title": "在校学习专区",
+    "category": "专区总览",
+    "url": "pages/study.html",
+    "desc": "请假与考勤、选课退课、考试与成绩、学籍异动、毕业设计、学术资源",
+    "keywords": [
+      "在校学习专区",
+      "请假、选课与成绩"
+    ],
+    "pinyin": "zaixiaoxuexizhuanqu qingjiaxuankeyuchengji",
+    "initials": "zxxxzq qjxkycj"
+  },
+  {
+    "title": "奖助专区",
+    "category": "专区总览",
+    "url": "pages/aid.html",
+    "desc": "奖学金、助学金与助学贷款、困难认定、三助一辅岗位",
+    "keywords": [
+      "奖助专区",
+      "奖学金与助学金"
+    ],
+    "pinyin": "jiangzhuzhuanqu jiangxuejinyuzhuxuejin",
+    "initials": "jzzq jxjyzxj"
+  },
+  {
+    "title": "党团专区",
+    "category": "专区总览",
+    "url": "pages/party.html",
+    "desc": "党组织关系转接、团组织关系、党员发展、班级与班委",
+    "keywords": [
+      "党团专区",
+      "党组织与团组织"
+    ],
+    "pinyin": "dangtuanzhuanqu dangzuzhiyutuanzuzhi",
+    "initials": "dtzq dzzytzz"
+  },
+  {
+    "title": "生活与证件专区",
+    "category": "专区总览",
+    "url": "pages/life.html",
+    "desc": "宿舍、一卡通、网络账号、场地借用、心理医保、学生证与证明",
+    "keywords": [
+      "生活与证件专区",
+      "生活",
+      "证件专区",
+      "住宿、校园卡与证明"
+    ],
+    "pinyin": "shenghuoyuzhengjianzhuanqu shenghuo zhengjianzhuanqu zhusuxiaoyuankayuzhengming",
+    "initials": "shyzjzq sh zjzq zsxykyzm"
+  },
+  {
+    "title": "实习就业与毕业专区",
+    "category": "专区总览",
+    "url": "pages/career.html",
+    "desc": "实习与外出报备、实习证明、三方协议、升学出国、毕业与离校",
+    "keywords": [
+      "实习就业与毕业专区",
+      "实习就业",
+      "毕业专区",
+      "实习、就业到离校"
+    ],
+    "pinyin": "shixijiuyeyubiyezhuanqu shixijiuye biyezhuanqu shixijiuyedaolixiao",
+    "initials": "sxjyybyzq sxjy byzq sxjydlx"
+  },
+  {
+    "title": "文件专区",
+    "category": "专区总览",
+    "url": "pages/download.html",
+    "desc": "请假条、申请表、证明协议、申请书与总结模板下载",
+    "keywords": [
+      "文件专区",
+      "表格与模板下载"
+    ],
+    "pinyin": "wenjianzhuanqu biaogeyumubanxiazai",
+    "initials": "wjzq bgymbxz"
+  },
+  {
+    "title": "问题专区",
+    "category": "专区总览",
+    "url": "pages/faq.html",
+    "desc": "系统操作、材料审核、流程卡点、找谁问与反馈",
+    "keywords": [
+      "问题专区",
+      "卡住了看这里"
+    ],
+    "pinyin": "wentizhuanqu kazhulekanzheli",
+    "initials": "wtzq kzlkzl"
+  },
+  {
+    "title": "关于与联系",
+    "category": "专区总览",
+    "url": "pages/about.html",
+    "desc": "网站说明、咨询方式与办公时间、办事地点指引",
+    "keywords": [
+      "关于与联系",
+      "关于",
+      "联系",
+      "本站说明与联系方式"
+    ],
+    "pinyin": "guanyuyulianxi guanyu lianxi benzhanshuomingyulianxifangshi",
+    "initials": "gyylx gy lx bzsmylxfs"
+  },
+  {
+    "title": "报到与迎新",
+    "category": "新生专区",
+    "url": "pages/freshman-report.html",
+    "desc": "从录取到正式上课的完整流程、缴费渠道与报到材料清单",
+    "keywords": [
+      "报到",
+      "迎新",
+      "迎新码",
+      "录取",
+      "注册",
+      "报到与迎新"
+    ],
+    "pinyin": "baodaoyuyingxin baodao yingxin yingxinma luqu zhuce",
+    "initials": "bdyyx bd yx yxm lq zc"
+  },
+  {
+    "title": "党团关系转接",
+    "category": "新生专区",
+    "url": "pages/freshman-party.html",
+    "desc": "党组织关系与团组织关系的转入步骤",
+    "keywords": [
+      "党组织关系",
+      "团组织关系",
+      "转接",
+      "介绍信",
+      "党团关系转接"
+    ],
+    "pinyin": "dangtuanguanxizhuanjie dangzuzhiguanxi tuanzuzhiguanxi zhuanjie jieshaoxin",
+    "initials": "dtgxzj dzzgx tzzgx zj jsx"
+  },
+  {
+    "title": "入学教育与体检",
+    "category": "新生专区",
+    "url": "pages/freshman-education.html",
+    "desc": "入学教育安排、体检与安全教育考试",
+    "keywords": [
+      "入学教育",
+      "体检",
+      "安全教育考试",
+      "入学教育与体检"
+    ],
+    "pinyin": "ruxuejiaoyuyutijian ruxuejiaoyu tijian anquanjiaoyukaoshi",
+    "initials": "rxjyytj rxjy tj aqjyks"
+  },
+  {
+    "title": "培养方案与选课",
+    "category": "新生专区",
+    "url": "pages/freshman-course.html",
+    "desc": "培养方案确认、选课入口与学分要求",
+    "keywords": [
+      "培养方案",
+      "选课",
+      "学分",
+      "课程",
+      "培养方案与选课"
+    ],
+    "pinyin": "peiyangfanganyuxuanke peiyangfangan xuanke xuefen kecheng",
+    "initials": "pyfayxk pyfa xk xf kc"
+  },
+  {
+    "title": "导师双选",
+    "category": "新生专区",
+    "url": "pages/freshman-advisor.html",
+    "desc": "双向选择流程与注意事项",
+    "keywords": [
+      "导师",
+      "选导",
+      "双选",
+      "导师双选"
+    ],
+    "pinyin": "daoshishuangxuan daoshi xuandao shuangxuan",
+    "initials": "dssx ds xd sx"
+  },
+  {
+    "title": "实验室安全考试",
+    "category": "新生专区",
+    "url": "pages/freshman-safety.html",
+    "desc": "实验室安全准入考试的入口与流程",
+    "keywords": [
+      "实验室安全考试"
+    ],
+    "pinyin": "shiyanshianquankaoshi",
+    "initials": "sysaqks"
+  },
+  {
+    "title": "请假与考勤",
+    "category": "在校学习专区",
+    "url": "pages/study-leave.html",
+    "desc": "线下请假条与线上出省报备两条线、天数与审批级别",
+    "keywords": [
+      "请假",
+      "考勤",
+      "病假",
+      "事假",
+      "外出报备",
+      "出省",
+      "销假",
+      "请假与考勤"
+    ],
+    "pinyin": "qingjiayukaoqin qingjia kaoqin bingjia shijia waichubaobei chusheng xiaojia",
+    "initials": "qjykq qj kq bj sj wcbb cs xj"
+  },
+  {
+    "title": "选课与退课",
+    "category": "在校学习专区",
+    "url": "pages/study-course.html",
+    "desc": "选课、退课与补选的操作入口",
+    "keywords": [
+      "选课",
+      "退课",
+      "补选",
+      "选课与退课"
+    ],
+    "pinyin": "xuankeyutuike xuanke tuike buxuan",
+    "initials": "xkytk xk tk bx"
+  },
+  {
+    "title": "考试与成绩",
+    "category": "在校学习专区",
+    "url": "pages/study-exam.html",
+    "desc": "缓考、补考与成绩复核",
+    "keywords": [
+      "考试",
+      "成绩",
+      "缓考",
+      "补考",
+      "复核",
+      "考试与成绩"
+    ],
+    "pinyin": "kaoshiyuchengji kaoshi chengji huankao bukao fuhe",
+    "initials": "ksycj ks cj hk bk fh"
+  },
+  {
+    "title": "学籍异动",
+    "category": "在校学习专区",
+    "url": "pages/study-status.html",
+    "desc": "休学、复学、转专业与保留学籍",
+    "keywords": [
+      "休学",
+      "复学",
+      "转专业",
+      "保留学籍",
+      "学籍",
+      "学籍异动"
+    ],
+    "pinyin": "xuejiyidong xiuxue fuxue zhuanzhuanye baoliuxueji xueji",
+    "initials": "xjyd xx fx zzy blxj xj"
+  },
+  {
+    "title": "毕业设计",
+    "category": "在校学习专区",
+    "url": "pages/study-thesis.html",
+    "desc": "开题、中期检查、查重与答辩的培养环节",
+    "keywords": [
+      "毕设",
+      "开题",
+      "中期检查",
+      "查重",
+      "论文",
+      "毕业设计"
+    ],
+    "pinyin": "biyesheji bishe kaiti zhongqijiancha chazhong lunwen",
+    "initials": "bysj bs kt zqjc cz lw"
+  },
+  {
+    "title": "学术资源使用",
+    "category": "在校学习专区",
+    "url": "pages/study-academic.html",
+    "desc": "学术资源访问申请与校外访问方法",
+    "keywords": [
+      "学术资源",
+      "scholar",
+      "外文文献",
+      "数据库",
+      "学术资源使用"
+    ],
+    "pinyin": "xueshuziyuanshiyong xueshuziyuan waiwenwenxian shujuku",
+    "initials": "xszysy xszy wwwx sjk"
+  },
+  {
+    "title": "专利与软著申请",
+    "category": "在校学习专区",
+    "url": "pages/study-patent.html",
+    "desc": "专利与软件著作权的申请入口与流程",
+    "keywords": [
+      "专利",
+      "软著申请",
+      "软著",
+      "软件著作权",
+      "专利与软著申请"
+    ],
+    "pinyin": "zhuanliyuruanzhushenqing zhuanli ruanzhushenqing ruanzhu ruanjianzhuzuoquan",
+    "initials": "zlyrzsq zl rzsq rz rjzzq"
+  },
+  {
+    "title": "一站式申请",
+    "category": "在校学习专区",
+    "url": "pages/study-one-stop.html",
+    "desc": "研究生一件事一次办的应用范围与入口",
+    "keywords": [
+      "一站式申请"
+    ],
+    "pinyin": "yizhanshishenqing",
+    "initials": "yzssq"
+  },
+  {
+    "title": "奖学金申请",
+    "category": "奖助专区",
+    "url": "pages/aid-scholarship.html",
+    "desc": "学业奖学金等级金额、评分规则与评选流程",
+    "keywords": [
+      "奖学金",
+      "学业奖学金",
+      "国奖",
+      "评选",
+      "奖学金申请"
+    ],
+    "pinyin": "jiangxuejinshenqing jiangxuejin xueyejiangxuejin guojiang pingxuan",
+    "initials": "jxjsq jxj xyjxj gj px"
+  },
+  {
+    "title": "助学金与助学贷款",
+    "category": "奖助专区",
+    "url": "pages/aid-loan.html",
+    "desc": "国家助学金与生源地信用助学贷款",
+    "keywords": [
+      "助学金",
+      "助学贷款",
+      "生源地",
+      "助学金与助学贷款"
+    ],
+    "pinyin": "zhuxuejinyuzhuxuedaikuan zhuxuejin zhuxuedaikuan shengyuandi",
+    "initials": "zxjyzxdk zxj zxdk syd"
+  },
+  {
+    "title": "家庭经济困难认定",
+    "category": "奖助专区",
+    "url": "pages/aid-hardship.html",
+    "desc": "四项佐证材料与提交要求",
+    "keywords": [
+      "困难认定",
+      "经济困难",
+      "佐证材料",
+      "家庭经济困难认定"
+    ],
+    "pinyin": "jiatingjingjikunnanrending kunnanrending jingjikunnan zuozhengcailiao",
+    "initials": "jtjjknrd knrd jjkn zzcl"
+  },
+  {
+    "title": "三助一辅岗位",
+    "category": "奖助专区",
+    "url": "pages/aid-assistant.html",
+    "desc": "助研、助教、助管岗位招聘",
+    "keywords": [
+      "三助",
+      "助研",
+      "助教",
+      "助管",
+      "三助一辅岗位"
+    ],
+    "pinyin": "sanzhuyifugangwei sanzhu zhuyan zhujiao zhuguan",
+    "initials": "szyfgw sz zy zj zg"
+  },
+  {
+    "title": "党组织关系转接",
+    "category": "党团专区",
+    "url": "pages/party-transfer.html",
+    "desc": "线上转接与线下介绍信两种方式",
+    "keywords": [
+      "党组织关系",
+      "党务系统",
+      "转接",
+      "党组织关系转接"
+    ],
+    "pinyin": "dangzuzhiguanxizhuanjie dangzuzhiguanxi dangwuxitong zhuanjie",
+    "initials": "dzzgxzj dzzgx dwxt zj"
+  },
+  {
+    "title": "团组织关系与智慧团建",
+    "category": "党团专区",
+    "url": "pages/party-league.html",
+    "desc": "团员关系转入与智慧团建操作",
+    "keywords": [
+      "团组织关系",
+      "智慧团建",
+      "团员",
+      "团组织",
+      "团组织关系与智慧团建"
+    ],
+    "pinyin": "tuanzuzhiguanxiyuzhihuituanjian tuanzuzhiguanxi zhihuituanjian tuanyuan tuanzuzhi",
+    "initials": "tzzgxyzhtj tzzgx zhtj ty tzz"
+  },
+  {
+    "title": "党员发展流程",
+    "category": "党团专区",
+    "url": "pages/party-develop.html",
+    "desc": "入党各阶段与要求",
+    "keywords": [
+      "入党",
+      "党员发展",
+      "积极分子",
+      "预备党员",
+      "党员发展流程"
+    ],
+    "pinyin": "dangyuanfazhanliucheng rudang dangyuanfazhan jijifenzi yubeidangyuan",
+    "initials": "dyfzlc rd dyfz jjfz ybdy"
+  },
+  {
+    "title": "班级与班委",
+    "category": "党团专区",
+    "url": "pages/party-class.html",
+    "desc": "班级划分与班委报名",
+    "keywords": [
+      "班级",
+      "班委",
+      "班干部",
+      "班级与班委"
+    ],
+    "pinyin": "banjiyubanwei banji banwei banganbu",
+    "initials": "bjybw bj bw bgb"
+  },
+  {
+    "title": "宿舍报修与退宿",
+    "category": "生活与证件专区",
+    "url": "pages/life-dorm.html",
+    "desc": "水电报修、退宿与校外住宿",
+    "keywords": [
+      "宿舍报修",
+      "退宿",
+      "报修",
+      "校外住宿",
+      "宿舍",
+      "水电",
+      "宿舍报修与退宿"
+    ],
+    "pinyin": "sushebaoxiuyutuisu sushebaoxiu tuisu baoxiu xiaowaizhusu sushe shuidian",
+    "initials": "ssbxyts ssbx ts bx xwzs ss sd"
+  },
+  {
+    "title": "一卡通补办",
+    "category": "生活与证件专区",
+    "url": "pages/life-card.html",
+    "desc": "绑定、挂失、补办与领取",
+    "keywords": [
+      "一卡通",
+      "校园卡",
+      "卡丢了",
+      "挂失",
+      "补办",
+      "一卡通补办"
+    ],
+    "pinyin": "yikatongbuban yikatong xiaoyuanka kadiule guashi buban",
+    "initials": "yktbb ykt xyk kdl gs bb"
+  },
+  {
+    "title": "网络与账号",
+    "category": "生活与证件专区",
+    "url": "pages/life-network.html",
+    "desc": "校园网账号与正版软件获取",
+    "keywords": [
+      "网络",
+      "账号",
+      "校园网",
+      "正版软件",
+      "VPN",
+      "网络与账号"
+    ],
+    "pinyin": "wangluoyuzhanghao wangluo zhanghao xiaoyuanwang zhengbanruanjian",
+    "initials": "wlyzh wl zh xyw zbrj"
+  },
+  {
+    "title": "场地借用与活动申报",
+    "category": "生活与证件专区",
+    "url": "pages/life-venue.html",
+    "desc": "场地借用与活动申报流程",
+    "keywords": [
+      "场地借用",
+      "活动申报",
+      "会议室",
+      "场地借用与活动申报"
+    ],
+    "pinyin": "changdijieyongyuhuodongshenbao changdijieyong huodongshenbao huiyishi",
+    "initials": "cdjyyhdsb cdjy hdsb hys"
+  },
+  {
+    "title": "心理咨询与医保",
+    "category": "生活与证件专区",
+    "url": "pages/life-medical.html",
+    "desc": "医保参保与心理咨询预约",
+    "keywords": [
+      "心理咨询",
+      "医保",
+      "参保",
+      "心理咨询与医保"
+    ],
+    "pinyin": "xinlizixunyuyibao xinlizixun yibao canbao",
+    "initials": "xlzxyyb xlzx yb cb"
+  },
+  {
+    "title": "学生证补办",
+    "category": "生活与证件专区",
+    "url": "pages/life-idcard.html",
+    "desc": "研究生证填写与补办流程",
+    "keywords": [
+      "学生证",
+      "研究生证",
+      "补办",
+      "学生证补办"
+    ],
+    "pinyin": "xueshengzhengbuban xueshengzheng yanjiushengzheng buban",
+    "initials": "xszbb xsz yjsz bb"
+  },
+  {
+    "title": "在读与成绩证明",
+    "category": "生活与证件专区",
+    "url": "pages/life-certificate.html",
+    "desc": "在读证明与成绩单开具",
+    "keywords": [
+      "在读",
+      "成绩证明",
+      "在读证明",
+      "成绩单",
+      "证明开具",
+      "在校证明",
+      "在读与成绩证明"
+    ],
+    "pinyin": "zaiduyuchengjizhengming zaidu chengjizhengming zaiduzhengming chengjidan zhengmingkaiju zaixiaozhengming",
+    "initials": "zdycjzm zd cjzm zdzm cjd zmkj zxzm"
+  },
+  {
+    "title": "实习申请与外出报备",
+    "category": "实习就业与毕业专区",
+    "url": "pages/career-internship.html",
+    "desc": "实习三张表与外出报备须知",
+    "keywords": [
+      "实习申请",
+      "外出报备",
+      "实习",
+      "社会实践",
+      "四方协议",
+      "实习申请与外出报备"
+    ],
+    "pinyin": "shixishenqingyuwaichubaobei shixishenqing waichubaobei shixi shehuishijian sifangxieyi",
+    "initials": "sxsqywcbb sxsq wcbb sx shsj sfxy"
+  },
+  {
+    "title": "实习证明开具",
+    "category": "实习就业与毕业专区",
+    "url": "pages/career-proof.html",
+    "desc": "实习证明的申请与开具",
+    "keywords": [
+      "实习证明",
+      "实习证明开具"
+    ],
+    "pinyin": "shixizhengmingkaiju shixizhengming",
+    "initials": "sxzmkj sxzm"
+  },
+  {
+    "title": "就业推荐与三方协议",
+    "category": "实习就业与毕业专区",
+    "url": "pages/career-employment.html",
+    "desc": "就业推荐表与三方协议签订",
+    "keywords": [
+      "就业推荐",
+      "三方协议",
+      "就业",
+      "就业推荐与三方协议"
+    ],
+    "pinyin": "jiuyetuijianyusanfangxieyi jiuyetuijian sanfangxieyi jiuye",
+    "initials": "jytjysfxy jytj sfxy jy"
+  },
+  {
+    "title": "升学与出国交流",
+    "category": "实习就业与毕业专区",
+    "url": "pages/career-abroad.html",
+    "desc": "保研考研与因公出国境",
+    "keywords": [
+      "升学",
+      "出国交流",
+      "保研",
+      "考研",
+      "出国",
+      "出境",
+      "因公出国",
+      "升学与出国交流"
+    ],
+    "pinyin": "shengxueyuchuguojiaoliu shengxue chuguojiaoliu baoyan kaoyan chuguo chujing yingongchuguo",
+    "initials": "sxycgjl sx cgjl by ky cg cj ygcg"
+  },
+  {
+    "title": "毕业资格审核",
+    "category": "实习就业与毕业专区",
+    "url": "pages/career-qualify.html",
+    "desc": "毕业资格审核的条件与流程",
+    "keywords": [
+      "毕业资格",
+      "审核",
+      "毕业资格审核"
+    ],
+    "pinyin": "biyezigeshenhe biyezige shenhe",
+    "initials": "byzgsh byzg sh"
+  },
+  {
+    "title": "学位申请与论文送审",
+    "category": "实习就业与毕业专区",
+    "url": "pages/career-degree.html",
+    "desc": "学位申请、论文送审与答辩安排",
+    "keywords": [
+      "学位申请",
+      "论文送审",
+      "答辩",
+      "查重",
+      "学位申请与论文送审"
+    ],
+    "pinyin": "xueweishenqingyulunwensongshen xueweishenqing lunwensongshen dabian chazhong",
+    "initials": "xwsqylwss xwsq lwss db cz"
+  },
+  {
+    "title": "毕业材料与档案",
+    "category": "实习就业与毕业专区",
+    "url": "pages/career-archive.html",
+    "desc": "毕业登记表、材料清单与档案转递",
+    "keywords": [
+      "毕业材料",
+      "档案",
+      "毕业登记表",
+      "派遣",
+      "转递",
+      "毕业材料与档案"
+    ],
+    "pinyin": "biyecailiaoyudangan biyecailiao dangan biyedengjibiao paiqian zhuandi",
+    "initials": "byclyda bycl da bydjb pq zd"
+  },
+  {
+    "title": "离校手续",
+    "category": "实习就业与毕业专区",
+    "url": "pages/career-leave-school.html",
+    "desc": "离校前要办的事项与办理顺序",
+    "keywords": [
+      "离校",
+      "离校手续"
+    ],
+    "pinyin": "lixiaoshouxu lixiao",
+    "initials": "lxsx lx"
+  },
+  {
+    "title": "请假条与报备单",
+    "category": "文件专区",
+    "url": "pages/download-leave.html",
+    "desc": "请假条与各类报备单模板",
+    "keywords": [
+      "请假条",
+      "报备单",
+      "表格",
+      "下载",
+      "请假条与报备单"
+    ],
+    "pinyin": "qingjiatiaoyubaobeidan qingjiatiao baobeidan biaoge xiazai",
+    "initials": "qjtybbd qjt bbd bg xz"
+  },
+  {
+    "title": "申请表与审批表",
+    "category": "文件专区",
+    "url": "pages/download-forms.html",
+    "desc": "各类申请表、审批表与承诺书",
+    "keywords": [
+      "申请表",
+      "审批表",
+      "下载",
+      "申请表与审批表"
+    ],
+    "pinyin": "shenqingbiaoyushenpibiao shenqingbiao shenpibiao xiazai",
+    "initials": "sqbyspb sqb spb xz"
+  },
+  {
+    "title": "证明与协议模板",
+    "category": "文件专区",
+    "url": "pages/download-proof.html",
+    "desc": "证明、协议与四方协议书",
+    "keywords": [
+      "证明",
+      "协议模板",
+      "协议",
+      "模板",
+      "证明与协议模板"
+    ],
+    "pinyin": "zhengmingyuxieyimuban zhengming xieyimuban xieyi muban",
+    "initials": "zmyxymb zm xymb xy mb"
+  },
+  {
+    "title": "申请书与总结模板",
+    "category": "文件专区",
+    "url": "pages/download-apply.html",
+    "desc": "申请书、说明与总结模板",
+    "keywords": [
+      "申请书",
+      "总结模板",
+      "总结",
+      "申请书与总结模板"
+    ],
+    "pinyin": "shenqingshuyuzongjiemuban shenqingshu zongjiemuban zongjie",
+    "initials": "sqsyzjmb sqs zjmb zj"
+  },
+  {
+    "title": "附件与截图归档",
+    "category": "文件专区",
+    "url": "pages/download-archive.html",
+    "desc": "流程图、指引与说明类附件",
+    "keywords": [
+      "附件",
+      "截图归档",
+      "截图",
+      "归档",
+      "流程图",
+      "附件与截图归档"
+    ],
+    "pinyin": "fujianyujietuguidang fujian jietuguidang jietu guidang liuchengtu",
+    "initials": "fjyjtgd fj jtgd jt gd lct"
+  },
+  {
+    "title": "系统操作问题",
+    "category": "问题专区",
+    "url": "pages/faq-system.html",
+    "desc": "账号、登录与各平台操作问题",
+    "keywords": [
+      "系统",
+      "登录",
+      "密码",
+      "操作",
+      "系统操作问题"
+    ],
+    "pinyin": "xitongcaozuowenti xitong denglu mima caozuo",
+    "initials": "xtczwt xt dl mm cz"
+  },
+  {
+    "title": "材料与审核问题",
+    "category": "问题专区",
+    "url": "pages/faq-material.html",
+    "desc": "材料缺漏与审核退回问题",
+    "keywords": [
+      "材料",
+      "审核问题",
+      "审核",
+      "退回",
+      "材料与审核问题"
+    ],
+    "pinyin": "cailiaoyushenhewenti cailiao shenhewenti shenhe tuihui",
+    "initials": "clyshwt cl shwt sh th"
+  },
+  {
+    "title": "流程卡点",
+    "category": "问题专区",
+    "url": "pages/faq-block.html",
+    "desc": "流程走到一半卡住怎么办",
+    "keywords": [
+      "卡住",
+      "流程",
+      "卡点",
+      "流程卡点"
+    ],
+    "pinyin": "liuchengkadian kazhu liucheng kadian",
+    "initials": "lckd kz lc kd"
+  },
+  {
+    "title": "找谁问与反馈",
+    "category": "问题专区",
+    "url": "pages/faq-contact.html",
+    "desc": "该找哪个部门、怎么反馈问题",
+    "keywords": [
+      "找谁问",
+      "反馈",
+      "电话",
+      "办公室",
+      "联系",
+      "找谁问与反馈"
+    ],
+    "pinyin": "zhaoshuiwenyufankui zhaoshuiwen fankui dianhua bangongshi lianxi",
+    "initials": "zswyfk zsw fk dh bgs lx"
+  },
+  {
+    "title": "网站说明与免责声明",
+    "category": "关于与联系",
+    "url": "pages/about-disclaimer.html",
+    "desc": "本站定位、内容口径与免责说明",
+    "keywords": [
+      "网站说明",
+      "免责声明",
+      "网站说明与免责声明"
+    ],
+    "pinyin": "wangzhanshuomingyumianzeshengming wangzhanshuoming mianzeshengming",
+    "initials": "wzsmymzsm wzsm mzsm"
+  },
+  {
+    "title": "咨询方式与办公时间",
+    "category": "关于与联系",
+    "url": "pages/about-contact.html",
+    "desc": "各办公室联系方式与办公时间",
+    "keywords": [
+      "咨询方式",
+      "办公时间",
+      "咨询方式与办公时间"
+    ],
+    "pinyin": "zixunfangshiyubangongshijian zixunfangshi bangongshijian",
+    "initials": "zxfsybgsj zxfs bgsj"
+  },
+  {
+    "title": "办事地点指引",
+    "category": "关于与联系",
+    "url": "pages/about-place.html",
+    "desc": "线下办事地点、楼层与交通",
+    "keywords": [
+      "办事地点指引"
+    ],
+    "pinyin": "banshididianzhiyin",
+    "initials": "bsddzy"
+  },
+  {
+    "title": "这个网站怎么用：先搜关键词，再找对应专区",
+    "category": "重要通知",
+    "url": "pages/notice-2026100.html",
+    "desc": "本站把研究生常办的事按八个专区整理好，每一步都写清了「先做什么、再做什么、要交什么材料」。用之前先看这一条，能少走弯路。",
+    "keywords": [
+      "这个网站怎么用：先搜关键词，再找对应专区"
+    ],
+    "pinyin": "zhegewangzhanzenmeyongxiansouguanjiancizaizhaoduiyingzhuanqu",
+    "initials": "zgwzzmyxsgjczzdyzq"
+  },
+  {
+    "title": "本站只教流程，不受理申请",
+    "category": "重要通知",
+    "url": "pages/notice-2026101.html",
+    "desc": "这里没有在线表单、不审批、不发当年通知。办手续仍要到学校系统或学院办公室；当年的日期、名额、金额以学校与学院官方通知为准。",
+    "keywords": [
+      "本站只教流程，不受理申请"
+    ],
+    "pinyin": "benzhanzhijiaoliuchengbushoulishenqing",
+    "initials": "bzzjlcbslsq"
+  },
+  {
+    "title": "八个专区分别管什么",
+    "category": "重要通知",
+    "url": "pages/notice-2026102.html",
+    "desc": "新生、在校学习、奖助、党团、生活与证件、实习就业与毕业、文件、问题。先找到自己所在的专区，再进去按子栏目点开。",
+    "keywords": [
+      "八个专区分别管什么"
+    ],
+    "pinyin": "bagezhuanqufenbieguanshenme",
+    "initials": "bgzqfbgsm"
+  }
+]

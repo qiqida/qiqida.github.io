@@ -1,0 +1,513 @@
+[
+  {
+    "title": "报到与迎新",
+    "category": "新生专区",
+    "url": "pages/freshman.html#report",
+    "keywords": [
+      "报到",
+      "迎新",
+      "迎新码",
+      "录取",
+      "注册",
+      "报到与迎新"
+    ]
+  },
+  {
+    "title": "党团关系转接",
+    "category": "新生专区",
+    "url": "pages/freshman.html#party",
+    "keywords": [
+      "党组织关系",
+      "团组织关系",
+      "转接",
+      "介绍信",
+      "党团关系转接"
+    ]
+  },
+  {
+    "title": "入学教育与体检",
+    "category": "新生专区",
+    "url": "pages/freshman.html#education",
+    "keywords": [
+      "入学教育",
+      "体检",
+      "安全教育考试",
+      "入学教育与体检"
+    ]
+  },
+  {
+    "title": "培养方案与选课",
+    "category": "新生专区",
+    "url": "pages/freshman.html#course",
+    "keywords": [
+      "培养方案",
+      "选课",
+      "学分",
+      "课程",
+      "培养方案与选课"
+    ]
+  },
+  {
+    "title": "导师双选",
+    "category": "新生专区",
+    "url": "pages/freshman.html#advisor",
+    "keywords": [
+      "导师",
+      "选导",
+      "双选",
+      "导师双选"
+    ]
+  },
+  {
+    "title": "请假与考勤",
+    "category": "在校学习专区",
+    "url": "pages/study.html#leave",
+    "keywords": [
+      "请假",
+      "病假",
+      "事假",
+      "外出报备",
+      "出省",
+      "销假",
+      "考勤",
+      "请假与考勤"
+    ]
+  },
+  {
+    "title": "选课与退课",
+    "category": "在校学习专区",
+    "url": "pages/study.html#course",
+    "keywords": [
+      "选课",
+      "退课",
+      "补选",
+      "培养方案",
+      "学分",
+      "选课与退课"
+    ]
+  },
+  {
+    "title": "考试与成绩",
+    "category": "在校学习专区",
+    "url": "pages/study.html#exam",
+    "keywords": [
+      "考试",
+      "成绩",
+      "缓考",
+      "补考",
+      "复核",
+      "考试与成绩"
+    ]
+  },
+  {
+    "title": "学籍异动",
+    "category": "在校学习专区",
+    "url": "pages/study.html#status",
+    "keywords": [
+      "休学",
+      "复学",
+      "转专业",
+      "保留学籍",
+      "学籍",
+      "学籍异动"
+    ]
+  },
+  {
+    "title": "毕业设计",
+    "category": "在校学习专区",
+    "url": "pages/study.html#thesis",
+    "keywords": [
+      "毕设",
+      "开题",
+      "中期检查",
+      "查重",
+      "论文",
+      "毕业设计"
+    ]
+  },
+  {
+    "title": "学术资源使用",
+    "category": "在校学习专区",
+    "url": "pages/study.html#academic",
+    "keywords": [
+      "学术资源",
+      "scholar",
+      "外文文献",
+      "数据库",
+      "学术资源使用"
+    ]
+  },
+  {
+    "title": "专利与软著申请",
+    "category": "在校学习专区",
+    "url": "pages/study.html#patent",
+    "keywords": [
+      "专利",
+      "软著",
+      "软件著作权",
+      "专利与软著申请"
+    ]
+  },
+  {
+    "title": "奖学金申请",
+    "category": "奖助专区",
+    "url": "pages/aid.html#scholarship",
+    "keywords": [
+      "奖学金",
+      "学业奖学金",
+      "国奖",
+      "评选",
+      "奖学金申请"
+    ]
+  },
+  {
+    "title": "助学金与助学贷款",
+    "category": "奖助专区",
+    "url": "pages/aid.html#loan",
+    "keywords": [
+      "助学金",
+      "助学贷款",
+      "生源地",
+      "助学金与助学贷款"
+    ]
+  },
+  {
+    "title": "家庭经济困难认定",
+    "category": "奖助专区",
+    "url": "pages/aid.html#hardship",
+    "keywords": [
+      "困难认定",
+      "经济困难",
+      "佐证材料",
+      "家庭经济困难认定"
+    ]
+  },
+  {
+    "title": "三助一辅岗位",
+    "category": "奖助专区",
+    "url": "pages/aid.html#assistant",
+    "keywords": [
+      "三助",
+      "助研",
+      "助教",
+      "助管",
+      "三助一辅岗位"
+    ]
+  },
+  {
+    "title": "党组织关系转接",
+    "category": "党团专区",
+    "url": "pages/party.html#transfer",
+    "keywords": [
+      "党组织关系",
+      "党务系统",
+      "转接",
+      "党组织关系转接"
+    ]
+  },
+  {
+    "title": "团组织关系与智慧团建",
+    "category": "党团专区",
+    "url": "pages/party.html#league",
+    "keywords": [
+      "智慧团建",
+      "团员",
+      "团组织",
+      "团组织关系与智慧团建"
+    ]
+  },
+  {
+    "title": "党员发展流程",
+    "category": "党团专区",
+    "url": "pages/party.html#develop",
+    "keywords": [
+      "入党",
+      "党员发展",
+      "积极分子",
+      "预备党员",
+      "党员发展流程"
+    ]
+  },
+  {
+    "title": "班级与班委",
+    "category": "党团专区",
+    "url": "pages/party.html#class",
+    "keywords": [
+      "班委",
+      "班级",
+      "班干部",
+      "班级与班委"
+    ]
+  },
+  {
+    "title": "宿舍报修与退宿",
+    "category": "生活与证件专区",
+    "url": "pages/life.html#dorm",
+    "keywords": [
+      "报修",
+      "退宿",
+      "校外住宿",
+      "宿舍",
+      "水电",
+      "宿舍报修与退宿"
+    ]
+  },
+  {
+    "title": "一卡通补办",
+    "category": "生活与证件专区",
+    "url": "pages/life.html#card",
+    "keywords": [
+      "一卡通",
+      "校园卡",
+      "挂失",
+      "补办",
+      "一卡通补办"
+    ]
+  },
+  {
+    "title": "网络与账号",
+    "category": "生活与证件专区",
+    "url": "pages/life.html#network",
+    "keywords": [
+      "校园网",
+      "账号",
+      "正版软件",
+      "VPN",
+      "网络与账号"
+    ]
+  },
+  {
+    "title": "场地借用与活动申报",
+    "category": "生活与证件专区",
+    "url": "pages/life.html#venue",
+    "keywords": [
+      "场地借用",
+      "活动申报",
+      "会议室",
+      "场地借用与活动申报"
+    ]
+  },
+  {
+    "title": "心理咨询与医保",
+    "category": "生活与证件专区",
+    "url": "pages/life.html#medical",
+    "keywords": [
+      "心理咨询",
+      "医保",
+      "参保",
+      "心理咨询与医保"
+    ]
+  },
+  {
+    "title": "学生证补办",
+    "category": "生活与证件专区",
+    "url": "pages/life.html#idcard",
+    "keywords": [
+      "学生证",
+      "研究生证",
+      "补办",
+      "学生证补办"
+    ]
+  },
+  {
+    "title": "在读与成绩证明",
+    "category": "生活与证件专区",
+    "url": "pages/life.html#certificate",
+    "keywords": [
+      "在读证明",
+      "成绩单",
+      "证明开具",
+      "在校证明",
+      "在读与成绩证明"
+    ]
+  },
+  {
+    "title": "实习申请与外出报备",
+    "category": "实习就业与毕业专区",
+    "url": "pages/career.html#internship",
+    "keywords": [
+      "实习",
+      "外出报备",
+      "社会实践",
+      "四方协议",
+      "实习申请与外出报备"
+    ]
+  },
+  {
+    "title": "实习证明开具",
+    "category": "实习就业与毕业专区",
+    "url": "pages/career.html#proof",
+    "keywords": [
+      "实习证明",
+      "实习证明开具"
+    ]
+  },
+  {
+    "title": "就业推荐与三方协议",
+    "category": "实习就业与毕业专区",
+    "url": "pages/career.html#employment",
+    "keywords": [
+      "三方协议",
+      "就业推荐",
+      "就业",
+      "就业推荐与三方协议"
+    ]
+  },
+  {
+    "title": "升学与出国交流",
+    "category": "实习就业与毕业专区",
+    "url": "pages/career.html#abroad",
+    "keywords": [
+      "保研",
+      "考研",
+      "出国",
+      "出境",
+      "因公出国",
+      "升学与出国交流"
+    ]
+  },
+  {
+    "title": "毕业资格审核",
+    "category": "实习就业与毕业专区",
+    "url": "pages/career.html#qualify",
+    "keywords": [
+      "毕业资格",
+      "审核",
+      "毕业资格审核"
+    ]
+  },
+  {
+    "title": "学位申请与论文送审",
+    "category": "实习就业与毕业专区",
+    "url": "pages/career.html#degree",
+    "keywords": [
+      "学位申请",
+      "论文送审",
+      "答辩",
+      "查重",
+      "学位申请与论文送审"
+    ]
+  },
+  {
+    "title": "毕业材料与档案",
+    "category": "实习就业与毕业专区",
+    "url": "pages/career.html#archive",
+    "keywords": [
+      "毕业登记表",
+      "档案",
+      "派遣",
+      "转递",
+      "毕业材料与档案"
+    ]
+  },
+  {
+    "title": "离校手续",
+    "category": "实习就业与毕业专区",
+    "url": "pages/career.html#leave-school",
+    "keywords": [
+      "离校",
+      "离校手续",
+      "离校手续"
+    ]
+  },
+  {
+    "title": "请假条与报备单",
+    "category": "文件专区",
+    "url": "pages/download.html#leave",
+    "keywords": [
+      "请假条",
+      "表格",
+      "下载",
+      "请假条与报备单"
+    ]
+  },
+  {
+    "title": "申请表与审批表",
+    "category": "文件专区",
+    "url": "pages/download.html#forms",
+    "keywords": [
+      "申请表",
+      "审批表",
+      "下载",
+      "申请表与审批表"
+    ]
+  },
+  {
+    "title": "证明与协议模板",
+    "category": "文件专区",
+    "url": "pages/download.html#proof",
+    "keywords": [
+      "证明",
+      "协议",
+      "模板",
+      "证明与协议模板"
+    ]
+  },
+  {
+    "title": "申请书与总结模板",
+    "category": "文件专区",
+    "url": "pages/download.html#apply",
+    "keywords": [
+      "申请书",
+      "总结",
+      "申请书与总结模板"
+    ]
+  },
+  {
+    "title": "附件与截图归档",
+    "category": "文件专区",
+    "url": "pages/download.html#archive",
+    "keywords": [
+      "截图",
+      "归档",
+      "流程图",
+      "附件与截图归档"
+    ]
+  },
+  {
+    "title": "系统操作问题",
+    "category": "问题专区",
+    "url": "pages/faq.html#system",
+    "keywords": [
+      "系统",
+      "登录",
+      "密码",
+      "操作",
+      "系统操作问题"
+    ]
+  },
+  {
+    "title": "材料与审核问题",
+    "category": "问题专区",
+    "url": "pages/faq.html#material",
+    "keywords": [
+      "材料",
+      "审核",
+      "退回",
+      "材料与审核问题"
+    ]
+  },
+  {
+    "title": "流程卡点",
+    "category": "问题专区",
+    "url": "pages/faq.html#block",
+    "keywords": [
+      "卡住",
+      "流程",
+      "卡点",
+      "流程卡点"
+    ]
+  },
+  {
+    "title": "找谁问与反馈",
+    "category": "问题专区",
+    "url": "pages/faq.html#contact",
+    "keywords": [
+      "找谁问",
+      "电话",
+      "办公室",
+      "联系",
+      "找谁问与反馈"
+    ]
+  }
+]

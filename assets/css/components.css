@@ -75,64 +75,6 @@
 }
 
 /*///////////////////*/
-/* 下载列表 */
-
-.download-list {
-
-    max-width: 1000px;
-
-    margin: auto;
-
-    padding: 20px;
-}
-
-.download-category {
-
-    font-size: 22px;
-
-    margin: 0 0 16px 0;
-
-    color: var(--text-color);
-}
-
-/* 下载项 */
-
-.download-item {
-
-    display: flex;
-
-    justify-content: space-between;
-
-    align-items: center;
-
-    padding: 24px;
-
-    margin-bottom: 16px;
-
-    border-radius: 20px;
-
-    border: 1px solid var(--border-color);
-
-    background: var(--card-color);
-}
-
-/* 下载按钮 */
-
-.download-btn {
-
-    border: none;
-
-    padding: 10px 20px;
-
-    border-radius: 12px;
-
-    cursor: pointer;
-
-    background: var(--text-color);
-
-    color: var(--bg-color);
-}
-
 /* 通知列表 */
 
 #notice-container {

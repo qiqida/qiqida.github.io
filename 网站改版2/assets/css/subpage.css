@@ -1,0 +1,341 @@
+/* ==========================
+   子页面样式（网站改版2）
+   —— 面包屑、上下页导航、专区总览卡片
+   ========================== */
+
+/* ---------- 面包屑 ---------- */
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    color: var(--subtext-color);
+}
+
+.breadcrumb a {
+    color: var(--subtext-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.breadcrumb a:hover {
+    color: #0071e3;
+}
+
+[data-theme="dark"] .breadcrumb a:hover {
+    color: #0a84ff;
+}
+
+.crumb-sep {
+    opacity: 0.5;
+}
+
+.crumb-current {
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+/* ---------- 返回上一级按钮 ---------- */
+/* 独立成块，排在「上一个 / 下一个」导航的下方，居中 */
+.back-to-zone {
+    display: flex;
+    width: fit-content;
+    margin: 30px auto 40px;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 20px 10px 16px;
+    border-radius: 999px;
+    background: var(--card-color);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    font-size: 13.5px;
+    font-weight: 500;
+    text-decoration: none;
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+@media (hover: hover) and (any-pointer: fine) {
+    .back-to-zone:hover {
+        transform: translateY(-2px);
+        border-color: rgba(0, 113, 227, 0.4);
+        background: rgba(0, 113, 227, 0.06);
+        box-shadow: 0 8px 22px rgba(0, 113, 227, 0.12);
+    }
+}
+
+[data-theme="dark"] .back-to-zone:hover {
+    background: rgba(10, 132, 255, 0.1);
+    box-shadow: 0 8px 22px rgba(10, 132, 255, 0.16);
+}
+
+.back-to-zone-arrow {
+    font-size: 16px;
+    line-height: 1;
+    color: #0071e3;
+    transition: transform 0.25s ease;
+}
+
+@media (hover: hover) and (any-pointer: fine) {
+    .back-to-zone:hover .back-to-zone-arrow {
+        transform: translateX(-3px);
+    }
+}
+
+[data-theme="dark"] .back-to-zone-arrow {
+    color: #0a84ff;
+}
+
+.back-to-zone-text {
+    white-space: nowrap;
+}
+
+/* ---------- 上下页导航 ---------- */
+.pagenav {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* 两张卡片不撑满整行：宽度贴合文字，整组居中并留出间隙 */
+.pagenav-row {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 40px;
+    max-width: 640px;
+    margin: 0 auto;
+}
+
+/* 空槽占位，保证有上下页时两张卡片左右对齐 */
+.pagenav-slot {
+    display: block;
+}
+
+/* 上一 / 下一 卡片（紧凑版：矮一点、小一点） */
+.pagenav-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+    min-height: 52px;
+    padding: 10px 14px;
+    border-radius: 14px;
+    background: var(--card-color);
+    border: 1px solid var(--border-color);
+    text-decoration: none;
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+@media (hover: hover) and (any-pointer: fine) {
+    .pagenav-link:hover {
+        transform: translateY(-2px);
+        border-color: rgba(0, 113, 227, 0.4);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+    }
+}
+
+[data-theme="dark"] .pagenav-link:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+.pagenav-body {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+/* 下一个：DOM 里是 [文字, 箭头]，箭头自然落在右边。
+   整组内容靠右对齐，文字右对齐紧贴箭头。 */
+.pagenav-next {
+    justify-content: flex-end;
+    text-align: right;
+    align-items: center;
+}
+
+.pagenav-next .pagenav-body {
+    align-items: flex-end;
+}
+
+.pagenav-arrow {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: rgba(0, 113, 227, 0.1);
+    color: #0071e3;
+    font-size: 12px;
+    line-height: 1;
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease;
+}
+
+[data-theme="dark"] .pagenav-arrow {
+    background: rgba(10, 132, 255, 0.16);
+    color: #0a84ff;
+}
+
+@media (hover: hover) and (any-pointer: fine) {
+    .pagenav-prev:hover .pagenav-arrow {
+        transform: translateX(-3px);
+        background: rgba(0, 113, 227, 0.18);
+    }
+
+    .pagenav-next:hover .pagenav-arrow {
+        transform: translateX(3px);
+        background: rgba(0, 113, 227, 0.18);
+    }
+}
+
+[data-theme="dark"] .pagenav-prev:hover .pagenav-arrow,
+[data-theme="dark"] .pagenav-next:hover .pagenav-arrow {
+    background: rgba(10, 132, 255, 0.26);
+}
+
+.pagenav-dir {
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    color: var(--subtext-color);
+}
+
+.pagenav-title {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--text-color);
+    line-height: 1.4;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* ---------- 专区总览页 ---------- */
+.zone-overview-hint {
+    margin: 0 0 20px;
+    font-size: 14px;
+    color: var(--subtext-color);
+    line-height: 1.7;
+}
+
+.subcard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 14px;
+}
+
+.subcard {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 20px 22px;
+    border-radius: 18px;
+    background: var(--card-color);
+    border: 1px solid var(--border-color);
+    text-decoration: none;
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+@media (hover: hover) and (any-pointer: fine) {
+    .subcard:hover {
+        transform: translateY(-3px);
+        border-color: rgba(0, 113, 227, 0.4);
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.06);
+    }
+}
+
+[data-theme="dark"] .subcard:hover {
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
+}
+
+.subcard-body {
+    min-width: 0;
+}
+
+.subcard-title {
+    margin: 0 0 6px;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.subcard-desc {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--subtext-color);
+}
+
+.subcard-arrow {
+    flex-shrink: 0;
+    font-size: 18px;
+    color: #0071e3;
+    transition: transform 0.25s ease;
+}
+
+[data-theme="dark"] .subcard-arrow {
+    color: #0a84ff;
+}
+
+@media (hover: hover) and (any-pointer: fine) {
+    .subcard:hover .subcard-arrow {
+        transform: translateX(3px);
+    }
+}
+
+/* ---------- 移动端 ---------- */
+@media (max-width: 768px) {
+    .pagenav {
+        padding: 0 14px 0;
+        margin-bottom: 0;
+    }
+
+    .pagenav-row {
+        grid-template-columns: 1fr;
+        justify-items: stretch;
+        gap: 10px;
+        max-width: none;
+    }
+
+    /* 移动端统一左对齐，箭头仍在文字右侧 */
+    .pagenav-next {
+        justify-content: flex-start;
+        text-align: left;
+    }
+
+    .pagenav-next .pagenav-body {
+        align-items: flex-start;
+    }
+
+    .pagenav-link {
+        min-height: 60px;
+        padding: 12px 16px;
+    }
+
+    .back-to-zone {
+        margin: 26px auto 32px;
+    }
+
+    .subcard-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .subcard {
+        padding: 16px 18px;
+    }
+}

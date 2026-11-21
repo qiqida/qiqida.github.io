@@ -12,6 +12,9 @@ function applyTheme(theme) {
         document.documentElement.removeAttribute("data-theme");
         if (toggleBtn) toggleBtn.textContent = "🌙";
     }
+
+    // 通知页面：mermaid 流程图等需要跟随主题重新渲染
+    window.dispatchEvent(new CustomEvent("themechange", { detail: { theme } }));
 }
 
 function toggleTheme() {

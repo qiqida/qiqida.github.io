@@ -12,7 +12,6 @@
     /* ---------- 通用卡片 / 列表项 ---------- */
     .search-tag:active,
     .data-card:active,
-    .download-row:active,
     .notice-card:active,
     .popular-card:active,
     .hot-card:active,
@@ -82,7 +81,6 @@
     /* ---------- 深色模式下的按压反馈 ---------- */
     [data-theme="dark"] .search-tag:active,
     [data-theme="dark"] .data-card:active,
-    [data-theme="dark"] .download-row:active,
     [data-theme="dark"] .suggestion-item:active {
         background: rgba(255, 255, 255, 0.1);
     }
@@ -113,7 +111,6 @@
     .hot-card,
     .guide-card,
     .ranking-item,
-    .download-row,
     .card,
     .card-toggle,
     .card-subitem {
