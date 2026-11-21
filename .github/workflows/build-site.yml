@@ -1,0 +1,58 @@
+name: Build Site
+
+# 内容或构建脚本有改动时，自动重新构建并把产物提交回仓库
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '网站内容信息/**'
+      - '网站改版2/内容/**'
+      - '网站改版2/tools/**'
+      - '网站改版2/assets/**'
+      - '网站改版2/data/site-config.json'
+      - '.github/workflows/build-site.yml'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Build and Deploy
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      # 拼音索引是可选增强：装了就能搜「qj 请假」，
+      # 没装也不影响构建和其余功能。
+      - name: 安装拼音依赖（可选）
+        run: pip install pypinyin --quiet || echo "未安装 pypinyin，跳过拼音索引"
+
+      # 全量构建。任何一步失败都会中止，
+      # 不会把「半新半旧」的产物推到线上。
+      - name: 全量构建
+        run: python 网站改版2/tools/make.py
+
+      # 构建完先做检查，不通过就不提交
+      - name: 链接检查
+        run: python 网站改版2/tools/linkcheck.py
+
+      # 同步到站点根目录（deploy.py 内部会先清空旧产物再复制）
+      - name: 同步到站点根目录
+        run: python 网站改版2/tools/deploy.py
+
+      - name: 提交构建产物
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A index.html pages data files notices assets sitemap.xml robots.txt 404.html
+          git diff --staged --quiet || git commit -m "build: 同步站点内容 [skip ci]"
+          git push

@@ -13,3 +13,13 @@ Thumbs.db
 
 # Node 项目依赖目录；以后如果引入构建工具，不建议提交这个目录
 node_modules/
+
+# 网站改版的预览产物（由 网站改版/tools/preview.py 生成）
+网站改版/_preview/
+网站改版2/_preview/
+__pycache__/
+*.pyc
+
+# 一次性数据处理脚本（含本地绝对路径 + 学生个人信息，不要提交）
+read_excel.py
+generate_attendance.py
