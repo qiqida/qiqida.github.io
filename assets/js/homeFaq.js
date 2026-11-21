@@ -3,7 +3,7 @@ async function loadHomeFAQ() {
     try {
 
         const response =
-        await fetch("data/faq.json");
+        await fetch("data/faq.json?v=" + (window.SITE_VER || "1"));
 
         const faqs =
         await response.json();

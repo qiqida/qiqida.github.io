@@ -180,7 +180,7 @@
 
         // 拼音表是可选的，取不到不影响中文搜索
         try {
-            const res = await fetch(DATA_BASE + "pinyin-table.json");
+            const res = await fetch(DATA_BASE + "pinyin-table.json?v=" + (window.SITE_VER || "1"));
             if (res.ok) pinyinTable = await res.json();
         } catch (e) {
             /* 忽略 */
@@ -188,7 +188,7 @@
 
         let data = [];
         try {
-            const res = await fetch(DATA_BASE + "downloads.json");
+            const res = await fetch(DATA_BASE + "downloads.json?v=" + (window.SITE_VER || "1"));
             if (!res.ok) throw new Error("HTTP " + res.status);
             data = await res.json();
         } catch (error) {

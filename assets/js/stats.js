@@ -34,7 +34,7 @@ async function loadStats() {
     if (!hasAny) return;
 
     try {
-        const response = await fetch("data/site-stats.json");
+        const response = await fetch("data/site-stats.json?v=" + (window.SITE_VER || "1"));
         if (!response.ok) throw new Error("HTTP " + response.status);
         const stats = await response.json();
 

@@ -9,7 +9,7 @@ async function loadNotices() {
     if (!container) return;
 
     try {
-        const response = await fetch("data/notices.json?v=" + Date.now());
+        const response = await fetch("data/notices.json?v=" + (window.SITE_VER || "1"));
 
         if (!response.ok) {
             throw new Error("通知数据读取失败");

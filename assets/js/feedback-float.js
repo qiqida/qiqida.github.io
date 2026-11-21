@@ -389,7 +389,7 @@ function initFeedbackFloat() {
     (async function loadSurveyConfig() {
         if (!surveyBlock) return;
         try {
-            const res = await fetch("data/site-config.json");
+            const res = await fetch("data/site-config.json?v=" + (window.SITE_VER || "1"));
             if (!res.ok) return;
             const config = await res.json();
             const url = (config && config.feedbackUrl || "").trim();

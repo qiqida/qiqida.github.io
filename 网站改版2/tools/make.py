@@ -15,6 +15,7 @@ make.py —— 「网站改版2」统一构建入口
 import os
 import subprocess
 import sys
+import time
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
@@ -30,11 +31,18 @@ STEPS = [
 
 
 def main():
+    # 一次构建共用一个资源版本号。
+    # 每个构建脚本是独立进程，通过环境变量把版本号传下去，
+    # 这样首页和子页面引用的资源版本是一致的。
+    env = dict(os.environ)
+    env["SITE_VER"] = str(int(time.time()))
+
     for script, desc in STEPS:
         print("\n=== %s（%s） ===" % (script, desc))
         result = subprocess.run(
             [sys.executable, os.path.join(HERE, script)],
             cwd=HERE,
+            env=env,
         )
         if result.returncode != 0:
             print("\n构建中断：%s 执行失败" % script)

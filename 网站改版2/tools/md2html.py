@@ -32,6 +32,14 @@ SITE_BASE = "https://qiqida.github.io"
 # 读取不到就用这个默认值。
 DEFAULT_GA_ID = "G-2S0K5DDSME"
 
+# 资源版本号。一次构建内所有页面共用同一个值，
+# 保证 index.html 和 pages/*.html 引用的是同一批资源。
+# 用途：JS / CSS 标签带 ?v=<版本号>，改过内容后浏览器强制取新文件。
+#
+# make.py 会把版本号放进环境变量 SITE_VER，
+# 这样各个独立进程用的是同一个值（否则每个脚本各算一次，可能差 1 秒）。
+SITE_VER = os.environ.get("SITE_VER") or str(int(time.time()))
+
 
 def load_ga_id():
     """从 data/site-config.json 读 gaId，读不到用默认值。"""
@@ -86,6 +94,11 @@ gtag('config', '@@GAID@@');
 
     <!-- 提前应用夜间模式，避免页面闪动 -->
     <script src="../assets/js/theme-init.js"></script>
+
+    <!-- 全站资源版本号。
+         JS 里 fetch 数据文件时统一用 SITE_VER 拼 ?v=，
+         这样内容更新后浏览器不会拿旧的 JSON 缓存。 -->
+    <script>window.SITE_VER = "@@VER@@";</script>
 
     <link rel="stylesheet" href="../assets/css/style.css?v=@@VER@@">
     <link rel="stylesheet" href="../assets/css/components.css?v=@@VER@@">
@@ -190,9 +203,9 @@ def render_page(title, desc, body, breadcrumb="", pagenav="", backbtn="",
     else:
         html = html.replace("@@MERMAID@@", "")
 
-    # 资源版本号：改过 JS/CSS 后浏览器会强制取新文件，避免缓存旧版本
-    ver = str(int(time.time()))
-    html = html.replace("@@VER@@", ver)
+    # 资源版本号：改过 JS/CSS 后浏览器会强制取新文件，避免缓存旧版本。
+    # 用模块级常量，保证一次构建里所有页面的版本号一致。
+    html = html.replace("@@VER@@", SITE_VER)
     return html
 
 

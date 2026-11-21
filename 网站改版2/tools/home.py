@@ -24,7 +24,7 @@ import time
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from siteconf import OUT, SCENARIOS, ZONES, scan_content  # noqa: E402
-from md2html import load_ga_id  # noqa: E402
+from md2html import SITE_VER, load_ga_id  # noqa: E402
 
 # 首页卡片区的专区。
 # 「关于与联系」不在卡片区（放在页脚），所以它没有 inHome 标记。
@@ -117,6 +117,11 @@ gtag('config', '@@GAID@@');
 
     <!-- 提前应用夜间模式，避免页面闪动 -->
     <script src="assets/js/theme-init.js"></script>
+
+    <!-- 全站资源版本号。
+         JS 里 fetch 数据文件时统一用 SITE_VER 拼 ?v=，
+         这样内容更新后浏览器不会拿旧的 JSON 缓存。 -->
+    <script>window.SITE_VER = "@@VER@@";</script>
 
     <link rel="stylesheet" href="assets/css/style.css?v=@@VER@@">
     <link rel="stylesheet" href="assets/css/components.css?v=@@VER@@">
@@ -320,8 +325,9 @@ def main():
     html = TEMPLATE
     html = html.replace("@@CARDS@@", cards)
     html = html.replace("@@SCENARIOS@@", scen)
-    # 资源版本号：改过 JS/CSS 后浏览器会强制取新文件，避免缓存旧版本
-    html = html.replace("@@VER@@", str(int(time.time())))
+    # 资源版本号：改过 JS/CSS 后浏览器会强制取新文件，避免缓存旧版本。
+    # 复用 md2html 的版本号，保证首页和子页面引用同一批资源。
+    html = html.replace("@@VER@@", SITE_VER)
 
     # GA 测量 ID（从 data/site-config.json 读，读不到用默认值）
     html = html.replace("@@GAID@@", load_ga_id())

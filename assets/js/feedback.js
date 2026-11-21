@@ -12,7 +12,7 @@ window.SITE_CONFIG = window.SITE_CONFIG || null;
 async function loadSiteConfig() {
     if (window.SITE_CONFIG) return window.SITE_CONFIG;
     try {
-        const response = await fetch("data/site-config.json");
+        const response = await fetch("data/site-config.json?v=" + (window.SITE_VER || "1"));
         if (!response.ok) throw new Error("配置读取失败 HTTP " + response.status);
         window.SITE_CONFIG = await response.json();
     } catch (error) {

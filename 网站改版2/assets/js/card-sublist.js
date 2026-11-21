@@ -189,7 +189,7 @@
     // ==========================
     async function loadCategories() {
         try {
-            const response = await fetch("data/categories.json");
+            const response = await fetch("data/categories.json?v=" + (window.SITE_VER || "1"));
 
             if (!response.ok) throw new Error("子板块数据读取失败");
 

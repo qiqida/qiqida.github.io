@@ -13,7 +13,8 @@ async function loadSearchStats() {
     if (!container) return;
 
     try {
-        const response = await fetch("data/search-stats.json");
+        // 带版本号，避免内容更新后浏览器拿旧的 JSON 缓存
+        const response = await fetch("data/search-stats.json?v=" + (window.SITE_VER || "1"));
         if (!response.ok) throw new Error("HTTP " + response.status);
         const stats = await response.json();
 

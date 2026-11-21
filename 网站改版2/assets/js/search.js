@@ -25,7 +25,7 @@ const suggestionBoxDesktop = document.getElementById("search-suggestions-desktop
 // 读取搜索知识库。GitHub Pages 支持读取同项目里的 JSON 文件。
 async function loadSearchData() {
     try {
-        const response = await fetch("data/knowledge-base.json");
+        const response = await fetch("data/knowledge-base.json?v=" + (window.SITE_VER || "1"));
 
         if (!response.ok) {
             throw new Error("搜索数据文件读取失败");
@@ -38,7 +38,7 @@ async function loadSearchData() {
 
     // 拼音对照表是可选的，取不到也不影响中文搜索
     try {
-        const res = await fetch("data/pinyin-table.json");
+        const res = await fetch("data/pinyin-table.json?v=" + (window.SITE_VER || "1"));
         if (res.ok) pinyinTable = await res.json();
     } catch (error) {
         /* 忽略：拼音搜索不可用 */
