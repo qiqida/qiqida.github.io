@@ -1,0 +1,45 @@
+# GitHub Pages —— Jekyll 配置
+#
+# 本站点是**纯静态站点**（所有页面都由 Python 构建脚本生成好），
+# Jekyll 不需要做任何事。仓库根目录有 .nojekyll，
+# GitHub Pages 会直接发布静态文件、跳过 Jekyll。
+#
+# 这个文件是**双保险**：万一 .nojekyll 丢失或被覆盖，
+# Jekyll 至少不会去渲染源文件目录、不会把构建搞崩。
+#
+# 要排除的都是「不该发布到线上」的东西：
+#   网站改版2/  —— 构建脚本 + Markdown 内容源（含 front-matter）
+#   网站内容信息/ —— 原始材料包
+#   网站改版/    —— 旧版架构，已废弃
+#   worker/     —— Cloudflare Worker 源码与依赖
+#   admin/      —— 反馈后台
+#   docs/       —— 维护文档
+#
+# 特别注意：Jekyll 的 jekyll-relative-links 插件会改写 Markdown 里的
+# 相对链接，渲染这些 md 时会报错，导致整个 Pages 构建失败。
+
+exclude:
+  - 网站改版2/
+  - 网站内容信息/
+  - 网站改版/
+  - worker/
+  - admin/
+  - docs/
+  - tools/
+  - README.md
+  - 网站规划.md
+  - 更新网站.bat
+  - generate_attendance.py
+  - read_excel.py
+  - Gemfile
+  - Gemfile.lock
+  - vendor/
+  - node_modules/
+
+# 本站的 sitemap / robots.txt 由 tools/seo.py 生成，
+# 不需要 Jekyll 的插件再生成一份。
+plugins: []
+
+# 根目录 README.md 是给维护者看的，不生成索引页
+readme_index:
+  enabled: false
