@@ -558,6 +558,62 @@
     font-weight: 500;
 }
 
+/* ==========================
+   移动端：关掉「常见搜索词」标签的毛玻璃
+   —— 为什么
+
+   首页「常见搜索词」有 39 个标签，每个标签原本都带
+   backdrop-filter: blur(12px)。
+
+   毛玻璃的原理是把元素背后的内容采样、模糊后再画出来，
+   这个过程**不能缓存**，内容一动就得重算。
+   滚动页面时背后的内容每一帧都在动，于是浏览器要
+   连续做 39 次背景模糊 —— 手机上就是明显的卡顿。
+
+   外层 .search-card 自己也有 blur(24px)，
+   39 个标签叠在 1 个模糊层上，等于双重开销。
+
+   怎么改
+
+   触屏设备上：
+     · 标签去掉 backdrop-filter，改用接近不透明的浅色背景。
+       视觉上几乎看不出差别（卡片本身就是半透明白），
+       但性能差别是两个数量级。
+     · 卡片那一层保留毛玻璃 —— 只有 1 个，负担得起，
+       整体的通透感还在，模糊半径调小一点进一步减负。
+     · 顺带把标签的 transition 缩短，
+       滚动时浏览器要处理的过渡动画更少。
+
+   桌面端不受影响：鼠标设备上仍然用毛玻璃，
+   视觉效果和以前一样。
+
+   注意：本段必须放在 .search-tag 定义之后
+   （v8-components.css 加载在 touch-feedback.css 之后，
+   同特异性时靠后的规则胜出）。
+   ========================== */
+@media (hover: none), (any-pointer: coarse) {
+
+    .search-tag {
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        /* 半透明改为接近不透明，视觉几乎一致，
+           但不需要浏览器去采样背后的内容 */
+        background: rgba(255, 255, 255, 0.92);
+        transition: background 0.15s ease;
+    }
+
+    [data-theme="dark"] .search-tag {
+        background: rgba(30, 41, 59, 0.92);
+    }
+
+    /* 卡片本身保留毛玻璃（只有一层，负担得起），
+       但把模糊半径调小一点，进一步减轻负担 */
+    .search-card {
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+    }
+}
+
 /* 深色模式适配 */
 [data-theme="dark"] .search-card {
     background: rgba(30, 41, 59, 0.7);
