@@ -1,0 +1,260 @@
+/* ==========================
+   品牌引导页（首页专用）
+   ==========================
+   进首页先看到一屏品牌页：
+     · 大号 GSH logo
+     · 中文全称 + 英文名
+     · 站点标语
+     · 底部一个会上下浮动的滚动指示器
+
+   往下滑 / 点击指示器 / 按空格或 PageDown
+   → 引导页上滑退出，露出内容区
+
+   关键设计：引导页是 position: fixed 的「覆盖层」，
+   完全不占文档流高度。
+
+   为什么不用「占高度 + 滚走」的做法：
+     那样引导页收起时文档高度突变，浏览器会跟着改滚动位置，
+     用户看到的是内容区猛地跳一下。要修就得手动补偿滚动量，
+     一旦浏览器版本行为不一致就出错。
+     用覆盖层则完全不碰文档流，零跳动。
+
+   层级：低于吸顶导航（导航 z-index 1000），
+   所以导航始终浮在引导页上方可见。
+
+   转场结束后引导页彻底移除，之后的滚动完全自由 ——
+   这就是「弱劫持」：只吃掉第一次向下的滚动。
+   ========================== */
+
+/* ---------- 引导页覆盖层 ---------- */
+.splash {
+    position: fixed;
+
+    /* 导航栏 + 搜索条的高度，导航始终浮在引导页上方 */
+    top: var(--header-h, 66px);
+    left: 0;
+    right: 0;
+
+    /* 覆盖「导航下方 → 屏幕底部」这一整块 */
+    height: calc(100vh - var(--header-h, 66px));
+    height: calc(100dvh - var(--header-h, 66px));
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--bg-color);
+    color: var(--text-color);
+
+    overflow: hidden;
+
+    /* 低于导航（1000），高于普通内容 */
+    z-index: 900;
+}
+
+/* ---------- 转场：整体上滑退出 + 淡出 ---------- */
+.splash.is-leaving {
+    opacity: 0;
+    transform: translateY(-100%);
+    transition:
+        opacity 0.45s ease,
+        transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
+}
+
+/* 转场走完，彻底摘掉，不留任何影响 */
+.splash.is-hidden {
+    display: none;
+}
+
+/* ---------- 品牌内容 ---------- */
+.splash-inner {
+    text-align: center;
+    padding: 0 24px;
+    max-width: 720px;
+}
+
+/* 方形 GSH 标识 */
+.splash-logo {
+    width: 96px;
+    height: 96px;
+    margin: 0 auto 28px;
+    border-radius: 28px;
+    background: linear-gradient(135deg, #111827, #374151);
+    color: #fff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: 2px;
+
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.16);
+}
+
+[data-theme="dark"] .splash-logo {
+    background: linear-gradient(135deg, #f8fafc, #cbd5e1);
+    color: #0f172a;
+}
+
+.splash-title {
+    font-size: 34px;
+    font-weight: 700;
+    margin: 0 0 10px;
+    line-height: 1.35;
+    color: var(--text-color);
+}
+
+.splash-subtitle {
+    font-size: 15px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin: 0 0 18px;
+    color: var(--subtext-color);
+}
+
+.splash-mission {
+    font-size: 18px;
+    font-weight: 500;
+    margin: 0;
+    color: var(--text-color);
+    opacity: 0.85;
+}
+
+/* ---------- 滚动指示器 ---------- */
+.scroll-hint {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    background: none;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+
+    color: var(--subtext-color);
+    font-size: 13px;
+
+    transition: color 0.25s ease;
+}
+
+.scroll-hint:hover,
+.scroll-hint:focus-visible {
+    color: var(--text-color);
+}
+
+.scroll-hint:focus-visible {
+    outline: 2px solid rgba(0, 113, 227, 0.5);
+    outline-offset: 4px;
+    border-radius: 10px;
+}
+
+/* 鼠标外形：一个圆角矩形 */
+.scroll-hint-mouse {
+    width: 26px;
+    height: 42px;
+    border: 2px solid currentColor;
+    border-radius: 14px;
+    position: relative;
+    flex-shrink: 0;
+}
+
+/* 鼠标里那个上下浮动的小圆点 */
+.scroll-hint-mouse::after {
+    content: "";
+    position: absolute;
+    top: 7px;
+    left: 50%;
+    width: 4px;
+    height: 8px;
+    margin-left: -2px;
+    border-radius: 2px;
+    background: currentColor;
+
+    animation: hint-dot 1.8s ease-in-out infinite;
+}
+
+@keyframes hint-dot {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    70% {
+        transform: translateY(16px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(16px);
+        opacity: 0;
+    }
+}
+
+/* 指示器文字也做轻微呼吸 */
+.scroll-hint-text {
+    animation: hint-text 1.8s ease-in-out infinite;
+}
+
+@keyframes hint-text {
+    0%,
+    100% {
+        opacity: 0.55;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+/* ---------- 移动端 ---------- */
+@media (max-width: 768px) {
+    .splash-logo {
+        width: 80px;
+        height: 80px;
+        border-radius: 24px;
+        font-size: 28px;
+        margin-bottom: 22px;
+    }
+
+    .splash-title {
+        font-size: 24px;
+    }
+
+    .splash-subtitle {
+        font-size: 13px;
+        letter-spacing: 1.5px;
+        margin-bottom: 14px;
+    }
+
+    .splash-mission {
+        font-size: 16px;
+    }
+
+    /* 底部指示器留出安全区，避免被 Home Indicator 压住 */
+    .scroll-hint {
+        bottom: calc(28px + env(safe-area-inset-bottom, 0px));
+    }
+}
+
+/* ---------- 减弱动效偏好 ----------
+   系统里开了「减弱动态效果」的用户：
+   不播转场动画，直接露出内容区。 */
+@media (prefers-reduced-motion: reduce) {
+
+    .splash.is-leaving {
+        transition: none;
+        transform: none;
+    }
+
+    .scroll-hint-mouse::after,
+    .scroll-hint-text {
+        animation: none;
+    }
+}

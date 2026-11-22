@@ -40,19 +40,20 @@ gtag('config', 'G-2S0K5DDSME');
     <!-- 全站资源版本号。
          JS 里 fetch 数据文件时统一用 SITE_VER 拼 ?v=，
          这样内容更新后浏览器不会拿旧的 JSON 缓存。 -->
-    <script>window.SITE_VER = "1795344538";</script>
+    <script>window.SITE_VER = "1795350256";</script>
 
-    <link rel="stylesheet" href="assets/css/style.css?v=1795344538">
-    <link rel="stylesheet" href="assets/css/components.css?v=1795344538">
-    <link rel="stylesheet" href="assets/css/touch-feedback.css?v=1795344538">
-    <link rel="stylesheet" href="assets/css/v8-components.css?v=1795344538">
-    <link rel="stylesheet" href="assets/css/card-sublist.css?v=1795344538">
-    <link rel="stylesheet" href="assets/css/home-sections.css?v=1795344538">
-    <link rel="stylesheet" href="assets/css/notice-section.css?v=1795344538">
-    <link rel="stylesheet" href="assets/css/a11y.css?v=1795344538">
+    <link rel="stylesheet" href="assets/css/style.css?v=1795350256">
+    <link rel="stylesheet" href="assets/css/components.css?v=1795350256">
+    <link rel="stylesheet" href="assets/css/touch-feedback.css?v=1795350256">
+    <link rel="stylesheet" href="assets/css/v8-components.css?v=1795350256">
+    <link rel="stylesheet" href="assets/css/card-sublist.css?v=1795350256">
+    <link rel="stylesheet" href="assets/css/home-sections.css?v=1795350256">
+    <link rel="stylesheet" href="assets/css/notice-section.css?v=1795350256">
+    <link rel="stylesheet" href="assets/css/splash.css?v=1795350256">
+    <link rel="stylesheet" href="assets/css/a11y.css?v=1795350256">
 </head>
 
-<body data-root="">
+<body data-root="" class="has-splash">
 
     <!-- 键盘用户按 Tab 第一下就能跳到正文 -->
     <a class="skip-to-content" href="#main-content">跳到正文</a>
@@ -94,13 +95,39 @@ gtag('config', 'G-2S0K5DDSME');
         </div>
     </div>
 
+    <!-- ==========================================================
+         品牌引导页
+
+         进首页先看这一屏：GSH 标识 + 中文全称 + 英文名 + 标语，
+         底部有一个会上下浮动的滚动指示器。
+
+         往下滑 / 点指示器 / 按空格 → 淡出并滚到内容区。
+         转场结束后引导页彻底移除（display:none），
+         之后的滚动完全自由 —— 只吃掉第一次向下的滚动。
+
+         放在 .header-stack 之后、<main> 之前：
+           · 导航在引导页上方常显（用户选的效果）
+           · 引导页撑满「导航下方到屏幕底部」的高度
+         ========================================================== -->
+    <section class="splash" id="splash" aria-label="工学部研究生事务服务中心">
+        <div class="splash-inner">
+            <div class="splash-logo" aria-hidden="true">GSH</div>
+            <h1 class="splash-title">工学部研究生事务服务中心</h1>
+            <p class="splash-subtitle">Graduate Student Hub</p>
+            <p class="splash-mission">把重复的事务工作，变成一次解决</p>
+        </div>
+
+        <button class="scroll-hint" type="button" aria-label="向下滚动，进入内容区">
+            <span class="scroll-hint-mouse" aria-hidden="true"></span>
+            <span class="scroll-hint-text">下滑进入</span>
+        </button>
+    </section>
+
     <main id="main-content">
 
-        <section class="hero" id="hero-section">
-            <div class="hero-logo">GSH</div>
-            <p class="hero-subtitle">Graduate Service Hub</p>
-            <p class="hero-mission">把重复的事务工作，变成一次解决</p>
-        </section>
+        <!-- 注：原来的 .hero 区域（GSH 标识 + 标语）已经搬到品牌引导页
+             （.splash）里了，这里不再重复一遍。
+             引导页滚走后，内容区直接从八大专区开始。 -->
 
         <section class="content-area" id="content-area">
 
@@ -377,16 +404,17 @@ gtag('config', 'G-2S0K5DDSME');
         </div>
     </aside>
 
-    <script src="assets/js/theme.js?v=1795344538"></script>
-    <script src="assets/js/header-height.js?v=1795344538"></script>
-    <script src="assets/js/search.js?v=1795344538"></script>
-    <script src="assets/js/notice-section.js?v=1795344538"></script>
-    <script src="assets/js/homeFaq.js?v=1795344538"></script>
-    <script src="assets/js/stats.js?v=1795344538"></script>
-    <script src="assets/js/feedback.js?v=1795344538"></script>
-    <script src="assets/js/feedback-float.js?v=1795344538"></script>
-    <script src="assets/js/search-stats.js?v=1795344538"></script>
-    <script src="assets/js/card-sublist.js?v=1795344538"></script>
+    <script src="assets/js/theme.js?v=1795350256"></script>
+    <script src="assets/js/splash.js?v=1795350256"></script>
+    <script src="assets/js/header-height.js?v=1795350256"></script>
+    <script src="assets/js/search.js?v=1795350256"></script>
+    <script src="assets/js/notice-section.js?v=1795350256"></script>
+    <script src="assets/js/homeFaq.js?v=1795350256"></script>
+    <script src="assets/js/stats.js?v=1795350256"></script>
+    <script src="assets/js/feedback.js?v=1795350256"></script>
+    <script src="assets/js/feedback-float.js?v=1795350256"></script>
+    <script src="assets/js/search-stats.js?v=1795350256"></script>
+    <script src="assets/js/card-sublist.js?v=1795350256"></script>
 
 </body>
 </html>
