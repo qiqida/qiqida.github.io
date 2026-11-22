@@ -37,7 +37,13 @@
 
 改完 push，GitHub Actions 自动构建 → 查链接 → 同步 → 部署，1–3 分钟上线。
 
-**完整维护说明看 → [`docs/maintenance-guide.md`](docs/maintenance-guide.md)**
+### 文档索引
+
+| 文档 | 适合谁 | 内容 |
+|---|---|---|
+| [`docs/网站使用与维护手册.md`](docs/网站使用与维护手册.md) | **先看这个** | 使用说明 + 内容维护 + 部署推送 + 留言后台，全流程 |
+| [`docs/maintenance-guide.md`](docs/maintenance-guide.md) | 维护者 | 字段说明、附件、通知、故障排查速查 |
+| [`网站改版2/README.md`](网站改版2/README.md) | 开发者 | 改版前后的架构差异、构建脚本职责 |
 
 ### 目录分工
 
