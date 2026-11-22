@@ -138,20 +138,42 @@ gtag('config', '@@GAID@@');
     <!-- 键盘用户按 Tab 第一下就能跳到正文 -->
     <a class="skip-to-content" href="#main-content">跳到正文</a>
 
-    <!-- 手机端搜索框：放在 pageRoot 外面，不受页面 transform 影响 -->
-    <div class="mobile-search" id="mobile-search-container">
-        <div class="search-bar-wrapper">
-            <input type="text" id="global-search" class="search-box" placeholder="搜索请假、奖学金、毕业登记表..." aria-label="站内搜索">
-            <div id="search-suggestions"></div>
-        </div>
-    </div>
-
     <div id="page-root" class="page-root">
 
-    <header class="navbar">
-        <div class="logo">工学部研究生事务服务中心</div>
-        <button id="theme-toggle" type="button" aria-label="切换深色模式">🌙</button>
-    </header>
+    <!-- ==========================================================
+         吸顶头部：navbar + 搜索条
+
+         两层装在同一个 .header-stack 里，靠它一个 sticky
+         一起吸住。这样不管 navbar 高度怎么变（首页 / 子页不同）、
+         搜索条放上面还是下面，两层永远贴合，不会漏缝。
+
+         桌面端和移动端用的是同一套结构：
+           · 桌面端显示 .desktop-search
+           · 移动端显示 .mobile-search
+         高度由 header-height.js 实测写回 --header-h 变量。
+         ========================================================== -->
+    <div class="header-stack">
+        <header class="navbar">
+            <div class="logo">工学部研究生事务服务中心</div>
+            <button id="theme-toggle" type="button" aria-label="切换深色模式">🌙</button>
+        </header>
+
+        <!-- 桌面端搜索条：吸在导航栏下方 -->
+        <div class="search-bar-wrapper desktop-search">
+            <div class="search-bar-inner">
+                <input type="text" id="global-search-desktop" class="search-box" placeholder="搜索请假、奖学金、毕业登记表..." aria-label="站内搜索">
+                <div id="search-suggestions-desktop"></div>
+            </div>
+        </div>
+
+        <!-- 手机端搜索条：吸在导航栏下方 -->
+        <div class="mobile-search" id="mobile-search-container">
+            <div class="search-bar-wrapper">
+                <input type="text" id="global-search" class="search-box" placeholder="搜索请假、奖学金、毕业登记表..." aria-label="站内搜索">
+                <div id="search-suggestions"></div>
+            </div>
+        </div>
+    </div>
 
     <main id="main-content">
 
@@ -159,11 +181,6 @@ gtag('config', '@@GAID@@');
             <div class="hero-logo">GSH</div>
             <p class="hero-subtitle">Graduate Service Hub</p>
             <p class="hero-mission">把重复的事务工作，变成一次解决</p>
-            <!-- 网页端搜索框：在 hero 内部 -->
-            <div class="search-bar-wrapper desktop-search">
-                <input type="text" id="global-search-desktop" class="search-box" placeholder="搜索请假、奖学金、毕业登记表...">
-                <div id="search-suggestions-desktop"></div>
-            </div>
         </section>
 
         <section class="content-area" id="content-area">
@@ -304,6 +321,7 @@ gtag('config', '@@GAID@@');
     </aside>
 
     <script src="assets/js/theme.js?v=@@VER@@"></script>
+    <script src="assets/js/header-height.js?v=@@VER@@"></script>
     <script src="assets/js/search.js?v=@@VER@@"></script>
     <script src="assets/js/notice-section.js?v=@@VER@@"></script>
     <script src="assets/js/homeFaq.js?v=@@VER@@"></script>
