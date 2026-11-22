@@ -8,9 +8,9 @@
      · 底部一个会上下浮动的滚动指示器
 
    往下滑 / 点击指示器 / 按空格或 PageDown
-   → 引导页上滑退出，露出内容区
+   → 引导页跟手滑走，露出内容区
 
-   关键设计：引导页是 position: fixed 的「覆盖层」，
+   关键设计一：引导页是 position: fixed 的「覆盖层」，
    完全不占文档流高度。
 
    为什么不用「占高度 + 滚走」的做法：
@@ -19,11 +19,16 @@
      一旦浏览器版本行为不一致就出错。
      用覆盖层则完全不碰文档流，零跳动。
 
+   关键设计二：跟手拖拽，不是自动播完的动画。
+     拖拽时引导页实时跟着手指/滚轮移动（.is-dragging），
+     划多快就滑多快。松手后确认进入，才用 0.3s ease-out 收尾。
+     这样轻轻一划就是轻轻滑过去，不会「用力过猛」。
+
    层级：低于吸顶导航（导航 z-index 1000），
    所以导航始终浮在引导页上方可见。
 
    转场结束后引导页彻底移除，之后的滚动完全自由 ——
-   这就是「弱劫持」：只吃掉第一次向下的滚动。
+   这就是「弱劫持」：只接管第一次向下的滚动。
    ========================== */
 
 /* ---------- 引导页覆盖层 ---------- */
@@ -53,14 +58,43 @@
     z-index: 900;
 }
 
-/* ---------- 转场：整体上滑退出 + 淡出 ---------- */
+/* ---------- 转场状态 ----------
+   三个状态对应三个阶段：
+
+   ① is-dragging —— 手指/滚轮正在拖
+      关掉过渡（否则会滞后于手指），淡出程度跟着位移走。
+      视觉上引导页被「推着走」，这就是拖拽感。
+
+   ② is-leaving  —— 松手后确认进入内容区
+      把剩余距离用 0.3s ease-out 补完。
+      ease-out 是前快后慢，不回弹、不回冲，
+      避免最后一段又「用力过猛」。
+
+   ③ is-springing —— 松手但没够阈值，弹回原位
+      带一点阻尼的回弹手感。 */
+.splash.is-dragging {
+    /* 拖拽中不能有过渡，否则会追不上手指 */
+    transition: none;
+
+    /* 引导页往上走多少，底下内容就透出多少 */
+    opacity: 0.35;
+}
+
 .splash.is-leaving {
     opacity: 0;
     transform: translateY(-100%);
     transition:
-        opacity 0.45s ease,
-        transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+        opacity 0.3s ease-out,
+        transform 0.3s cubic-bezier(0.33, 1, 0.68, 1);
     pointer-events: none;
+}
+
+/* 回弹：弹回原位。
+   cubic-bezier(0.34, 1.3, 0.64, 1) 里 y=1.3 超出 [0,1]，
+   动画会冲过一点再回来，就是那点「回弹」感。 */
+.splash.is-springing {
+    transform: translateY(0);
+    transition: transform 0.42s cubic-bezier(0.34, 1.3, 0.64, 1);
 }
 
 /* 转场走完，彻底摘掉，不留任何影响 */
@@ -248,9 +282,14 @@
    不播转场动画，直接露出内容区。 */
 @media (prefers-reduced-motion: reduce) {
 
-    .splash.is-leaving {
+    .splash.is-leaving,
+    .splash.is-springing {
         transition: none;
         transform: none;
+    }
+
+    .splash.is-dragging {
+        transition: none;
     }
 
     .scroll-hint-mouse::after,

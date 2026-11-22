@@ -40,17 +40,18 @@ gtag('config', 'G-2S0K5DDSME');
     <!-- 全站资源版本号。
          JS 里 fetch 数据文件时统一用 SITE_VER 拼 ?v=，
          这样内容更新后浏览器不会拿旧的 JSON 缓存。 -->
-    <script>window.SITE_VER = "1795350256";</script>
+    <script>window.SITE_VER = "1795361251";</script>
 
-    <link rel="stylesheet" href="assets/css/style.css?v=1795350256">
-    <link rel="stylesheet" href="assets/css/components.css?v=1795350256">
-    <link rel="stylesheet" href="assets/css/touch-feedback.css?v=1795350256">
-    <link rel="stylesheet" href="assets/css/v8-components.css?v=1795350256">
-    <link rel="stylesheet" href="assets/css/card-sublist.css?v=1795350256">
-    <link rel="stylesheet" href="assets/css/home-sections.css?v=1795350256">
-    <link rel="stylesheet" href="assets/css/notice-section.css?v=1795350256">
-    <link rel="stylesheet" href="assets/css/splash.css?v=1795350256">
-    <link rel="stylesheet" href="assets/css/a11y.css?v=1795350256">
+    <link rel="stylesheet" href="assets/css/style.css?v=1795361251">
+    <link rel="stylesheet" href="assets/css/components.css?v=1795361251">
+    <link rel="stylesheet" href="assets/css/touch-feedback.css?v=1795361251">
+    <link rel="stylesheet" href="assets/css/v8-components.css?v=1795361251">
+    <link rel="stylesheet" href="assets/css/card-sublist.css?v=1795361251">
+    <link rel="stylesheet" href="assets/css/home-sections.css?v=1795361251">
+    <link rel="stylesheet" href="assets/css/notice-section.css?v=1795361251">
+    <link rel="stylesheet" href="assets/css/splash.css?v=1795361251">
+    <link rel="stylesheet" href="assets/css/theme-switch.css?v=1795361251">
+    <link rel="stylesheet" href="assets/css/a11y.css?v=1795361251">
 </head>
 
 <body data-root="" class="has-splash">
@@ -75,7 +76,23 @@ gtag('config', 'G-2S0K5DDSME');
     <div class="header-stack">
         <header class="navbar">
             <div class="logo">工学部研究生事务服务中心</div>
-            <button id="theme-toggle" type="button" aria-label="切换深色模式">🌙</button>
+            <button id="theme-toggle" class="theme-switch" type="button" role="switch" aria-checked="false" aria-label="切换深色模式">
+                <span class="theme-switch-track">
+                    <span class="theme-switch-thumb">
+                        <span class="theme-switch-icon theme-switch-icon-sun" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                                <circle cx="12" cy="12" r="4.2"></circle>
+                                <path d="M12 2.4v2.2M12 19.4v2.2M4.2 12H2M22 12h-2.2M6.5 6.5 4.9 4.9M19.1 19.1l-1.6-1.6M17.5 6.5l1.6-1.6M4.9 19.1l1.6-1.6"></path>
+                            </svg>
+                        </span>
+                        <span class="theme-switch-icon theme-switch-icon-moon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M20.5 14.6A8.6 8.6 0 0 1 9.4 3.5a8.6 8.6 0 1 0 11.1 11.1z"></path>
+                            </svg>
+                        </span>
+                    </span>
+                </span>
+            </button>
         </header>
 
         <!-- 桌面端搜索条：吸在导航栏下方 -->
@@ -404,17 +421,17 @@ gtag('config', 'G-2S0K5DDSME');
         </div>
     </aside>
 
-    <script src="assets/js/theme.js?v=1795350256"></script>
-    <script src="assets/js/splash.js?v=1795350256"></script>
-    <script src="assets/js/header-height.js?v=1795350256"></script>
-    <script src="assets/js/search.js?v=1795350256"></script>
-    <script src="assets/js/notice-section.js?v=1795350256"></script>
-    <script src="assets/js/homeFaq.js?v=1795350256"></script>
-    <script src="assets/js/stats.js?v=1795350256"></script>
-    <script src="assets/js/feedback.js?v=1795350256"></script>
-    <script src="assets/js/feedback-float.js?v=1795350256"></script>
-    <script src="assets/js/search-stats.js?v=1795350256"></script>
-    <script src="assets/js/card-sublist.js?v=1795350256"></script>
+    <script src="assets/js/theme.js?v=1795361251"></script>
+    <script src="assets/js/splash.js?v=1795361251"></script>
+    <script src="assets/js/header-height.js?v=1795361251"></script>
+    <script src="assets/js/search.js?v=1795361251"></script>
+    <script src="assets/js/notice-section.js?v=1795361251"></script>
+    <script src="assets/js/homeFaq.js?v=1795361251"></script>
+    <script src="assets/js/stats.js?v=1795361251"></script>
+    <script src="assets/js/feedback.js?v=1795361251"></script>
+    <script src="assets/js/feedback-float.js?v=1795361251"></script>
+    <script src="assets/js/search-stats.js?v=1795361251"></script>
+    <script src="assets/js/card-sublist.js?v=1795361251"></script>
 
 </body>
 </html>

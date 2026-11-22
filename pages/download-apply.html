@@ -40,21 +40,22 @@ gtag('config', 'G-2S0K5DDSME');
     <!-- 全站资源版本号。
          JS 里 fetch 数据文件时统一用 SITE_VER 拼 ?v=，
          这样内容更新后浏览器不会拿旧的 JSON 缓存。 -->
-    <script>window.SITE_VER = "1795350256";</script>
+    <script>window.SITE_VER = "1795361251";</script>
 
-    <link rel="stylesheet" href="../assets/css/style.css?v=1795350256">
-    <link rel="stylesheet" href="../assets/css/components.css?v=1795350256">
-    <link rel="stylesheet" href="../assets/css/v8-components.css?v=1795350256">
+    <link rel="stylesheet" href="../assets/css/style.css?v=1795361251">
+    <link rel="stylesheet" href="../assets/css/components.css?v=1795361251">
+    <link rel="stylesheet" href="../assets/css/v8-components.css?v=1795361251">
     <!-- Mermaid 流程图。
          只有页面里真的有 mermaid 代码块时，构建脚本才会把下面这行替换成
          真正的 CDN 地址；没有流程图的页面完全不会下载这 1MB 的库。
          实际配置由 assets/js/mermaid-init.js 里的 mermaid.initialize() 决定。 -->
 
 
-    <link rel="stylesheet" href="../assets/css/guide.css?v=1795350256">
-    <link rel="stylesheet" href="../assets/css/touch-feedback.css?v=1795350256">
-    <link rel="stylesheet" href="../assets/css/subpage.css?v=1795350256">
-    <link rel="stylesheet" href="../assets/css/a11y.css?v=1795350256">
+    <link rel="stylesheet" href="../assets/css/guide.css?v=1795361251">
+    <link rel="stylesheet" href="../assets/css/touch-feedback.css?v=1795361251">
+    <link rel="stylesheet" href="../assets/css/subpage.css?v=1795361251">
+    <link rel="stylesheet" href="../assets/css/theme-switch.css?v=1795361251">
+    <link rel="stylesheet" href="../assets/css/a11y.css?v=1795361251">
 
 
 </head>
@@ -79,7 +80,23 @@ gtag('config', 'G-2S0K5DDSME');
             <a href="../index.html" class="logo-gsh">GSH</a>
             <div class="navbar-actions">
                 <a href="../index.html" class="back-btn">返回首页</a>
-                <button id="theme-toggle" type="button" aria-label="切换深色模式">🌙</button>
+                <button id="theme-toggle" class="theme-switch" type="button" role="switch" aria-checked="false" aria-label="切换深色模式">
+                <span class="theme-switch-track">
+                    <span class="theme-switch-thumb">
+                        <span class="theme-switch-icon theme-switch-icon-sun" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                                <circle cx="12" cy="12" r="4.2"></circle>
+                                <path d="M12 2.4v2.2M12 19.4v2.2M4.2 12H2M22 12h-2.2M6.5 6.5 4.9 4.9M19.1 19.1l-1.6-1.6M17.5 6.5l1.6-1.6M4.9 19.1l1.6-1.6"></path>
+                            </svg>
+                        </span>
+                        <span class="theme-switch-icon theme-switch-icon-moon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M20.5 14.6A8.6 8.6 0 0 1 9.4 3.5a8.6 8.6 0 1 0 11.1 11.1z"></path>
+                            </svg>
+                        </span>
+                    </span>
+                </span>
+            </button>
             </div>
         </header>
 
@@ -141,10 +158,10 @@ gtag('config', 'G-2S0K5DDSME');
         <p class="footer-note">本站只整理流程与材料说明，不受理申请、不审批、不发布通知。当年的日期、名额、金额以学校与学院官方通知为准。</p>
     </footer>
 
-    <script src="../assets/js/theme.js?v=1795350256"></script>
-    <script src="../assets/js/header-height.js?v=1795350256"></script>
-    <script src="../assets/js/search.js?v=1795350256"></script>
-    <script src="../assets/js/mermaid-init.js?v=1795350256"></script>
+    <script src="../assets/js/theme.js?v=1795361251"></script>
+    <script src="../assets/js/header-height.js?v=1795361251"></script>
+    <script src="../assets/js/search.js?v=1795361251"></script>
+    <script src="../assets/js/mermaid-init.js?v=1795361251"></script>
 
 </body>
 </html>

@@ -228,16 +228,12 @@ body {
     color: #0f172a;
 }
 
-/* 深色模式按钮 */
-
+/* 深色模式按钮
+   样式已迁移到 assets/css/theme-switch.css（弹性开关）。
+   这里只保留最小约束，避免和开关样式打架。 */
 #theme-toggle {
-
     border: none;
-
     background: transparent;
-
-    font-size: 20px;
-
     cursor: pointer;
 }
 
@@ -411,7 +407,6 @@ body {
     }
 
     .navbar #theme-toggle {
-        font-size: 20px;
         background: transparent;
         border: none;
         cursor: pointer;
