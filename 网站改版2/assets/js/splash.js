@@ -65,6 +65,12 @@
     //       就把 touchmove 吃掉，内容页一动不动。
     //       等手指真正抬起（touchend）之后，才彻底交还给浏览器。
     function swallowGesture(e) {
+        // 只在引导页还活着时才拦截手势。
+        //
+        // 一旦进入内容区（state === "done"），
+        // 必须彻底放行，否则内容页就滑不动了。
+        if (state === "done") return;
+
         // 转场中，或手指还没抬起 → 吞掉，别让内容页跟着滑
         if (state === "leaving" || touchActive) {
             // preventDefault 对不可取消的事件是无害的空操作，
@@ -119,6 +125,7 @@
 
         if (reduceMotion) {
             splash.classList.add("is-hidden");
+            touchActive = false;
             state = "done";
             return;
         }
@@ -131,6 +138,11 @@
 
         setTimeout(function () {
             splash.classList.add("is-hidden");
+            // 兜底清掉 touchActive。
+            // 正常情况下 touchend 会把它置回 false，
+            // 但如果那次抬手事件没送达（比如被系统手势接管），
+            // 它会一直卡在 true，导致内容页永久滑不动。
+            touchActive = false;
             state = "done";
         }, 340);
     }
@@ -142,6 +154,7 @@
 
         if (reduceMotion) {
             splash.classList.add("is-hidden");
+            touchActive = false;
             state = "done";
             return;
         }
@@ -153,6 +166,9 @@
         const onEnd = function () {
             splash.classList.remove("is-springing");
             splash.removeEventListener("transitionend", onEnd);
+            // 回弹后引导页还在，手势可以重新开始。
+            // 这里清一下，避免上一次手势的残留状态。
+            touchActive = false;
             state = "locked";
         };
         splash.addEventListener("transitionend", onEnd);
@@ -165,16 +181,23 @@
 
     // ---------- 触摸：跟手拖拽 ----------
     window.addEventListener("touchstart", function (e) {
-        // 记录手指是否按在屏幕上。
-        // 即使状态不是 locked 也要记 —— 转场中用户可能又按了一下。
-        touchActive = true;
-
+        // 只有「引导页还活着」时，才需要记录 touchActive。
+        //
+        // touchActive 的用途是：手指在引导页上按下后拖动触发了转场，
+        // 但手指还没抬起时，要继续吞掉残余手势，别让内容页跟着滑。
+        // 这种情况下 state 是 locked（按下那一刻）。
+        //
+        // 转场期间（state === "leaving"）的拦截由 state 本身负责，
+        // 不需要 touchActive 参与。所以这里只在 locked 时置位，
+        // 否则转场中的新触摸会被误标记，转场结束后新手势还被吞，
+        // 表现就是「内容页第一下滑不动」。
         if (state !== "locked") return;
 
         // 只在触摸发生在引导页范围内时才准备拦截。
         // 触摸导航栏 / 搜索框时不拦截，否则会影响输入。
         if (!splash.contains(e.target)) return;
 
+        touchActive = true;
         startY = e.touches[0].clientY;
         lastY = startY;
         lastTime = Date.now();
@@ -318,6 +341,7 @@
             if (state === "locked" || state === "dragging") {
                 splash.classList.add("is-hidden");
                 document.body.classList.remove("has-splash");
+                touchActive = false;
                 state = "done";
             }
         });

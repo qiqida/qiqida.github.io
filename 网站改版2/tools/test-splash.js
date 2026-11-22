@@ -200,6 +200,69 @@ console.log("\n[拖拽 5d] 转场完成且手指已抬起 -> 手势交还浏览�
     check("不再拦截（内容页可以正常滚了）", !prevented);
 }
 
+console.log("\n[回归] 进入内容区后触摸内容区 -> 不应吞掉手势");
+{
+    // 这是「移动端内容页滑不动」的 bug：
+    // touchstart 无条件把 touchActive 置 true，
+    // 导致进入内容区后 touchmove 一直被吃掉。
+    const env = buildSplashEnv();
+    env.fire("touchstart", { touches: [{ clientY: 700 }], target: env.splash });
+    env.fire("touchmove", { touches: [{ clientY: 300 }], target: env.splash, preventDefault() { } });
+    env.fire("touchend", {});
+    env.flush();   // state -> done
+
+    // 现在在内容区正常滑动（触摸目标不在 splash 内）
+    env.fire("touchstart", { touches: [{ clientY: 600 }], target: env.body });
+    let prevented = false;
+    env.fire("touchmove", {
+        touches: [{ clientY: 500 }], target: env.body,
+        preventDefault() { prevented = true; }
+    });
+    check("内容区手势没有被拦截", !prevented);
+    env.fire("touchend", {});
+}
+
+console.log("\n[回归] 抬手事件丢失时也不该永久卡住内容页");
+{
+    // 模拟 touchend 没送达（被系统手势接管）的情况
+    const env = buildSplashEnv();
+    env.fire("touchstart", { touches: [{ clientY: 700 }], target: env.splash });
+    env.fire("touchmove", { touches: [{ clientY: 300 }], target: env.splash, preventDefault() { } });
+    env.fire("touchend", {});
+    env.flush();   // 转场结束
+
+    // 再次触摸内容区
+    env.fire("touchstart", { touches: [{ clientY: 600 }], target: env.body });
+    let prevented = false;
+    env.fire("touchmove", {
+        touches: [{ clientY: 500 }], target: env.body,
+        preventDefault() { prevented = true; }
+    });
+    check("内容区手势没有被拦截", !prevented);
+}
+
+console.log("\n[回归] 转场期间的新触摸不应污染后续手势");
+{
+    // 转场动画期间用户又按了一下屏幕。
+    // 如果这时把 touchActive 置 true，转场结束后
+    // 内容页的第一下滑动还会被吞掉。
+    const env = buildSplashEnv();
+    env.fire("touchstart", { touches: [{ clientY: 700 }], target: env.splash });
+    env.fire("touchmove", { touches: [{ clientY: 300 }], target: env.splash, preventDefault() { } });
+    env.fire("touchend", {});
+    // 转场中（state = leaving）用户又按下
+    env.fire("touchstart", { touches: [{ clientY: 600 }], target: env.body });
+    env.flush();   // 转场结束，state -> done
+
+    // 内容区滑动
+    let prevented = false;
+    env.fire("touchmove", {
+        touches: [{ clientY: 500 }], target: env.body,
+        preventDefault() { prevented = true; }
+    });
+    check("内容区手势没有被拦截", !prevented);
+}
+
 console.log("\n[拖拽 6] 松手但位移不足 -> 回弹");
 {
     const env = buildSplashEnv();
