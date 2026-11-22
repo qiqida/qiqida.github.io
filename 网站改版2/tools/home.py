@@ -133,7 +133,7 @@ gtag('config', '@@GAID@@');
     <link rel="stylesheet" href="assets/css/a11y.css?v=@@VER@@">
 </head>
 
-<body>
+<body data-root="">
 
     <!-- 键盘用户按 Tab 第一下就能跳到正文 -->
     <a class="skip-to-content" href="#main-content">跳到正文</a>

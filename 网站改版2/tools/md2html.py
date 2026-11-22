@@ -117,18 +117,46 @@ gtag('config', '@@GAID@@');
 
 </head>
 
-<body id="page-top">
+<body id="page-top" data-root="..">
 
     <!-- 键盘用户按 Tab 第一下就能跳到正文 -->
     <a class="skip-to-content" href="#main-content">跳到正文</a>
 
-    <header class="navbar">
-        <a href="../index.html" class="logo-gsh">GSH</a>
-        <div class="navbar-actions">
-            <a href="../index.html" class="back-btn">返回首页</a>
-            <button id="theme-toggle" type="button" aria-label="切换深色模式">🌙</button>
+    <!-- ==========================================================
+         吸顶头部：导航栏 + 搜索条
+
+         和首页用的是同一套结构（.header-stack），
+         所以子页面的导航栏和搜索框也会一起吸在页面顶部，
+         滚动时搜索框始终停在导航栏正下方，不会被内容盖住。
+
+         data-root=".." 告诉 search.js 本页在站点根的下一层，
+         数据文件和跳转链接都要往上退一级。
+         ========================================================== -->
+    <div class="header-stack">
+        <header class="navbar">
+            <a href="../index.html" class="logo-gsh">GSH</a>
+            <div class="navbar-actions">
+                <a href="../index.html" class="back-btn">返回首页</a>
+                <button id="theme-toggle" type="button" aria-label="切换深色模式">🌙</button>
+            </div>
+        </header>
+
+        <!-- 桌面端搜索条：吸在导航栏下方 -->
+        <div class="search-bar-wrapper desktop-search">
+            <div class="search-bar-inner">
+                <input type="text" id="global-search-desktop" class="search-box" placeholder="搜索请假、奖学金、毕业登记表..." aria-label="站内搜索">
+                <div id="search-suggestions-desktop"></div>
+            </div>
         </div>
-    </header>
+
+        <!-- 手机端搜索条：吸在导航栏下方 -->
+        <div class="mobile-search" id="mobile-search-container">
+            <div class="search-bar-wrapper">
+                <input type="text" id="global-search" class="search-box" placeholder="搜索请假、奖学金、毕业登记表..." aria-label="站内搜索">
+                <div id="search-suggestions"></div>
+            </div>
+        </div>
+    </div>
 
     <section class="page-header">
         @@BREADCRUMB@@
@@ -150,6 +178,8 @@ gtag('config', '@@GAID@@');
     </footer>
 
     <script src="../assets/js/theme.js?v=@@VER@@"></script>
+    <script src="../assets/js/header-height.js?v=@@VER@@"></script>
+    <script src="../assets/js/search.js?v=@@VER@@"></script>
     <script src="../assets/js/mermaid-init.js?v=@@VER@@"></script>
 @@EXTRAJS@@
 </body>
