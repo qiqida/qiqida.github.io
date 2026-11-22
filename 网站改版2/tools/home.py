@@ -130,10 +130,11 @@ gtag('config', '@@GAID@@');
     <link rel="stylesheet" href="assets/css/card-sublist.css?v=@@VER@@">
     <link rel="stylesheet" href="assets/css/home-sections.css?v=@@VER@@">
     <link rel="stylesheet" href="assets/css/notice-section.css?v=@@VER@@">
+    <link rel="stylesheet" href="assets/css/splash.css?v=@@VER@@">
     <link rel="stylesheet" href="assets/css/a11y.css?v=@@VER@@">
 </head>
 
-<body data-root="">
+<body data-root="" class="has-splash">
 
     <!-- 键盘用户按 Tab 第一下就能跳到正文 -->
     <a class="skip-to-content" href="#main-content">跳到正文</a>
@@ -175,13 +176,39 @@ gtag('config', '@@GAID@@');
         </div>
     </div>
 
+    <!-- ==========================================================
+         品牌引导页
+
+         进首页先看这一屏：GSH 标识 + 中文全称 + 英文名 + 标语，
+         底部有一个会上下浮动的滚动指示器。
+
+         往下滑 / 点指示器 / 按空格 → 淡出并滚到内容区。
+         转场结束后引导页彻底移除（display:none），
+         之后的滚动完全自由 —— 只吃掉第一次向下的滚动。
+
+         放在 .header-stack 之后、<main> 之前：
+           · 导航在引导页上方常显（用户选的效果）
+           · 引导页撑满「导航下方到屏幕底部」的高度
+         ========================================================== -->
+    <section class="splash" id="splash" aria-label="工学部研究生事务服务中心">
+        <div class="splash-inner">
+            <div class="splash-logo" aria-hidden="true">GSH</div>
+            <h1 class="splash-title">工学部研究生事务服务中心</h1>
+            <p class="splash-subtitle">Graduate Student Hub</p>
+            <p class="splash-mission">把重复的事务工作，变成一次解决</p>
+        </div>
+
+        <button class="scroll-hint" type="button" aria-label="向下滚动，进入内容区">
+            <span class="scroll-hint-mouse" aria-hidden="true"></span>
+            <span class="scroll-hint-text">下滑进入</span>
+        </button>
+    </section>
+
     <main id="main-content">
 
-        <section class="hero" id="hero-section">
-            <div class="hero-logo">GSH</div>
-            <p class="hero-subtitle">Graduate Service Hub</p>
-            <p class="hero-mission">把重复的事务工作，变成一次解决</p>
-        </section>
+        <!-- 注：原来的 .hero 区域（GSH 标识 + 标语）已经搬到品牌引导页
+             （.splash）里了，这里不再重复一遍。
+             引导页滚走后，内容区直接从八大专区开始。 -->
 
         <section class="content-area" id="content-area">
 
@@ -321,6 +348,7 @@ gtag('config', '@@GAID@@');
     </aside>
 
     <script src="assets/js/theme.js?v=@@VER@@"></script>
+    <script src="assets/js/splash.js?v=@@VER@@"></script>
     <script src="assets/js/header-height.js?v=@@VER@@"></script>
     <script src="assets/js/search.js?v=@@VER@@"></script>
     <script src="assets/js/notice-section.js?v=@@VER@@"></script>
