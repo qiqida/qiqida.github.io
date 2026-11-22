@@ -24,7 +24,7 @@ import time
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from siteconf import OUT, SCENARIOS, ZONES, scan_content  # noqa: E402
-from md2html import SITE_VER, load_ga_id  # noqa: E402
+from md2html import SITE_VER, THEME_SWITCH_HTML, load_ga_id  # noqa: E402
 
 # 首页卡片区的专区。
 # 「关于与联系」不在卡片区（放在页脚），所以它没有 inHome 标记。
@@ -131,6 +131,7 @@ gtag('config', '@@GAID@@');
     <link rel="stylesheet" href="assets/css/home-sections.css?v=@@VER@@">
     <link rel="stylesheet" href="assets/css/notice-section.css?v=@@VER@@">
     <link rel="stylesheet" href="assets/css/splash.css?v=@@VER@@">
+    <link rel="stylesheet" href="assets/css/theme-switch.css?v=@@VER@@">
     <link rel="stylesheet" href="assets/css/a11y.css?v=@@VER@@">
 </head>
 
@@ -156,7 +157,7 @@ gtag('config', '@@GAID@@');
     <div class="header-stack">
         <header class="navbar">
             <div class="logo">工学部研究生事务服务中心</div>
-            <button id="theme-toggle" type="button" aria-label="切换深色模式">🌙</button>
+            @@THEME_SWITCH@@
         </header>
 
         <!-- 桌面端搜索条：吸在导航栏下方 -->
@@ -377,6 +378,9 @@ def main():
 
     # GA 测量 ID（从 data/site-config.json 读，读不到用默认值）
     html = html.replace("@@GAID@@", load_ga_id())
+
+    # 主题切换开关（与子页面共用同一份结构）
+    html = html.replace("@@THEME_SWITCH@@", THEME_SWITCH_HTML)
 
     out = os.path.join(OUT, "index.html")
     with io.open(out, "w", encoding="utf-8", newline="") as f:

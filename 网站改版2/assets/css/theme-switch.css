@@ -1,0 +1,228 @@
+/* ==========================
+   主题切换开关（日间 / 夜间）
+   ==========================
+   右上角原本是一个简单的 🌙 / ☀️ emoji 按钮。
+   现在换成一个「经典开关」：
+     · 一条胶囊形轨道
+     · 一个圆形滑块，上面画着日/月
+     · 切换时轨道横向拉伸成胶囊形
+     · 到达终点恢复，并轻微回弹
+
+   为什么画 SVG 而不用 emoji：
+     · emoji 在 Windows / macOS / iOS / Android 上
+       渲染差别很大，形状、颜色、基线都不统一
+     · emoji 无法做双色调（太阳要黄、月亮要白）
+     · SVG 可以精确控制笔画粗细和比例，跨系统完全一致
+
+   为什么用「回弹曲线」而不是 ease：
+     cubic-bezier(0.34, 1.56, 0.64, 1) 里第三个控制点
+     的 y = 1.56 超出了 [0, 1] 区间，
+     动画会先冲过终点一点再回来 —— 这就是「轻微回弹」。
+   ========================== */
+
+/* ---------- 开关本体 ---------- */
+.theme-switch {
+    display: inline-flex;
+    align-items: center;
+
+    /* 按钮本身不占多余空间 */
+    padding: 0;
+    border: none;
+    background: transparent;
+
+    cursor: pointer;
+
+    /* 防止点击时出现浏览器默认的蓝色边框 */
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* 键盘聚焦时的可见焦点圈 */
+.theme-switch:focus-visible {
+    outline: 2px solid rgba(0, 113, 227, 0.55);
+    outline-offset: 4px;
+    border-radius: 999px;
+}
+
+/* ---------- 轨道（胶囊） ----------
+   日夜两种状态轨道长度完全一致（52px），
+   只有滑块在左右两端之间移动。
+
+   为什么之前做成不一样长（46 / 56px）：
+     原本是想靠「拉长成胶囊」表现切换过程，
+     但这样日夜两态外观不一致，一眼能看出按钮在变宽，
+     反而像布局抖动。
+   现在改为统一长度，切换时靠一个短暂的
+   「轻微横向拉伸」来表现弹性（见下面的 .is-animating）。 */
+.theme-switch-track {
+    position: relative;
+
+    /* 统一长度：日夜都是 52px */
+    width: 52px;
+    height: 30px;
+    border-radius: 999px;
+
+    /* 轨道底色：白天用浅灰，看得出是一条通道。
+       配一道更深的内描边，避免在白色导航栏上看不出来。 */
+    background: #e2e8f0;
+    box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.35);
+
+    /* 过渡：背景色 + 轻微的横向拉伸 */
+    transition:
+        background-color 0.3s ease,
+        transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* 夜间模式：底色变深，长度不变 */
+html[data-theme="dark"] .theme-switch-track {
+    background: #334155;
+    box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.25);
+}
+
+/* ---------- 切换瞬间的横向拉伸 ----------
+   日夜轨道长度统一后，「拉成胶囊形」不再靠改变轨道宽度
+   （那样日夜外观会不一致），改成：
+     点下去 → 滑块在滑向另一端的过程中横向撑开（变成胶囊）
+            → 到达终点恢复成圆形，轻微回弹
+
+   用 scaleX 而不是 width：
+     · width 变化会引起重排，导航栏右侧元素会被推一下
+     · scaleX 只做合成层变换，不影响布局
+
+   滑块本来就要用 translateX 定位，所以两个变换合并成一条：
+     translateX(位置) scaleX(拉伸度)
+
+   拉伸度用 CSS 变量控制：
+     --thumb-x       滑块在轨道上的位置
+     --thumb-stretch 横向拉伸比例（切换时临时加大） */
+.theme-switch {
+    --thumb-x: 0px;
+    --thumb-stretch: 1;
+}
+
+/* 夜间：滑块在右端 */
+html[data-theme="dark"] .theme-switch {
+    --thumb-x: 22px;
+}
+
+/* ---------- 滑块 ---------- */
+.theme-switch-thumb {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+
+    width: 24px;
+    height: 24px;
+    border-radius: 999px;
+
+    background: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.22);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* 位置 + 拉伸，一条过渡搞定，两者天然同步 */
+    transform: translateX(var(--thumb-x)) scaleX(var(--thumb-stretch));
+    transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* 切换瞬间：滑块横向撑开成胶囊 */
+.theme-switch.is-animating {
+    --thumb-stretch: 1.35;
+}
+/* 夜间模式：滑块滑到右端由上面的 --thumb-x 控制，
+   这里不再单独写 translateX，避免和变量方案打架。 */
+
+/* ---------- 图标：日 / 月 ----------
+   图标画在滑块上，所以颜色必须和「滑块底色」形成对比：
+     · 白天：滑块是白底  → 太阳用暖黄，月亮用深灰
+     · 夜间：滑块是浅底  → 月亮用深蓝灰，太阳用亮橙
+   如果图标颜色写死，深色模式下会出现「浅灰月亮画在浅色滑块上」
+   这种看不清的情况。 */
+.theme-switch-icon {
+    position: absolute;
+
+    width: 14px;
+    height: 14px;
+
+    /* 切换时做一个小小的缩放 + 淡入淡出 */
+    transition:
+        opacity 0.28s ease,
+        transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* SVG 线条用 currentColor，着色交给外层 */
+.theme-switch-icon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* --- 太阳（白天）--- */
+.theme-switch-icon-sun {
+    color: #f59e0b;
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+}
+
+/* --- 月亮（白天时藏在滑块外侧，准备出场）--- */
+.theme-switch-icon-moon {
+    color: #64748b;
+    opacity: 0;
+    transform: scale(0.4) rotate(-60deg);
+}
+
+/* 夜间模式：太阳淡出缩小，月亮淡入放大 */
+html[data-theme="dark"] .theme-switch-icon-sun {
+    color: #ea580c;
+    opacity: 0;
+    transform: scale(0.4) rotate(60deg);
+}
+
+html[data-theme="dark"] .theme-switch-icon-moon {
+    color: #1e293b;
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+}
+
+/* ---------- 深色模式下滑块配色 ---------- */
+html[data-theme="dark"] .theme-switch-thumb {
+    background: #e2e8f0;
+}
+
+/* ---------- 减少动效 ---------- */
+@media (prefers-reduced-motion: reduce) {
+
+    .theme-switch-track,
+    .theme-switch-thumb,
+    .theme-switch-icon {
+        transition: none;
+    }
+}
+
+/* ---------- 移动端微调 ---------- */
+@media (max-width: 768px) {
+    .theme-switch-track {
+        width: 50px;
+        height: 28px;
+    }
+
+    .theme-switch-thumb {
+        width: 22px;
+        height: 22px;
+        top: 3px;
+        left: 3px;
+    }
+
+    /* 50 - 22 - 6 = 22px */
+    html[data-theme="dark"] .theme-switch {
+        --thumb-x: 22px;
+    }
+}
+
+/* ---------- 打印时隐藏 ---------- */
+@media print {
+    .theme-switch {
+        display: none !important;
+    }
+}

@@ -52,6 +52,41 @@ def load_ga_id():
     except Exception:
         return DEFAULT_GA_ID
 
+
+# ==========================================================
+# 主题切换开关（首页和子页面共用同一份结构）
+# ==========================================================
+# 为什么用 SVG 而不是 emoji：
+#   · emoji 在 Windows / macOS / iOS / Android 上渲染差异很大，
+#     形状、颜色、对齐基线都不统一
+#   · emoji 无法做双色调（太阳该是暖黄、月亮该是冷白）
+#   · SVG 可以精确控制笔画粗细和比例，跨系统完全一致
+#
+# 结构：
+#   button.theme-switch            —— 开关本体，负责可点击区域和无障碍语义
+#     └ span.theme-switch-track    —— 胶囊轨道，宽度随主题变化
+#         └ span.theme-switch-thumb —— 圆形滑块，位置上带日月图标
+#
+# 注意：JS 不能用 textContent 改这个按钮（会把 SVG 结构清空），
+# 只能改 html[data-theme] 和 aria-checked，动画全部由 CSS 负责。
+THEME_SWITCH_HTML = """<button id="theme-toggle" class="theme-switch" type="button" role="switch" aria-checked="false" aria-label="切换深色模式">
+                <span class="theme-switch-track">
+                    <span class="theme-switch-thumb">
+                        <span class="theme-switch-icon theme-switch-icon-sun" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                                <circle cx="12" cy="12" r="4.2"></circle>
+                                <path d="M12 2.4v2.2M12 19.4v2.2M4.2 12H2M22 12h-2.2M6.5 6.5 4.9 4.9M19.1 19.1l-1.6-1.6M17.5 6.5l1.6-1.6M4.9 19.1l1.6-1.6"></path>
+                            </svg>
+                        </span>
+                        <span class="theme-switch-icon theme-switch-icon-moon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M20.5 14.6A8.6 8.6 0 0 1 9.4 3.5a8.6 8.6 0 1 0 11.1 11.1z"></path>
+                            </svg>
+                        </span>
+                    </span>
+                </span>
+            </button>"""
+
 # ==========================================================
 # 页面模板
 # 用 @@占位符@@ 而不是 str.format，避免与模板里的 JS 花括号冲突
@@ -112,6 +147,7 @@ gtag('config', '@@GAID@@');
     <link rel="stylesheet" href="../assets/css/guide.css?v=@@VER@@">
     <link rel="stylesheet" href="../assets/css/touch-feedback.css?v=@@VER@@">
     <link rel="stylesheet" href="../assets/css/subpage.css?v=@@VER@@">
+    <link rel="stylesheet" href="../assets/css/theme-switch.css?v=@@VER@@">
     <link rel="stylesheet" href="../assets/css/a11y.css?v=@@VER@@">
 @@EXTRACSS@@
 
@@ -137,7 +173,7 @@ gtag('config', '@@GAID@@');
             <a href="../index.html" class="logo-gsh">GSH</a>
             <div class="navbar-actions">
                 <a href="../index.html" class="back-btn">返回首页</a>
-                <button id="theme-toggle" type="button" aria-label="切换深色模式">🌙</button>
+                @@THEME_SWITCH@@
             </div>
         </header>
 
@@ -236,6 +272,9 @@ def render_page(title, desc, body, breadcrumb="", pagenav="", backbtn="",
     # 资源版本号：改过 JS/CSS 后浏览器会强制取新文件，避免缓存旧版本。
     # 用模块级常量，保证一次构建里所有页面的版本号一致。
     html = html.replace("@@VER@@", SITE_VER)
+
+    # 主题切换开关（首页和子页面共用同一份结构）
+    html = html.replace("@@THEME_SWITCH@@", THEME_SWITCH_HTML)
     return html
 
 
