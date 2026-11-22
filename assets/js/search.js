@@ -17,6 +17,53 @@ let selectedIndex = -1;
 // 汉字 → 首字母对照表（构建期生成）
 let pinyinTable = {};
 
+// ==========================================================
+// 站点根路径与 URL 前缀
+// ----------------------------------------------------------
+// 这个脚本首页和子页面共用，但两者的相对路径不一样：
+//   首页  →  数据在 data/…              跳转目标是 pages/xxx.html
+//   子页  →  数据在 ../data/…           跳转目标是 ../pages/xxx.html
+//
+// 这里从 <body> 上的 data-root 属性读出站点根前缀，
+// 由构建脚本按页面层级写入：
+//   首页   <body data-root="">
+//   子页   <body data-root="..">
+//
+// 没有这个属性时（老页面 / 直接打开本地文件），
+// 自动用当前脚本自身的 URL 反推，效果一样。
+//
+// 注意：前缀统一以 / 结尾（"../"），拼接时不用再补斜杠。
+// ==========================================================
+const SITE_ROOT = (() => {
+    const attr = document.body ? document.body.getAttribute("data-root") : null;
+    let root;
+
+    if (attr !== null && attr !== undefined) {
+        root = attr;
+    } else {
+        // 兜底：从 script 标签的 src 反推
+        // 形如 ../assets/js/search.js → 站点根是 ..
+        root = "";
+        const scripts = document.getElementsByTagName("script");
+        for (const s of scripts) {
+            const src = s.getAttribute("src") || "";
+            const m = src.match(/^(.*?)assets\/js\/search\.js/);
+            if (m) { root = m[1]; break; }
+        }
+    }
+
+    // 归一化：空串保持空串（首页），其它补上结尾斜杠
+    if (!root) return "";
+    return root.endsWith("/") ? root : root + "/";
+})();
+
+// 把站点根相对路径转成当前页面可用的 URL
+function siteUrl(path) {
+    if (!path) return SITE_ROOT || "./";
+    if (/^(https?:)?\/\//.test(path) || path.startsWith("#")) return path;
+    return SITE_ROOT + path;
+}
+
 const searchInput = document.getElementById("global-search");
 const searchInputDesktop = document.getElementById("global-search-desktop");
 const suggestionBox = document.getElementById("search-suggestions");
@@ -25,7 +72,7 @@ const suggestionBoxDesktop = document.getElementById("search-suggestions-desktop
 // 读取搜索知识库。GitHub Pages 支持读取同项目里的 JSON 文件。
 async function loadSearchData() {
     try {
-        const response = await fetch("data/knowledge-base.json?v=" + (window.SITE_VER || "1"));
+        const response = await fetch(siteUrl("data/knowledge-base.json") + "?v=" + (window.SITE_VER || "1"));
 
         if (!response.ok) {
             throw new Error("搜索数据文件读取失败");
@@ -38,7 +85,7 @@ async function loadSearchData() {
 
     // 拼音对照表是可选的，取不到也不影响中文搜索
     try {
-        const res = await fetch("data/pinyin-table.json?v=" + (window.SITE_VER || "1"));
+        const res = await fetch(siteUrl("data/pinyin-table.json") + "?v=" + (window.SITE_VER || "1"));
         if (res.ok) pinyinTable = await res.json();
     } catch (error) {
         /* 忽略：拼音搜索不可用 */
@@ -142,7 +189,7 @@ function renderSuggestions(suggestionBoxEl, matches, keyword) {
         `;
 
         div.addEventListener("click", () => {
-            window.location.href = item.url;
+            window.location.href = siteUrl(item.url);
         });
 
         suggestionBoxEl.appendChild(div);
@@ -181,7 +228,7 @@ function goToSelected(suggestionBoxEl) {
     if (selectedIndex >= 0 && selectedIndex < items.length) {
         items[selectedIndex].click();
     } else if (currentMatches.length > 0) {
-        window.location.href = currentMatches[0].url;
+        window.location.href = siteUrl(currentMatches[0].url);
     }
 }
 
@@ -220,7 +267,7 @@ function initSearchInput(searchInputEl, suggestionBoxEl) {
         } else if (event.key === "Enter") {
             // 没有显示建议时，尝试搜索（已有数据则跳转第一个）
             if (currentMatches.length > 0) {
-                window.location.href = currentMatches[0].url;
+                window.location.href = siteUrl(currentMatches[0].url);
             }
         }
     });

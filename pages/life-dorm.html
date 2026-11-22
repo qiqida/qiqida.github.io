@@ -40,37 +40,65 @@ gtag('config', 'G-2S0K5DDSME');
     <!-- 全站资源版本号。
          JS 里 fetch 数据文件时统一用 SITE_VER 拼 ?v=，
          这样内容更新后浏览器不会拿旧的 JSON 缓存。 -->
-    <script>window.SITE_VER = "1795343302";</script>
+    <script>window.SITE_VER = "1795344538";</script>
 
-    <link rel="stylesheet" href="../assets/css/style.css?v=1795343302">
-    <link rel="stylesheet" href="../assets/css/components.css?v=1795343302">
-    <link rel="stylesheet" href="../assets/css/v8-components.css?v=1795343302">
+    <link rel="stylesheet" href="../assets/css/style.css?v=1795344538">
+    <link rel="stylesheet" href="../assets/css/components.css?v=1795344538">
+    <link rel="stylesheet" href="../assets/css/v8-components.css?v=1795344538">
     <!-- Mermaid 流程图。
          只有页面里真的有 mermaid 代码块时，构建脚本才会把下面这行替换成
          真正的 CDN 地址；没有流程图的页面完全不会下载这 1MB 的库。
          实际配置由 assets/js/mermaid-init.js 里的 mermaid.initialize() 决定。 -->
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js" onerror="window.__mermaidLoadFailed=true"></script>
 
-    <link rel="stylesheet" href="../assets/css/guide.css?v=1795343302">
-    <link rel="stylesheet" href="../assets/css/touch-feedback.css?v=1795343302">
-    <link rel="stylesheet" href="../assets/css/subpage.css?v=1795343302">
-    <link rel="stylesheet" href="../assets/css/a11y.css?v=1795343302">
+    <link rel="stylesheet" href="../assets/css/guide.css?v=1795344538">
+    <link rel="stylesheet" href="../assets/css/touch-feedback.css?v=1795344538">
+    <link rel="stylesheet" href="../assets/css/subpage.css?v=1795344538">
+    <link rel="stylesheet" href="../assets/css/a11y.css?v=1795344538">
 
 
 </head>
 
-<body id="page-top">
+<body id="page-top" data-root="..">
 
     <!-- 键盘用户按 Tab 第一下就能跳到正文 -->
     <a class="skip-to-content" href="#main-content">跳到正文</a>
 
-    <header class="navbar">
-        <a href="../index.html" class="logo-gsh">GSH</a>
-        <div class="navbar-actions">
-            <a href="../index.html" class="back-btn">返回首页</a>
-            <button id="theme-toggle" type="button" aria-label="切换深色模式">🌙</button>
+    <!-- ==========================================================
+         吸顶头部：导航栏 + 搜索条
+
+         和首页用的是同一套结构（.header-stack），
+         所以子页面的导航栏和搜索框也会一起吸在页面顶部，
+         滚动时搜索框始终停在导航栏正下方，不会被内容盖住。
+
+         data-root=".." 告诉 search.js 本页在站点根的下一层，
+         数据文件和跳转链接都要往上退一级。
+         ========================================================== -->
+    <div class="header-stack">
+        <header class="navbar">
+            <a href="../index.html" class="logo-gsh">GSH</a>
+            <div class="navbar-actions">
+                <a href="../index.html" class="back-btn">返回首页</a>
+                <button id="theme-toggle" type="button" aria-label="切换深色模式">🌙</button>
+            </div>
+        </header>
+
+        <!-- 桌面端搜索条：吸在导航栏下方 -->
+        <div class="search-bar-wrapper desktop-search">
+            <div class="search-bar-inner">
+                <input type="text" id="global-search-desktop" class="search-box" placeholder="搜索请假、奖学金、毕业登记表..." aria-label="站内搜索">
+                <div id="search-suggestions-desktop"></div>
+            </div>
         </div>
-    </header>
+
+        <!-- 手机端搜索条：吸在导航栏下方 -->
+        <div class="mobile-search" id="mobile-search-container">
+            <div class="search-bar-wrapper">
+                <input type="text" id="global-search" class="search-box" placeholder="搜索请假、奖学金、毕业登记表..." aria-label="站内搜索">
+                <div id="search-suggestions"></div>
+            </div>
+        </div>
+    </div>
 
     <section class="page-header">
             <nav class="breadcrumb" aria-label="面包屑">
@@ -151,8 +179,10 @@ gtag('config', 'G-2S0K5DDSME');
         <p class="footer-note">本站只整理流程与材料说明，不受理申请、不审批、不发布通知。当年的日期、名额、金额以学校与学院官方通知为准。</p>
     </footer>
 
-    <script src="../assets/js/theme.js?v=1795343302"></script>
-    <script src="../assets/js/mermaid-init.js?v=1795343302"></script>
+    <script src="../assets/js/theme.js?v=1795344538"></script>
+    <script src="../assets/js/header-height.js?v=1795344538"></script>
+    <script src="../assets/js/search.js?v=1795344538"></script>
+    <script src="../assets/js/mermaid-init.js?v=1795344538"></script>
 
 </body>
 </html>

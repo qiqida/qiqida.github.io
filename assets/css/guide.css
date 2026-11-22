@@ -10,13 +10,15 @@
 }
 
 /* ---------- 正文末尾的「返回顶部」文字链接 ---------- */
-/* 锚点在 body 上，吸顶导航栏会遮住一点，加 scroll-margin 避开 */
+/* 锚点在 body 上，吸顶的「导航栏 + 搜索条」会遮住一点，
+   加 scroll-margin 让锚点落到吸顶层下方。
+   高度用 --header-h 变量（由 header-height.js 实测写回）。 */
 html {
     scroll-behavior: smooth;
 }
 
 body {
-    scroll-margin-top: 76px;
+    scroll-margin-top: calc(var(--header-h, 76px) + 12px);
 }
 
 /* 注意：.guide-main p 的特异性更高，这里要写得更具体才生效 */
@@ -117,7 +119,7 @@ body {
 
 .guide-block-title {
     margin-top: 0;
-    scroll-margin-top: 80px;
+    scroll-margin-top: calc(var(--header-h, 76px) + 12px);
     position: relative;
 }
 
@@ -143,7 +145,7 @@ body {
 .guide-main > h2,
 .guide-main > h3,
 .guide-main > h4 {
-    scroll-margin-top: 80px;
+    scroll-margin-top: calc(var(--header-h, 76px) + 12px);
 }
 
 /* ---------- 标题锚点 ---------- */

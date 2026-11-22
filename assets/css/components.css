@@ -819,7 +819,11 @@ a.service-card {
 /* 移动端适配 */
 @media (max-width: 768px) {
     .page-header {
-        margin-top: 72px;
+        /* 原来是 72px，用来给「position: fixed 的搜索框」让位。
+           搜索框现在改成了吸顶容器里的正常流元素，
+           .header-stack 已经占了它该占的高度，
+           这里只需要一个正常的标题间距就够了。 */
+        margin-top: 32px;
     }
 
     .notice-detail-main {
