@@ -19,6 +19,7 @@ sys.path.insert(0, HERE)
 
 from siteconf import DATA, OUT, escape_html, read_text  # noqa: E402
 from md2html import convert, render_page  # noqa: E402
+from schema import build_page_ld, render_ld_script  # noqa: E402
 
 NOTICES_DIR = os.path.join(OUT, "notices")
 PAGES = os.path.join(OUT, "pages")
@@ -69,6 +70,16 @@ def build():
         <span class="back-to-zone-text">返回首页</span>
     </a>"""
 
+        url_path = "pages/notice-%s.html" % n["id"]
+
+        # 结构化数据：通知页给 Article 类型 + 面包屑
+        jsonld = render_ld_script(build_page_ld(
+            page_title=n.get("title", ""),
+            desc=n.get("summary", ""),
+            url_path=url_path,
+            body=raw,
+        ))
+
         html = render_page(
             escape_html(n.get("title", "")),
             escape_html(n.get("summary", "")),
@@ -76,8 +87,9 @@ def build():
             breadcrumb=breadcrumb,
             pagenav=pagenav,
             backbtn=backbtn,
-            url_path="pages/notice-%s.html" % n["id"],
+            url_path=url_path,
             keywords="重要通知," + n.get("title", ""),
+            jsonld=jsonld,
         )
 
         out = os.path.join(PAGES, "notice-%s.html" % n["id"])

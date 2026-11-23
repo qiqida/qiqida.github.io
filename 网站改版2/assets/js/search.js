@@ -112,6 +112,49 @@ function getSearchText(item) {
     return `${item.title} ${item.category} ${keywords}`.toLowerCase();
 }
 
+// 判断一个词的首字母是否命中关键词。
+//
+// 为什么不能把 initials 拍平再 includes：
+//   initials 是「每个词的首字母」用空格拼起来的，例如
+//   「毕业设计」→ "bysj bs kt zqjc cz lw"（毕设 毕设 开题 中期检查 查重 论文）
+//   拍平成 "bysjbsktzqjcczlw" 之后，里面就出现了 "qj"（中期检查的 z**qj**c），
+//   搜「请假」会把「毕业设计」也命中，纯属误报。
+//
+// 为什么用 startsWith 而不是 includes：
+//   「入学教育与体检」的 keywords 里有「安全教育考试」，首字母是 "aqjyks"，
+//   里面含 "qj"，includes 会误命中。
+//   但学生搜 "qj" 想找的永远是「以 qj 开头」的那个词（请假），
+//   所以只认开头，不认中间。
+//
+// 首字母串本身就是「每个汉字取一个字母」，所以：
+//   搜 qj      → 匹配 "qj"（请假）
+//   搜 qjtsq   → 匹配 "qjtsq"（请假条申请表）
+//   搜 xk      → 匹配 "xk"（休学）
+function matchesPinyin(item, value) {
+    if (!item.initials) return false;
+
+    const tokens = item.initials.split(/\s+/).filter(Boolean);
+    for (const token of tokens) {
+        if (token.startsWith(value)) return true;
+    }
+    return false;
+}
+
+// 判断一个词的全拼是否命中关键词。
+//
+// 全拼串比较长（"qingjia" 七个字母），中间包含的误命中概率低得多，
+// 所以这里保留 includes —— 搜 "qingjia" 能命中 "qingjiaband"（请假报销单），
+// 用 startsWith 就搜不到了。
+function matchesFullPinyin(item, value) {
+    if (!item.pinyin) return false;
+
+    const tokens = item.pinyin.split(/\s+/).filter(Boolean);
+    for (const token of tokens) {
+        if (token.includes(value)) return true;
+    }
+    return false;
+}
+
 // 根据输入内容筛选结果，最多显示 6 条，避免结果框过长。
 function findMatches(keyword) {
     const value = keyword.trim().toLowerCase();
@@ -132,24 +175,17 @@ function findMatches(keyword) {
             // 那样就永远进不到这个分支了。
             if (/^[a-z]+$/.test(value)) {
                 // 首字母匹配
-                if (item.initials) {
-                    const flatInitials = item.initials.replace(/\s+/g, "");
-                    if (flatInitials.includes(value)) return true;
-                }
+                if (matchesPinyin(item, value)) return true;
                 // 全拼匹配
-                if (item.pinyin) {
-                    const flatPinyin = item.pinyin.replace(/\s+/g, "");
-                    if (flatPinyin.includes(value)) return true;
-                }
+                if (matchesFullPinyin(item, value)) return true;
                 return false;
             }
 
             // 输入里含汉字时，把它转成首字母再匹配。
             // 例：输入「请假」时也能命中拼音首字母是 qj 的其它条目。
             const initials = toInitials(value);
-            if (initials !== value && item.initials) {
-                const flatInitials = item.initials.replace(/\s+/g, "");
-                if (flatInitials.includes(initials)) return true;
+            if (initials !== value && matchesPinyin(item, initials)) {
+                return true;
             }
 
             return false;
@@ -175,6 +211,9 @@ function renderSuggestions(suggestionBoxEl, matches, keyword) {
                 暂时没有找到相关内容，可以换个关键词试试
             </div>
         `;
+        // 没结果时也给一个「去搜索页看看」的出口，
+        // 那里会列出专区入口和留言入口，学生不至于走到死路。
+        appendAllResultsLink(suggestionBoxEl, keyword);
         return;
     }
 
@@ -194,6 +233,102 @@ function renderSuggestions(suggestionBoxEl, matches, keyword) {
 
         suggestionBoxEl.appendChild(div);
     });
+
+    // 下拉最多 6 条，但可能还有更多命中。
+    // 给一个「查看全部结果」的入口跳到搜索结果页。
+    appendAllResultsLink(suggestionBoxEl, keyword);
+}
+
+// 在下拉框底部加「查看全部结果」入口。
+//
+// 为什么需要：
+//   下拉只显示 6 条，搜「请」这种宽泛的词会命中很多页面。
+//   没有这个入口，学生就看不到剩下的，只能一个个点着试。
+function appendAllResultsLink(suggestionBoxEl, keyword) {
+    const link = document.createElement("div");
+    link.className = "suggestion-all";
+    link.setAttribute("role", "button");
+    link.setAttribute("tabindex", "0");
+
+    const encoded = encodeURIComponent(keyword.trim());
+    link.innerHTML = `
+        <span class="suggestion-all-text">查看全部搜索结果</span>
+        <span class="suggestion-all-arrow" aria-hidden="true">→</span>
+    `;
+
+    const go = function () {
+        window.location.href = siteUrl("pages/search.html?q=" + encoded);
+    };
+
+    link.addEventListener("click", go);
+    link.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            go();
+        }
+    });
+
+    suggestionBoxEl.appendChild(link);
+}
+
+// 跳到搜索结果页。
+function goToSearchPage(keyword) {
+    const value = (keyword || "").trim();
+    if (!value) return;
+    reportSearch(value);
+    window.location.href = siteUrl("pages/search.html?q=" + encodeURIComponent(value));
+}
+
+// ==========================================================
+// 搜索词上报
+//
+// 为什么上报：
+//   「常见搜索词」那一组词现在是人工挑的。
+//   如果知道学生实际在搜什么，就能：
+//     · 发现「想搜但搜不到」的功能缺口
+//     · 发现学生用的说法（叫「校园卡」而不是「一卡通」）
+//     · 把搜索词自动补进各页面的 keywords
+//
+// 上报去哪：
+//   打到 Cloudflare Worker 的 /api/search 接口。
+//   Worker 那边暂时只记录不展示，先把数据攒起来。
+//
+// 注意：
+//   · 只上报关键词本身，不带任何个人信息
+//   · 同一个词 30 分钟内不重复上报（sessionStorage 去重）
+//   · 上报失败完全不影响搜索功能
+// ==========================================================
+const SEARCH_REPORT_URL = "https://qiqida-stats-worker.dddhui-qi.workers.dev/api/search";
+const SEARCH_REPORT_DEDUP_MS = 30 * 60 * 1000;   // 30 分钟
+
+function reportSearch(keyword) {
+    const value = (keyword || "").trim();
+    if (!value || value.length > 30) return;
+
+    // 太短的词（单字）没有分析价值
+    if (value.length < 2) return;
+
+    try {
+        // 去重：同一个词 30 分钟内只报一次
+        const storeKey = "srch:" + value;
+        const last = parseInt(sessionStorage.getItem(storeKey) || "0", 10);
+        if (Date.now() - last < SEARCH_REPORT_DEDUP_MS) return;
+        sessionStorage.setItem(storeKey, String(Date.now()));
+    } catch (e) {
+        // sessionStorage 不可用（隐私模式）时不影响搜索
+    }
+
+    try {
+        fetch(SEARCH_REPORT_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ keyword: value }),
+        }).catch(function () {
+            // 上报失败就失败，不打扰用户
+        });
+    } catch (e) {
+        // 同上
+    }
 }
 
 // 高亮移动
@@ -257,7 +392,14 @@ function initSearchInput(searchInputEl, suggestionBoxEl) {
                     break;
                 case "Enter":
                     event.preventDefault();
-                    goToSelected(suggestionBoxEl);
+                    // 有高亮项就跳那一项；
+                    // 没有高亮项就跳搜索结果页（而不是默认跳第一条），
+                    // 这样学生按回车看到的是「全部结果」，可以再挑。
+                    if (selectedIndex >= 0) {
+                        goToSelected(suggestionBoxEl);
+                    } else {
+                        goToSearchPage(searchInputEl.value);
+                    }
                     break;
                 case "Escape":
                     suggestionBoxEl.style.display = "none";
@@ -265,9 +407,11 @@ function initSearchInput(searchInputEl, suggestionBoxEl) {
                     break;
             }
         } else if (event.key === "Enter") {
-            // 没有显示建议时，尝试搜索（已有数据则跳转第一个）
-            if (currentMatches.length > 0) {
-                window.location.href = siteUrl(currentMatches[0].url);
+            // 下拉没显示时（还没加载完、或被关掉了），
+            // 直接去搜索结果页。
+            if (searchInputEl.value.trim()) {
+                event.preventDefault();
+                goToSearchPage(searchInputEl.value);
             }
         }
     });

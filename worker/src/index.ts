@@ -51,6 +51,13 @@ interface FeedbackMessage {
   status: string;
 }
 
+interface SearchLog {
+  id: number;
+  keyword: string;
+  count: number;
+  last_searched: string;
+}
+
 // CORS headers
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -223,6 +230,112 @@ async function hashIP(ip: string): Promise<string> {
   const hashBuffer = await crypto.subtle.digest("SHA-256", data);
   const hashArray = Array.from(new Uint8Array(hashBuffer));
   return hashArray.map(b => b.toString(16).padStart(2, "0")).join("").slice(0, 32);
+}
+
+// ==================== 搜索词 API ====================
+
+/**
+ * 记录一次搜索
+ *
+ * 只存关键词本身，不存任何能定位到个人的信息。
+ * IP 只存哈希（截断后 32 位），用于粗略去重，不做个人追踪。
+ */
+async function handleSearchSubmit(request: Request, env: Env): Promise<Response> {
+  try {
+    const body = await request.json() as { keyword?: string };
+    const keyword = (body.keyword || "").trim();
+
+    // 校验：长度 2-30，太短的词没有分析价值
+    if (keyword.length < 2 || keyword.length > 30) {
+      return withCors(new Response(JSON.stringify({
+        success: false,
+        error: "关键词长度不合法"
+      }), {
+        status: 400,
+        headers: { "Content-Type": "application/json" },
+      }));
+    }
+
+    const ipHash = request.headers.get("cf-connecting-ip")
+      ? await hashIP(request.headers.get("cf-connecting-ip")!)
+      : null;
+
+    await env.DB.prepare(`
+      INSERT INTO search_logs (keyword, ip_hash)
+      VALUES (?, ?)
+    `).bind(keyword, ipHash).run();
+
+    return withCors(new Response(JSON.stringify({
+      success: true,
+      keyword: keyword
+    }), {
+      headers: { "Content-Type": "application/json" },
+    }));
+  } catch (error) {
+    console.error("Search log error:", error);
+    return withCors(new Response(JSON.stringify({
+      success: false,
+      error: "记录失败"
+    }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    }));
+  }
+}
+
+/**
+ * 查询搜索词统计（需要管理员密钥）
+ *
+ * 返回按搜索次数排序的关键词列表。
+ * 可以用 ?days=30 限定最近多少天，?limit=100 限制条数。
+ */
+async function handleSearchList(request: Request, env: Env): Promise<Response> {
+  const authHeader = request.headers.get("authorization");
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    return withCors(new Response(JSON.stringify({ error: "未授权" }), {
+      status: 401,
+      headers: { "Content-Type": "application/json" },
+    }));
+  }
+
+  if (authHeader.slice(7) !== env.ADMIN_KEY) {
+    return withCors(new Response(JSON.stringify({ error: "密钥无效" }), {
+      status: 401,
+      headers: { "Content-Type": "application/json" },
+    }));
+  }
+
+  try {
+    const url = new URL(request.url);
+    const days = Math.min(parseInt(url.searchParams.get("days") || "30", 10), 365);
+    const limit = Math.min(parseInt(url.searchParams.get("limit") || "50", 10), 200);
+
+    const rows = await env.DB.prepare(`
+      SELECT
+        keyword,
+        COUNT(*) as count,
+        MAX(created_at) as last_searched
+      FROM search_logs
+      WHERE created_at >= datetime('now', ?)
+      GROUP BY keyword
+      ORDER BY count DESC, last_searched DESC
+      LIMIT ?
+    `).bind(`-${days} days`, limit).all() as { results: SearchLog[] };
+
+    return withCors(new Response(JSON.stringify({
+      keywords: rows.results || [],
+      days: days,
+      limit: limit
+    }), {
+      headers: { "Content-Type": "application/json" },
+    }));
+  } catch (error) {
+    console.error("Search list error:", error);
+    return withCors(new Response(JSON.stringify({ error: "查询失败" }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    }));
+  }
 }
 
 // ==================== 统计 API ====================
@@ -456,6 +569,15 @@ export default {
     // 留言状态更新路由
     if (url.pathname === "/api/feedback/update" && request.method === "POST") {
       return await handleFeedbackUpdate(request, env);
+    }
+
+    // 搜索词记录路由
+    if (url.pathname === "/api/search") {
+      if (request.method === "POST") {
+        return await handleSearchSubmit(request, env);
+      } else if (request.method === "GET") {
+        return await handleSearchList(request, env);
+      }
     }
 
     // 统计 API 路由

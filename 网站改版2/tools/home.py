@@ -18,6 +18,7 @@ home.py —— 生成新首页 index.html（「网站改版2」）
     python 网站改版2/tools/home.py
 """
 import io
+import json
 import os
 import sys
 import time
@@ -25,6 +26,7 @@ import time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from siteconf import OUT, SCENARIOS, ZONES, scan_content  # noqa: E402
 from md2html import SITE_VER, THEME_SWITCH_HTML, load_ga_id  # noqa: E402
+from schema import build_page_ld, render_ld_script  # noqa: E402
 
 # 首页卡片区的专区。
 # 「关于与联系」不在卡片区（放在页脚），所以它没有 inHome 标记。
@@ -79,6 +81,73 @@ def build_scenarios():
     return "\n".join(scen)
 
 
+def build_home_ld():
+    """
+    首页的结构化数据。
+
+    三部分：
+      1. WebSite —— 说明这是什么站点
+      2. WebPage —— 首页本身
+      3. FAQPage —— 热门问题那几条（首页上是显示出来的，
+         所以结构化数据里写它们是「页面上真的有」，不算作弊）
+
+    SearchAction（potentialAction）告诉搜索引擎「这站有站内搜索」，
+    之前没做搜索结果页时这条价值有限，等有了结果页再补。
+    """
+    site_base = "https://qiqida.github.io"
+
+    faq_pairs = []
+    faq_path = os.path.join(OUT, "data", "faq.json")
+    if os.path.exists(faq_path):
+        try:
+            with io.open(faq_path, "r", encoding="utf-8") as f:
+                faq_data = json.load(f)
+            if isinstance(faq_data, list):
+                faq_pairs = [
+                    (item.get("question", ""), item.get("answer", ""))
+                    for item in faq_data
+                    if item.get("question") and item.get("answer")
+                ]
+        except Exception:
+            faq_pairs = []
+
+    lds = [
+        {
+            "@type": "WebSite",
+            "@id": site_base + "/#website",
+            "url": site_base + "/",
+            "name": "工学部研究生事务服务中心",
+            "description": "八个专区，把重复的事务工作变成一次解决。",
+            "inLanguage": "zh-CN",
+        },
+        {
+            "@type": "WebPage",
+            "@id": site_base + "/#webpage",
+            "url": site_base + "/",
+            "name": "工学部研究生事务服务中心",
+            "description": "八个专区，把重复的事务工作变成一次解决。",
+            "isPartOf": {"@id": site_base + "/#website"},
+            "inLanguage": "zh-CN",
+        },
+    ]
+
+    if faq_pairs:
+        lds.append({
+            "@type": "FAQPage",
+            "@id": site_base + "/#faq",
+            "mainEntity": [
+                {
+                    "@type": "Question",
+                    "name": q,
+                    "acceptedAnswer": {"@type": "Answer", "text": a},
+                }
+                for q, a in faq_pairs
+            ],
+        })
+
+    return lds
+
+
 TEMPLATE = """<!DOCTYPE html>
 <html lang="zh-CN">
 
@@ -110,6 +179,11 @@ gtag('config', '@@GAID@@');
 
     <!-- 规范地址，避免搜索引擎把带参数的链接当成重复内容 -->
     <link rel="canonical" href="https://qiqida.github.io/">
+
+    <!-- 结构化数据（JSON-LD）
+         首页给 WebSite + WebPage + FAQPage（热门问题那几条）
+         和 SearchAction（搜索框），告诉搜索引擎这是个可搜索的站点。 -->
+@@JSONLD@@
 
     <!-- Favicon 图标 -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231d1d1f'/><text x='50' y='68' font-size='40' font-weight='bold' text-anchor='middle' fill='white'>GSH</text></svg>">
@@ -375,6 +449,9 @@ def main():
     # 资源版本号：改过 JS/CSS 后浏览器会强制取新文件，避免缓存旧版本。
     # 复用 md2html 的版本号，保证首页和子页面引用同一批资源。
     html = html.replace("@@VER@@", SITE_VER)
+
+    # 结构化数据
+    html = html.replace("@@JSONLD@@", render_ld_script(build_home_ld()))
 
     # GA 测量 ID（从 data/site-config.json 读，读不到用默认值）
     html = html.replace("@@GAID@@", load_ga_id())

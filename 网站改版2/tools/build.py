@@ -26,6 +26,8 @@ from siteconf import (  # noqa: E402
 from md2html import (  # noqa: E402
     ATTACH_WARNINGS, build_attachment_index, convert, render_page,
 )
+from schema import build_page_ld, render_ld_script  # noqa: E402
+from githistory import get_updated_dates  # noqa: E402
 
 # ==========================================================
 # 页面片段
@@ -136,6 +138,21 @@ BACKTOP_TEMPLATE = """<p class="back-to-top-link">
 </p>
 """
 
+# 「最后更新」日期。
+#
+# 为什么重要：学生最关心的是「这个流程是不是最新的」。
+# 显示一个更新日期，比什么都不敢说要可信得多。
+# 没有填 updated 字段的页面就不显示（不显示假的）。
+UPDATED_TEMPLATE = """<p class="page-updated">最后更新：%s</p>
+"""
+
+
+def build_updated(updated):
+    """生成「最后更新」片段，没有日期就返回空串"""
+    if not updated:
+        return ""
+    return UPDATED_TEMPLATE % escape_html(updated)
+
 # 文件专区的附件浏览器骨架。
 # 里面的清单由 assets/js/file-browser.js 从 data/downloads.json 读取后渲染，
 # 所以这里不用写死文件列表 —— 加了新附件，构建一次就自动出现。
@@ -211,7 +228,7 @@ def main():
     if not os.path.isdir(FILES):
         os.makedirs(FILES)
 
-    items = scan_content()
+    items = scan_content(git_dates=get_updated_dates())
     if not items:
         print("没有找到任何带 front-matter 的内容文件。")
         print("请先运行：python 网站改版2/tools/migrate.py")
@@ -229,6 +246,19 @@ def main():
             next_item = subs[idx + 1] if idx + 1 < len(subs) else None
 
             body = build_sub_page(it, attach_index)
+
+            url_path = "pages/%s-%s.html" % (it["zone"], it["anchor"])
+
+            # 结构化数据：流程页（HowTo）+ 面包屑 + 问答（FAQPage）
+            jsonld = render_ld_script(build_page_ld(
+                page_title=it["title"],
+                desc=it["desc"],
+                url_path=url_path,
+                zone_title=zone["title"],
+                zone_key=zone["key"],
+                body=it["body"],
+            ))
+
             html = render_page(
                 escape_html(it["title"]),
                 escape_html(it["desc"]),
@@ -236,8 +266,10 @@ def main():
                 breadcrumb=build_breadcrumb(zone, it["title"]),
                 pagenav=build_pagenav(prev_item, next_item),
                 backbtn=build_backbtn(zone),
-                url_path="pages/%s-%s.html" % (it["zone"], it["anchor"]),
+                url_path=url_path,
                 keywords=",".join([it["title"]] + list(it["keywords"])),
+                jsonld=jsonld,
+                updated=build_updated(it.get("updated", "")),
             )
             out = os.path.join(PAGES, "%s-%s.html" % (it["zone"], it["anchor"]))
             with io.open(out, "w", encoding="utf-8", newline="") as f:
@@ -279,6 +311,13 @@ def main():
             keywords=",".join([zone["title"], zone.get("brief", "")]),
             extra_css=extra_css,
             extra_js=extra_js,
+            jsonld=render_ld_script(build_page_ld(
+                page_title=zone["title"],
+                desc=zone["desc"],
+                url_path="pages/%s.html" % zone["key"],
+                zone_title=zone["title"],
+                zone_key=zone["key"],
+            )),
         )
         out = os.path.join(PAGES, "%s.html" % zone["key"])
         with io.open(out, "w", encoding="utf-8", newline="") as f:

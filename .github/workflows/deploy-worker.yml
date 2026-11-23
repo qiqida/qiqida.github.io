@@ -28,6 +28,19 @@ jobs:
         run: npm ci
         working-directory: worker
 
+      # 数据库迁移
+      #
+      # 为什么需要这一步：
+      #   部署 Worker 只是替换代码，D1 的表结构不会自动跟着变。
+      #   新增的表（比如搜索词记录表 search_logs）必须先在数据库里建好，
+      #   否则接口一被调用就会因为「no such table」报错。
+      #
+      # d1 migrations apply 是幂等的：
+      #   已经执行过的迁移会跳过，所以每次部署跑一遍很安全。
+      - name: Apply D1 migrations
+        run: npx wrangler d1 migrations apply feedback_db --remote
+        working-directory: worker
+
       - name: Deploy to Cloudflare
         uses: cloudflare/wrangler-action@v3
         with:

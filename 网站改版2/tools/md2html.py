@@ -123,6 +123,13 @@ gtag('config', '@@GAID@@');
     <!-- 规范地址，避免搜索引擎把带参数的链接当成重复内容 -->
     <link rel="canonical" href="@@CANONICAL@@">
 
+    <!-- 结构化数据（JSON-LD）
+         告诉搜索引擎这个页面是什么类型：办事流程页、问答页、还是普通内容页。
+         拿对了能进搜索结果的富摘要（直接显示步骤和答案），点击率差很多。
+         内容全部来自页面上真实存在的东西，不编造。
+         由 tools/schema.py 生成。 -->
+@@JSONLD@@
+
     <!-- Favicon 图标 -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231d1d1f'/><text x='50' y='68' font-size='40' font-weight='bold' text-anchor='middle' fill='white'>GSH</text></svg>">
     <link rel="apple-touch-icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231d1d1f'/><text x='50' y='68' font-size='40' font-weight='bold' text-anchor='middle' fill='white'>GSH</text></svg>">
@@ -204,6 +211,8 @@ gtag('config', '@@GAID@@');
 @@BODY@@
     </main>
 
+    @@UPDATED@@
+
     @@PAGENAV@@
 
     @@BACKBTN@@
@@ -224,13 +233,16 @@ gtag('config', '@@GAID@@');
 
 
 def render_page(title, desc, body, breadcrumb="", pagenav="", backbtn="",
-                url_path="", keywords="", extra_css="", extra_js=""):
+                url_path="", keywords="", extra_css="", extra_js="",
+                jsonld="", updated=""):
     """
     把模板占位符替换掉。
 
     url_path —— 该页在站点根目录下的相对路径，如 "pages/study-leave.html"，
                 用于生成 canonical / og:url。留空则不生成绝对地址。
     keywords —— 页面关键词，逗号分隔，填进 <meta name="keywords">。
+    jsonld   —— 结构化数据（JSON-LD）HTML 片段，由 tools/schema.py 生成。
+    updated  —— 最后更新日期（front-matter 的 updated 字段），显示在正文底部。
     """
     html = PAGE_TEMPLATE
     html = html.replace("@@TITLE@@", title)
@@ -239,6 +251,12 @@ def render_page(title, desc, body, breadcrumb="", pagenav="", backbtn="",
     html = html.replace("@@BREADCRUMB@@", breadcrumb)
     html = html.replace("@@PAGENAV@@", pagenav)
     html = html.replace("@@BACKBTN@@", backbtn)
+
+    # 结构化数据
+    html = html.replace("@@JSONLD@@", jsonld or "")
+
+    # 「最后更新」日期
+    html = html.replace("@@UPDATED@@", updated or "")
 
     # 关键词
     html = html.replace("@@KEYWORDS@@", keywords or "")

@@ -21,6 +21,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 
 STEPS = [
     ("build.py", "生成专区页面"),
+    ("searchpage.py", "生成搜索结果页"),
     ("assets.py", "迁移附件并生成数据文件"),
     ("notices.py", "生成通知详情页"),
     ("home.py", "生成首页"),

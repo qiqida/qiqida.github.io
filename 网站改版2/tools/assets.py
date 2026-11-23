@@ -22,6 +22,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from siteconf import DATA, FILES, OUT, SRC, ZONES, group_by_zone, scan_content  # noqa: E402
 from pinyin_util import HAS_PINYIN, to_full, to_initials, write_pinyin_table  # noqa: E402
+from githistory import get_updated_dates  # noqa: E402
 
 ATT_SRC = os.path.join(SRC, "08_文件专区", "附件")
 
@@ -390,7 +391,7 @@ def main():
 
     write_json(os.path.join(DATA, "downloads.json"), downloads)
 
-    items = scan_content()
+    items = scan_content(git_dates=get_updated_dates())
     categories = build_categories(items)
     write_json(os.path.join(DATA, "categories.json"), categories)
 

@@ -30,6 +30,57 @@ gtag('config', 'G-2S0K5DDSME');
     <!-- 规范地址，避免搜索引擎把带参数的链接当成重复内容 -->
     <link rel="canonical" href="https://qiqida.github.io/pages/life-card.html">
 
+    <!-- 结构化数据（JSON-LD）
+         告诉搜索引擎这个页面是什么类型：办事流程页、问答页、还是普通内容页。
+         拿对了能进搜索结果的富摘要（直接显示步骤和答案），点击率差很多。
+         内容全部来自页面上真实存在的东西，不编造。
+         由 tools/schema.py 生成。 -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://qiqida.github.io/pages/life-card.html#webpage",
+      "url": "https://qiqida.github.io/pages/life-card.html",
+      "name": "一卡通补办",
+      "description": "绑定、挂失、补办与领取",
+      "isPartOf": {
+        "@type": "WebSite",
+        "@id": "https://qiqida.github.io/",
+        "name": "工学部研究生事务服务中心",
+        "url": "https://qiqida.github.io/"
+      },
+      "inLanguage": "zh-CN"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://qiqida.github.io/pages/life-card.html#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "首页",
+          "item": "https://qiqida.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "生活与证件专区",
+          "item": "https://qiqida.github.io/pages/life.html"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "一卡通补办",
+          "item": "https://qiqida.github.io/pages/life-card.html"
+        }
+      ]
+    }
+  ]
+}
+</script>
+
     <!-- Favicon 图标 -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231d1d1f'/><text x='50' y='68' font-size='40' font-weight='bold' text-anchor='middle' fill='white'>GSH</text></svg>">
     <link rel="apple-touch-icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231d1d1f'/><text x='50' y='68' font-size='40' font-weight='bold' text-anchor='middle' fill='white'>GSH</text></svg>">
@@ -40,22 +91,22 @@ gtag('config', 'G-2S0K5DDSME');
     <!-- 全站资源版本号。
          JS 里 fetch 数据文件时统一用 SITE_VER 拼 ?v=，
          这样内容更新后浏览器不会拿旧的 JSON 缓存。 -->
-    <script>window.SITE_VER = "1795362067";</script>
+    <script>window.SITE_VER = "1795401259";</script>
 
-    <link rel="stylesheet" href="../assets/css/style.css?v=1795362067">
-    <link rel="stylesheet" href="../assets/css/components.css?v=1795362067">
-    <link rel="stylesheet" href="../assets/css/v8-components.css?v=1795362067">
+    <link rel="stylesheet" href="../assets/css/style.css?v=1795401259">
+    <link rel="stylesheet" href="../assets/css/components.css?v=1795401259">
+    <link rel="stylesheet" href="../assets/css/v8-components.css?v=1795401259">
     <!-- Mermaid 流程图。
          只有页面里真的有 mermaid 代码块时，构建脚本才会把下面这行替换成
          真正的 CDN 地址；没有流程图的页面完全不会下载这 1MB 的库。
          实际配置由 assets/js/mermaid-init.js 里的 mermaid.initialize() 决定。 -->
 
 
-    <link rel="stylesheet" href="../assets/css/guide.css?v=1795362067">
-    <link rel="stylesheet" href="../assets/css/touch-feedback.css?v=1795362067">
-    <link rel="stylesheet" href="../assets/css/subpage.css?v=1795362067">
-    <link rel="stylesheet" href="../assets/css/theme-switch.css?v=1795362067">
-    <link rel="stylesheet" href="../assets/css/a11y.css?v=1795362067">
+    <link rel="stylesheet" href="../assets/css/guide.css?v=1795401259">
+    <link rel="stylesheet" href="../assets/css/touch-feedback.css?v=1795401259">
+    <link rel="stylesheet" href="../assets/css/subpage.css?v=1795401259">
+    <link rel="stylesheet" href="../assets/css/theme-switch.css?v=1795401259">
+    <link rel="stylesheet" href="../assets/css/a11y.css?v=1795401259">
 
 
 </head>
@@ -150,6 +201,9 @@ gtag('config', 'G-2S0K5DDSME');
 
     </main>
 
+    <p class="page-updated">最后更新：2026-11-21</p>
+
+
         <nav class="pagenav" aria-label="页面导航">
         <div class="pagenav-row">
             <a class="pagenav-link pagenav-prev" href="life-dorm.html"><span class="pagenav-arrow" aria-hidden="true">←</span><span class="pagenav-body"><span class="pagenav-dir">上一个</span><span class="pagenav-title">宿舍报修与退宿</span></span></a>
@@ -169,10 +223,10 @@ gtag('config', 'G-2S0K5DDSME');
         <p class="footer-note">本站只整理流程与材料说明，不受理申请、不审批、不发布通知。当年的日期、名额、金额以学校与学院官方通知为准。</p>
     </footer>
 
-    <script src="../assets/js/theme.js?v=1795362067"></script>
-    <script src="../assets/js/header-height.js?v=1795362067"></script>
-    <script src="../assets/js/search.js?v=1795362067"></script>
-    <script src="../assets/js/mermaid-init.js?v=1795362067"></script>
+    <script src="../assets/js/theme.js?v=1795401259"></script>
+    <script src="../assets/js/header-height.js?v=1795401259"></script>
+    <script src="../assets/js/search.js?v=1795401259"></script>
+    <script src="../assets/js/mermaid-init.js?v=1795401259"></script>
 
 </body>
 </html>

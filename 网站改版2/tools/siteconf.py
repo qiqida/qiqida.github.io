@@ -226,7 +226,7 @@ def write_text(path, text):
 # ==========================================================
 # 内容扫描：找出所有带 front-matter 的 md
 # ==========================================================
-def scan_content():
+def scan_content(git_dates=None):
     """
     扫描「内容/」目录，返回所有可用于上线的子板块。
 
@@ -242,9 +242,13 @@ def scan_content():
         "anchor":   URL 短名
         "order":    排序
         "keywords": 关键词列表
+        "updated":  最后更新日期
         "url":      pages/<zone>-<anchor>.html
         "zone_url": pages/<zone>.html
       }
+
+    git_dates —— 可选。「仓库相对路径 → 日期」的表（见 githistory.py）。
+                传了就用它补 updated，省得手动在每个 md 里写日期。
     """
     items = []
     if not os.path.isdir(SRC):
@@ -274,6 +278,16 @@ def scan_content():
             anchor = meta.get("anchor") or slugify(meta["title"])
             rel = os.path.relpath(path, SRC).replace("\\", "/")
 
+            # 最后更新日期：
+            #   1. front-matter 里手写的 updated 优先（最准）
+            #   2. 否则用 git 里这个文件最后一次被提交的日期（零维护）
+            updated = meta.get("updated", "")
+            if not updated and git_dates:
+                # git 记录的路径是**仓库根**的相对路径，
+                # 所以要从 ROOT 算，不是从 OUT 算。
+                repo_rel = os.path.relpath(path, ROOT).replace("\\", "/")
+                updated = git_dates.get(repo_rel, "")
+
             items.append({
                 "path": path,
                 "rel": rel,
@@ -285,7 +299,7 @@ def scan_content():
                 "anchor": anchor,
                 "order": int(meta.get("order", "999") or 999),
                 "keywords": meta.get("keywords", []),
-                "updated": meta.get("updated", ""),
+                "updated": updated,
                 "url": "pages/%s-%s.html" % (zone, anchor),
                 "zone_url": "pages/%s.html" % zone,
             })

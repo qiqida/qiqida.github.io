@@ -7,6 +7,11 @@ binding = "DB"
 database_name = "feedback_db"
 database_id = "c3ae52f4-41bf-4b2b-afe7-c9c29888152a"
 
+# 迁移文件目录。
+# wrangler d1 migrations apply 会读这个目录，
+# 按文件名顺序执行还没跑过的 .sql 文件。
+migrations_dir = "migrations"
+
 [vars]
 GITHUB_REPO = "qiqida/qiqida.github.io"
 GITHUB_BRANCH = "main"
