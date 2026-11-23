@@ -255,6 +255,61 @@
     background: rgba(255, 255, 255, 0.14) !important;
 }
 
+/* 「查看全部搜索结果」入口
+   下拉最多显示 6 条，宽泛的词（比如「请」）会命中很多页面，
+   这个入口让剩下的也能被看到。 */
+.suggestion-all {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 18px;
+    border-top: 1px solid var(--border-color);
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.suggestion-all-text {
+    font-size: 13.5px;
+    font-weight: 500;
+    color: #0071e3;
+}
+
+.suggestion-all-arrow {
+    font-size: 13px;
+    color: #0071e3;
+    transition: transform 0.2s ease;
+}
+
+.suggestion-all:hover .suggestion-all-arrow {
+    transform: translateX(3px);
+}
+
+@media (hover: hover) and (any-pointer: fine) {
+    .suggestion-all:hover {
+        background: rgba(0, 113, 227, 0.07);
+    }
+}
+
+[data-theme="dark"] .suggestion-all-text,
+[data-theme="dark"] .suggestion-all-arrow {
+    color: #0a84ff;
+}
+
+[data-theme="dark"] .suggestion-all:hover {
+    background: rgba(10, 132, 255, 0.1);
+}
+
+/* 键盘聚焦时的焦点环（无障碍） */
+.suggestion-all:focus-visible {
+    outline: 2px solid #0071e3;
+    outline-offset: -2px;
+}
+
+[data-theme="dark"] .suggestion-all:focus-visible {
+    outline-color: #0a84ff;
+}
+
 /* 搜索没有结果时的提示文字 */
 
 .suggestion-empty {

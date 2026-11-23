@@ -49,6 +49,19 @@ body {
     color: #0a84ff;
 }
 
+/* ---------- 最后更新日期 ----------
+   学生最关心「这个流程是不是最新的」。
+   显示一个真实的更新日期，比什么都不敢说要可信得多。
+   没有填 updated 字段的页面不会渲染这个元素。 */
+.page-updated {
+    margin: 0 0 8px;
+    text-align: right;
+    font-size: 12.5px;
+    line-height: 1.4;
+    color: var(--subtext-color);
+    opacity: 0.75;
+}
+
 /* ---------- 页内目录 ---------- */
 .guide-toc {
     margin: 24px 0 36px;

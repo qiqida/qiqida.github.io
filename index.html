@@ -30,6 +30,90 @@ gtag('config', 'G-2S0K5DDSME');
     <!-- 规范地址，避免搜索引擎把带参数的链接当成重复内容 -->
     <link rel="canonical" href="https://qiqida.github.io/">
 
+    <!-- 结构化数据（JSON-LD）
+         首页给 WebSite + WebPage + FAQPage（热门问题那几条）
+         和 SearchAction（搜索框），告诉搜索引擎这是个可搜索的站点。 -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://qiqida.github.io/#website",
+      "url": "https://qiqida.github.io/",
+      "name": "工学部研究生事务服务中心",
+      "description": "八个专区，把重复的事务工作变成一次解决。",
+      "inLanguage": "zh-CN"
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://qiqida.github.io/#webpage",
+      "url": "https://qiqida.github.io/",
+      "name": "工学部研究生事务服务中心",
+      "description": "八个专区，把重复的事务工作变成一次解决。",
+      "isPartOf": {
+        "@id": "https://qiqida.github.io/#website"
+      },
+      "inLanguage": "zh-CN"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://qiqida.github.io/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "请假多久需要审批？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "病假两周以内、事假一周以内由导师和学院研究生工作办公室负责人同意；超过时限还要学院主管领导批准。一学期累计请假不能超过 1 个月。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "教学期间出省要怎么请假？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "教学期间出省都需要进行线上请假报备，不能只交纸质请假条，这条是硬性要求。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "一卡通丢了怎么办？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "先在一卡通服务大厅挂失，再按补办条件办理补办，带好证件到服务大厅领取。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "奖学金评选看哪些方面？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "非一年级按思想品德、课业成绩、学术科研与实践等几部分打分，论文、专利、竞赛、志愿服务都有对应的加分办法。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "党组织关系转到哪个支部？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "本院在党务系统选「工学部党委」，并按通知写明支部全称。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "毕业离校要办哪些手续？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "按离校手续流程逐项办：图书归还、财务结清、宿舍与证件归还等，具体顺序见「实习就业与毕业专区 → 离校手续」。"
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+
     <!-- Favicon 图标 -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231d1d1f'/><text x='50' y='68' font-size='40' font-weight='bold' text-anchor='middle' fill='white'>GSH</text></svg>">
     <link rel="apple-touch-icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231d1d1f'/><text x='50' y='68' font-size='40' font-weight='bold' text-anchor='middle' fill='white'>GSH</text></svg>">
@@ -40,18 +124,18 @@ gtag('config', 'G-2S0K5DDSME');
     <!-- 全站资源版本号。
          JS 里 fetch 数据文件时统一用 SITE_VER 拼 ?v=，
          这样内容更新后浏览器不会拿旧的 JSON 缓存。 -->
-    <script>window.SITE_VER = "1795362545";</script>
+    <script>window.SITE_VER = "1795415939";</script>
 
-    <link rel="stylesheet" href="assets/css/style.css?v=1795362545">
-    <link rel="stylesheet" href="assets/css/components.css?v=1795362545">
-    <link rel="stylesheet" href="assets/css/touch-feedback.css?v=1795362545">
-    <link rel="stylesheet" href="assets/css/v8-components.css?v=1795362545">
-    <link rel="stylesheet" href="assets/css/card-sublist.css?v=1795362545">
-    <link rel="stylesheet" href="assets/css/home-sections.css?v=1795362545">
-    <link rel="stylesheet" href="assets/css/notice-section.css?v=1795362545">
-    <link rel="stylesheet" href="assets/css/splash.css?v=1795362545">
-    <link rel="stylesheet" href="assets/css/theme-switch.css?v=1795362545">
-    <link rel="stylesheet" href="assets/css/a11y.css?v=1795362545">
+    <link rel="stylesheet" href="assets/css/style.css?v=1795415939">
+    <link rel="stylesheet" href="assets/css/components.css?v=1795415939">
+    <link rel="stylesheet" href="assets/css/touch-feedback.css?v=1795415939">
+    <link rel="stylesheet" href="assets/css/v8-components.css?v=1795415939">
+    <link rel="stylesheet" href="assets/css/card-sublist.css?v=1795415939">
+    <link rel="stylesheet" href="assets/css/home-sections.css?v=1795415939">
+    <link rel="stylesheet" href="assets/css/notice-section.css?v=1795415939">
+    <link rel="stylesheet" href="assets/css/splash.css?v=1795415939">
+    <link rel="stylesheet" href="assets/css/theme-switch.css?v=1795415939">
+    <link rel="stylesheet" href="assets/css/a11y.css?v=1795415939">
 </head>
 
 <body data-root="" class="has-splash">
@@ -421,17 +505,17 @@ gtag('config', 'G-2S0K5DDSME');
         </div>
     </aside>
 
-    <script src="assets/js/theme.js?v=1795362545"></script>
-    <script src="assets/js/splash.js?v=1795362545"></script>
-    <script src="assets/js/header-height.js?v=1795362545"></script>
-    <script src="assets/js/search.js?v=1795362545"></script>
-    <script src="assets/js/notice-section.js?v=1795362545"></script>
-    <script src="assets/js/homeFaq.js?v=1795362545"></script>
-    <script src="assets/js/stats.js?v=1795362545"></script>
-    <script src="assets/js/feedback.js?v=1795362545"></script>
-    <script src="assets/js/feedback-float.js?v=1795362545"></script>
-    <script src="assets/js/search-stats.js?v=1795362545"></script>
-    <script src="assets/js/card-sublist.js?v=1795362545"></script>
+    <script src="assets/js/theme.js?v=1795415939"></script>
+    <script src="assets/js/splash.js?v=1795415939"></script>
+    <script src="assets/js/header-height.js?v=1795415939"></script>
+    <script src="assets/js/search.js?v=1795415939"></script>
+    <script src="assets/js/notice-section.js?v=1795415939"></script>
+    <script src="assets/js/homeFaq.js?v=1795415939"></script>
+    <script src="assets/js/stats.js?v=1795415939"></script>
+    <script src="assets/js/feedback.js?v=1795415939"></script>
+    <script src="assets/js/feedback-float.js?v=1795415939"></script>
+    <script src="assets/js/search-stats.js?v=1795415939"></script>
+    <script src="assets/js/card-sublist.js?v=1795415939"></script>
 
 </body>
 </html>

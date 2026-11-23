@@ -8,5 +8,7 @@
     "giscusCategory": "General",
     "giscusCategoryId": "",
     "giscusMapping": "pathname",
-    "giscusPosition": "top"
+    "giscusPosition": "top",
+    "apiBase": "https://qiqida-stats-worker.dddhui-qi.workers.dev/api",
+    "apiBaseNote": "Cloudflare Worker 的 API 地址。留言提交、搜索词上报、留言后台都走这里。国内访问 workers.dev 可能不稳定（见 docs/网站使用与维护手册.md），如绑了自定义域名改这里即可，JS 会自动读这个值。"
 }
