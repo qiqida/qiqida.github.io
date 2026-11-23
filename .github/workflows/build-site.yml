@@ -45,6 +45,11 @@ jobs:
       - name: 链接检查
         run: python 网站改版2/tools/linkcheck.py
 
+      # 结构化数据校验：JSON-LD 写错一个逗号，搜索引擎就整块读不懂，
+      # 而且这种错误不会让构建失败，只能靠这个检查拦下来。
+      - name: 结构化数据校验
+        run: python 网站改版2/tools/check-jsonld.py
+
       # 同步到站点根目录（deploy.py 内部会先清空旧产物再复制）
       - name: 同步到站点根目录
         run: python 网站改版2/tools/deploy.py

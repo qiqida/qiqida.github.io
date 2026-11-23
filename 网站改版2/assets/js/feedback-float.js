@@ -358,6 +358,30 @@ function initFeedbackFloat() {
         openPanel();
     });
 
+    // --- 通过 URL 锚点打开面板 ---
+    //
+    // 场景：搜索结果页搜不到东西时，给学生一个「留言问我们」的入口，
+    // 链到 首页#feedback 。如果只是普通跳转，用户到了首页还得
+    // 自己去找那个悬浮按钮，多一步。
+    //
+    // 这里监听 hashchange，既支持从别处点链接过来（首次加载时 hash 已经是 #feedback），
+    // 也支持用户已经在首页时手动改 hash。
+    function openIfHashed() {
+        if (window.location.hash === "#feedback") {
+            openPanel();
+            return true;
+        }
+        return false;
+    }
+
+    window.addEventListener("hashchange", openIfHashed);
+
+    // 首次加载时如果 URL 里就带着 #feedback，直接打开。
+    // 放在 setTimeout 里是为了等面板动画样式就绪。
+    if (window.location.hash === "#feedback") {
+        setTimeout(openPanel, 100);
+    }
+
     // --- 问卷星链接（移动端使用JS跳转） ---
     // 链接地址来自 data/site-config.json；如果没配或还是示例地址，这一整块就不显示，
     // 避免用户点了打不开。

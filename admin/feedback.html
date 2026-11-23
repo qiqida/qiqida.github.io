@@ -206,6 +206,65 @@
             opacity: 0.7;
         }
 
+        /* 搜索热词 */
+        .keyword-summary {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 16px 20px;
+            margin-bottom: 16px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .keyword-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .keyword-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 10px 14px;
+            font-size: 14px;
+        }
+
+        .keyword-name {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .keyword-count {
+            font-size: 12px;
+            color: var(--text-secondary);
+            background: rgba(128, 128, 128, 0.14);
+            border-radius: 999px;
+            padding: 2px 9px;
+            white-space: nowrap;
+        }
+
+        .keyword-last {
+            font-size: 12px;
+            color: var(--text-secondary);
+            opacity: 0.75;
+            white-space: nowrap;
+        }
+
+        /* 搜索热词里有「站内搜不到」的词，说明是功能缺口，标红提示 */
+        .keyword-item.is-missing .keyword-name {
+            color: var(--danger);
+        }
+
         /* 留言列表 */
         .message-list {
             display: flex;
@@ -558,24 +617,51 @@
         </header>
 
         <div class="container">
-            <div class="filter-tabs">
-                <button class="filter-tab active" data-status="pending">待处理 <span class="count" id="pendingCount">0</span></button>
-                <button class="filter-tab" data-status="approved">已通过 <span class="count" id="approvedCount">0</span></button>
-                <button class="filter-tab" data-status="rejected">已拒绝 <span class="count" id="rejectedCount">0</span></button>
-                <button class="filter-tab" data-status="all">全部</button>
+            <!-- 视图切换：留言 / 搜索热词 -->
+            <div class="filter-tabs" id="viewTabs">
+                <button class="filter-tab active" data-view="messages">留言</button>
+                <button class="filter-tab" data-view="keywords">搜索热词</button>
             </div>
 
-            <div id="messageList" class="message-list">
-                <div class="loading">
-                    <div class="loading-spinner"></div>
-                    <span>加载中...</span>
+            <!-- 留言视图 -->
+            <div id="messagesView">
+                <div class="filter-tabs">
+                    <button class="filter-tab active" data-status="pending">待处理 <span class="count" id="pendingCount">0</span></button>
+                    <button class="filter-tab" data-status="approved">已通过 <span class="count" id="approvedCount">0</span></button>
+                    <button class="filter-tab" data-status="rejected">已拒绝 <span class="count" id="rejectedCount">0</span></button>
+                    <button class="filter-tab" data-status="all">全部</button>
+                </div>
+
+                <div id="messageList" class="message-list">
+                    <div class="loading">
+                        <div class="loading-spinner"></div>
+                        <span>加载中...</span>
+                    </div>
+                </div>
+
+                <div id="pagination" class="pagination" style="display: none;">
+                    <button id="prevBtn" class="page-btn">上一页</button>
+                    <span class="page-info" id="pageInfo">1 / 1</span>
+                    <button id="nextBtn" class="page-btn">下一页</button>
                 </div>
             </div>
 
-            <div id="pagination" class="pagination" style="display: none;">
-                <button id="prevBtn" class="page-btn">上一页</button>
-                <span class="page-info" id="pageInfo">1 / 1</span>
-                <button id="nextBtn" class="page-btn">下一页</button>
+            <!-- 搜索热词视图 -->
+            <div id="keywordsView" hidden>
+                <div class="filter-tabs">
+                    <button class="filter-tab active" data-days="7">近 7 天</button>
+                    <button class="filter-tab" data-days="30">近 30 天</button>
+                    <button class="filter-tab" data-days="90">近 90 天</button>
+                </div>
+
+                <div class="keyword-summary" id="keywordSummary"></div>
+
+                <div id="keywordList" class="keyword-list">
+                    <div class="loading">
+                        <div class="loading-spinner"></div>
+                        <span>加载中...</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -597,12 +683,34 @@
     <div id="toast" class="toast"></div>
 
     <script>
-        const API_BASE = 'https://qiqida-stats-worker.dddhui-qi.workers.dev/api';
+        // Worker API 地址
+        //
+        // 从 data/site-config.json 读，和网站其他地方用同一份配置 ——
+        // 以后绑了自定义域名只改那一处，不用再翻三个文件。
+        // 读不到就用下面的默认值兜底。
+        const DEFAULT_API_BASE = 'https://qiqida-stats-worker.dddhui-qi.workers.dev/api';
+        let API_BASE = DEFAULT_API_BASE;
+
+        async function loadApiBase() {
+            try {
+                const res = await fetch('../data/site-config.json');
+                if (res.ok) {
+                    const cfg = await res.json();
+                    if (cfg && cfg.apiBase) {
+                        API_BASE = cfg.apiBase.replace(/\/+$/, '');
+                    }
+                }
+            } catch (err) {
+                // 用默认值
+            }
+        }
+
         let adminKey = localStorage.getItem('adminKey') || '';
         let currentStatus = 'pending';
         let currentPage = 1;
         let totalItems = 0;
         let limit = 20;
+        let siteIndex = [];
 
         // 主题检测
         function detectTheme() {
@@ -796,13 +904,110 @@
             document.getElementById('pagination').style.display = totalPages > 1 ? 'flex' : 'none';
         }
 
+        // ==========================================================
+        // 搜索热词
+        //
+        // 为什么要有这个视图：
+        //   学生搜的词都上报到 Worker 的 search_logs 表里了，
+        //   但如果没人看，这张表就白攒了。
+        //
+        //   它回答两个问题：
+        //     1. 学生最常搜什么 → 决定首页「常见搜索词」放哪些
+        //     2. 学生搜的词站内搜不到吗 → 这是功能缺口（标红）
+        // ==========================================================
+        let currentKeywordDays = 30;
+
+        async function loadKeywords() {
+            const listEl = document.getElementById('keywordList');
+            const summaryEl = document.getElementById('keywordSummary');
+            listEl.innerHTML = '<div class="loading"><div class="loading-spinner"></div><span>加载中...</span></div>';
+            summaryEl.textContent = '';
+
+            try {
+                const res = await fetch(`${API_BASE}/search?days=${currentKeywordDays}&limit=100`, {
+                    headers: { 'Authorization': `Bearer ${adminKey}` }
+                });
+
+                if (res.status === 401) {
+                    logout();
+                    showToast('登录已过期，请重新登录');
+                    return;
+                }
+
+                const data = await res.json();
+                const rows = Array.isArray(data.keywords) ? data.keywords : [];
+
+                if (rows.length === 0) {
+                    listEl.innerHTML = '<div class="empty-state"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12z"/></svg><p>还没有搜索记录</p></div>';
+                    summaryEl.textContent = `近 ${currentKeywordDays} 天暂无搜索记录。学生开始搜索后，这里会自动出现。`;
+                    return;
+                }
+
+                const totalSearches = rows.reduce((sum, r) => sum + (r.count || 0), 0);
+                const missing = rows.filter(r => !siteHasContent(r.keyword));
+
+                summaryEl.innerHTML = `
+                    近 ${currentKeywordDays} 天共 <strong>${rows.length}</strong> 个搜索词、
+                    <strong>${totalSearches}</strong> 次搜索。
+                    ${missing.length > 0
+                        ? `其中 <strong style="color:var(--danger)">${missing.length}</strong> 个词站内搜不到（已标红），说明这些是内容缺口。`
+                        : '所有搜索词站内都有对应内容。'}
+                `;
+
+                listEl.innerHTML = rows.map(r => {
+                    const missing = !siteHasContent(r.keyword);
+                    return `
+                        <div class="keyword-item${missing ? ' is-missing' : ''}">
+                            <span class="keyword-name">${escapeHtml(r.keyword)}</span>
+                            <span class="keyword-count">${r.count} 次</span>
+                            <span class="keyword-last">${r.last_searched ? formatTime(r.last_searched) : ''}</span>
+                        </div>
+                    `;
+                }).join('');
+            } catch (err) {
+                listEl.innerHTML = '<div class="empty-state"><p>加载失败，请检查网络或管理员密钥</p></div>';
+            }
+        }
+
+        // 判断某个词站内有没有对应内容。
+        // 复用搜索索引，这样后台看到的和用户搜到的是同一套数据。
+        function siteHasContent(keyword) {
+            if (!keyword || !siteIndex.length) return true;
+            const value = keyword.trim().toLowerCase();
+            if (!value) return true;
+            return siteIndex.some(item => {
+                const title = (item.title || '').toLowerCase();
+                const desc = (item.desc || '').toLowerCase();
+                const kws = Array.isArray(item.keywords) ? item.keywords.join(' ').toLowerCase() : '';
+                return title.includes(value) || desc.includes(value) || kws.includes(value);
+            });
+        }
+
+        // 加载搜索索引（只加载一次，之后复用）
+        //
+        // 路径说明：admin/feedback.html 在站点根目录的 admin/ 下，
+        // 搜索索引部署后在根目录 data/knowledge-base.json，
+        // 所以是 ../data/knowledge-base.json。
+        async function loadSiteIndex() {
+            if (siteIndex.length) return;
+            try {
+                const res = await fetch('../data/knowledge-base.json');
+                if (res.ok) {
+                    const data = await res.json();
+                    siteIndex = Array.isArray(data) ? data : [];
+                }
+            } catch (err) {
+                // 拿不到索引就不做「搜不到」的判断，不影响热词统计本身
+                siteIndex = [];
+            }
+        }
+
         // 工具函数
         function escapeHtml(str) {
             const div = document.createElement('div');
             div.textContent = str;
             return div.innerHTML;
         }
-
         function formatTime(iso) {
             const d = new Date(iso);
             return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
@@ -832,13 +1037,46 @@
             }
         });
 
-        document.querySelectorAll('.filter-tab').forEach(tab => {
+        // 留言状态筛选
+        //
+        // 注意用 [data-status] 限定范围 —— .filter-tab 这个类现在被三组标签共用：
+        //   · 视图切换（data-view）
+        //   · 留言状态（data-status）
+        //   · 热词时间范围（data-days）
+        // 不限定的话，点一个标签会把别的组的 active 状态也清掉。
+        document.querySelectorAll('.filter-tab[data-status]').forEach(tab => {
             tab.addEventListener('click', () => {
-                document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+                tab.parentElement.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
                 tab.classList.add('active');
                 currentStatus = tab.dataset.status;
                 currentPage = 1;
                 loadMessages();
+            });
+        });
+
+        // 视图切换：留言 / 搜索热词
+        document.querySelectorAll('.filter-tab[data-view]').forEach(tab => {
+            tab.addEventListener('click', () => {
+                tab.parentElement.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                const isKeywords = tab.dataset.view === 'keywords';
+                document.getElementById('messagesView').hidden = isKeywords;
+                document.getElementById('keywordsView').hidden = !isKeywords;
+
+                if (isKeywords) {
+                    loadSiteIndex().then(loadKeywords);
+                }
+            });
+        });
+
+        // 热词时间范围
+        document.querySelectorAll('.filter-tab[data-days]').forEach(tab => {
+            tab.addEventListener('click', () => {
+                tab.parentElement.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                currentKeywordDays = parseInt(tab.dataset.days, 10) || 30;
+                loadKeywords();
             });
         });
 
@@ -856,9 +1094,11 @@
 
         // 初始化
         detectTheme();
-        if (adminKey) {
-            showAdminPage();
-        }
+        loadApiBase().then(() => {
+            if (adminKey) {
+                showAdminPage();
+            }
+        });
     </script>
 </body>
 </html>
