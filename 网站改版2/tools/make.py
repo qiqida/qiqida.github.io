@@ -26,6 +26,7 @@ STEPS = [
     ("notices.py", "生成通知详情页"),
     ("home.py", "生成首页"),
     ("seo.py", "生成 sitemap / robots / 404"),
+    ("fillcheck.py", "生成待填写清单"),
     ("preview.py", "生成预览站点"),
     ("check.py", "页面质量报告"),
 ]
