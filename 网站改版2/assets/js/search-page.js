@@ -66,6 +66,10 @@
         } catch (error) {
             /* 忽略 */
         }
+
+        // API 地址（搜索词上报用）
+        await loadApiBase();
+
         return true;
     }
 
@@ -359,6 +363,29 @@
     }
 
     // ==========================================================
+    // Worker API 地址
+    //
+    // 从 data/site-config.json 的 apiBase 读，改地址只改配置一处。
+    // 读不到就用默认值兜底 —— 不该因为配置缺失就让搜索崩掉。
+    // ==========================================================
+    const DEFAULT_API_BASE = "https://qiqida-stats-worker.dddhui-qi.workers.dev/api";
+    let apiBase = DEFAULT_API_BASE;
+
+    async function loadApiBase() {
+        try {
+            const res = await fetch(siteUrl("data/site-config.json") + "?v=" + (window.SITE_VER || "1"));
+            if (res.ok) {
+                const cfg = await res.json();
+                if (cfg && cfg.apiBase) {
+                    apiBase = cfg.apiBase.replace(/\/+$/, "");
+                }
+            }
+        } catch (error) {
+            /* 忽略：用默认值 */
+        }
+    }
+
+    // ==========================================================
     // 搜索词上报
     //
     // 与 search.js 里的是同一套逻辑（同一个词 30 分钟内只报一次），
@@ -367,7 +394,6 @@
     // 只上报关键词本身，不带任何个人信息。
     // 上报失败完全不影响搜索功能。
     // ==========================================================
-    const SEARCH_REPORT_URL = "https://qiqida-stats-worker.dddhui-qi.workers.dev/api/search";
     const SEARCH_REPORT_DEDUP_MS = 30 * 60 * 1000;   // 30 分钟
 
     function reportSearch(keyword) {
@@ -385,7 +411,7 @@
         }
 
         try {
-            fetch(SEARCH_REPORT_URL, {
+            fetch(apiBase + "/search", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ keyword: value }),

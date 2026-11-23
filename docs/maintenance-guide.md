@@ -286,6 +286,18 @@ curl -H "Authorization: Bearer <ADMIN_KEY>" \
   "https://qiqida-stats-worker.dddhui-qi.workers.dev/api/search?days=30"
 ```
 
+### Worker 地址在配置里
+
+Worker 的 API 地址写在 `网站改版2/data/site-config.json` 的 `apiBase`：
+
+```json
+"apiBase": "https://qiqida-stats-worker.dddhui-qi.workers.dev/api"
+```
+
+JS 会自动读这个值。**国内访问 `workers.dev` 域名可能不稳定**（DNS 污染，
+详见 `docs/网站使用与维护手册.md`），如果之后给 Worker 绑了自定义域名，
+**只改这一处**就行，不用去各个 js 文件里翻着改。
+
 ---
 
 ## 八、结构化数据（JSON-LD）

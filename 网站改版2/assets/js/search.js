@@ -69,6 +69,34 @@ const searchInputDesktop = document.getElementById("global-search-desktop");
 const suggestionBox = document.getElementById("search-suggestions");
 const suggestionBoxDesktop = document.getElementById("search-suggestions-desktop");
 
+// ==========================================================
+// Worker API 地址
+//
+// 为什么从配置读而不是写死在代码里：
+//   国内访问 workers.dev 域名可能不稳定（DNS 污染）。
+//   如果 Worker 绑了自定义域名，只要改
+//   data/site-config.json 里的 apiBase 就行，
+//   不用去各个 js 文件里翻着改。
+//
+// 读取失败就用默认值兜底 —— 读不到配置不该让整个搜索崩掉。
+// ==========================================================
+const DEFAULT_API_BASE = "https://qiqida-stats-worker.dddhui-qi.workers.dev/api";
+let apiBase = DEFAULT_API_BASE;
+
+async function loadApiBase() {
+    try {
+        const res = await fetch(siteUrl("data/site-config.json") + "?v=" + (window.SITE_VER || "1"));
+        if (res.ok) {
+            const cfg = await res.json();
+            if (cfg && cfg.apiBase) {
+                apiBase = cfg.apiBase.replace(/\/+$/, "");
+            }
+        }
+    } catch (error) {
+        /* 忽略：用默认值 */
+    }
+}
+
 // 读取搜索知识库。GitHub Pages 支持读取同项目里的 JSON 文件。
 async function loadSearchData() {
     try {
@@ -90,6 +118,9 @@ async function loadSearchData() {
     } catch (error) {
         /* 忽略：拼音搜索不可用 */
     }
+
+    // API 地址（搜索词上报用）
+    await loadApiBase();
 }
 
 // 把输入里的每个汉字替换成它的拼音首字母。
@@ -291,6 +322,7 @@ function goToSearchPage(keyword) {
 //
 // 上报去哪：
 //   打到 Cloudflare Worker 的 /api/search 接口。
+//   地址从 data/site-config.json 的 apiBase 读（见上面的 loadApiBase）。
 //   Worker 那边暂时只记录不展示，先把数据攒起来。
 //
 // 注意：
@@ -298,7 +330,6 @@ function goToSearchPage(keyword) {
 //   · 同一个词 30 分钟内不重复上报（sessionStorage 去重）
 //   · 上报失败完全不影响搜索功能
 // ==========================================================
-const SEARCH_REPORT_URL = "https://qiqida-stats-worker.dddhui-qi.workers.dev/api/search";
 const SEARCH_REPORT_DEDUP_MS = 30 * 60 * 1000;   // 30 分钟
 
 function reportSearch(keyword) {
@@ -319,7 +350,7 @@ function reportSearch(keyword) {
     }
 
     try {
-        fetch(SEARCH_REPORT_URL, {
+        fetch(apiBase + "/search", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ keyword: value }),
